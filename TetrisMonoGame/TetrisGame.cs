@@ -4,9 +4,12 @@ using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Content;
 
 class TetrisGame : Game {
+
     SpriteBatch spriteBatch;
     InputHelper inputHelper;
     GameWorld gameWorld;
+    GraphicsDeviceManager graphics;
+
 
     /// <summary>
     /// A static reference to the ContentManager object, used for loading assets.

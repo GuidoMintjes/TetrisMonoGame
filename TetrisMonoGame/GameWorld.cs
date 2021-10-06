@@ -54,7 +54,8 @@ class GameWorld {
     public void Draw(GameTime gameTime, SpriteBatch spriteBatch) {
         spriteBatch.Begin();
         grid.Draw(gameTime, spriteBatch);
-        spriteBatch.DrawString(font, "Hello!", Vector2.Zero, Color.Blue);
+        //spriteBatch.DrawString(font, "Hello!", Vector2.Zero, Color.Black);
+        grid.Draw(gameTime, spriteBatch);
         spriteBatch.End();
     }
 
