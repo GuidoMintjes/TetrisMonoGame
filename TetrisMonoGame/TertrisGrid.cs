@@ -20,7 +20,7 @@ class TetrisGrid {
 
 
 
-    public int[,] grid = new int[Width, Height];
+    public int[,] grid = new int[Height, Width];
     
     /// blocks enum
     enum Blocks {
@@ -72,9 +72,9 @@ class TetrisGrid {
         Vector2 pos = new Vector2(0, 0);
 
 
-        for (int i = 0; i < grid.GetLength(0); i++) {
+        for (int i = 0; i < grid.GetLength(1); i++) {
 
-            for (int j = 0; j < grid.GetLength(1); j++) {
+            for (int j = 0; j < grid.GetLength(0); j++) {
 
 
                 spriteBatch.Draw(emptyCell, new Vector2(i * emptyCell.Height, j * emptyCell.Width), Color.White);
