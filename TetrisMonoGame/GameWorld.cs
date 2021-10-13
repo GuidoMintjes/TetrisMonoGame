@@ -30,7 +30,7 @@ namespace TetrisMonoGame {
         /// </summary>
         SpriteFont font;
 
-        BlockL blok;
+        Block blok;
 
     /// <summary>
     /// The input helper
@@ -92,8 +92,8 @@ namespace TetrisMonoGame {
         public void Draw(GameTime gameTime, SpriteBatch spriteBatch) {
             spriteBatch.Begin();
             grid.Draw(gameTime, spriteBatch);
+            blok.Draw(gameTime, spriteBatch);
             //spriteBatch.DrawString(font, "Hello!", Vector2.Zero, Color.Black);
-            grid.Draw(gameTime, spriteBatch);
             spriteBatch.End();
         }
 

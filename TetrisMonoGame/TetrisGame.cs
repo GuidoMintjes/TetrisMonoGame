@@ -47,6 +47,8 @@ namespace TetrisMonoGame {
 
             // create the input helper object
             inputHelper = new InputHelper();
+
+            IsMouseVisible = true;
         }
 
         protected override void LoadContent() {

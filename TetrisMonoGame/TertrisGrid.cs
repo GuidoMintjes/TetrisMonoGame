@@ -10,7 +10,7 @@ namespace TetrisMonoGame {
     /// </summary>
     public class TetrisGrid {
         /// The sprite of a single empty cell in the grid.
-        Texture2D emptyCell;
+        public Texture2D emptyCell;
 
         /// The position at which this TetrisGrid should be drawn.
         Vector2 position;
@@ -109,10 +109,6 @@ namespace TetrisMonoGame {
             }
         }
 
-        public Vector2 GetSize() {
-
-            return new Vector2(emptyCell.Width, emptyCell.Height);
-        }
     }
 }
     /// <summary>
