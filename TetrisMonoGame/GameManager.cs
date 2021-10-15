@@ -22,7 +22,7 @@ namespace TetrisMonoGame {
 
         int screenWidth, screenHeight;
 
-        //timer for gravity
+        //gravity
         int timer = 1;
         float counter = 0;
 
@@ -41,10 +41,8 @@ namespace TetrisMonoGame {
             Console.WriteLine(counter + "dt");
             Console.WriteLine(timer + "timer");
 
-            float gravity = 30;//VERANDER DIT LATER
-
             if (counter >= timer) {
-                blok.Pos = new Vector2 (blok.Pos.X,blok.Pos.Y + gravity);
+                blok.Pos += new Vector2 (0 , Constants.DEFAULTBLOCKHEIGHT);
                 counter = 0;
             
             }
