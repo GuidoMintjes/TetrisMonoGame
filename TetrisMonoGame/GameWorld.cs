@@ -87,6 +87,11 @@ namespace TetrisMonoGame {
         }
 
         public void Update(GameTime gameTime) {
+
+            float deltaTime = (float)gameTime.ElapsedGameTime.TotalSeconds;
+
+            TetrisGame.Manager.Gravity(blok, deltaTime);
+            
         }
 
         public void Draw(GameTime gameTime, SpriteBatch spriteBatch) {

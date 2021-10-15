@@ -9,7 +9,7 @@ namespace TetrisMonoGame {
 
         protected bool[,] shape;
 
-        Vector2 pos;
+        public Vector2 Pos {  get;  set; }
 
         Vector2 blockSize;
 
@@ -19,18 +19,14 @@ namespace TetrisMonoGame {
 
             blockSize = new Vector2(Constants.DEFAULTBLOCKWIDTH,Constants.DEFAULTBLOCKHEIGHT);
             sprite = grid.emptyCell;
-            pos = new Vector2(Constants.GRIDCENTERX, 0);
+            this.Pos = new Vector2(Constants.GRIDCENTERX, 0);
 
         }
-
-
-        public virtual void Gravitate() {
-
-        }
+        
 
         public virtual void Draw(GameTime gameTime, SpriteBatch spriteBatch) {
-            float x = pos.X;
-            float y = pos.Y;
+            float x = this.Pos.X;
+            float y = this.Pos.Y;
 
             for (int i = 0; i < shape.GetLength(0); i++) {
 
@@ -42,9 +38,9 @@ namespace TetrisMonoGame {
 
                         spriteBatch.Draw(sprite, new Vector2 (x,y), Color.Red);
                     }
-                    x = pos.X;
+                    x = this.Pos.X;
                 }
-                y = pos.Y;
+                y = this.Pos.Y;
             }
         }
 
@@ -83,13 +79,6 @@ namespace TetrisMonoGame {
         }
 
 
-
-        public override void Gravitate() {
-
-
-
-            base.Gravitate();
-        }
     }
 
     class BlockJ : Block {

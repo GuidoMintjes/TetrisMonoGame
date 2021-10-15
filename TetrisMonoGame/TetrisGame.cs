@@ -11,6 +11,7 @@ namespace TetrisMonoGame {
         InputHelper inputHelper;
         GameWorld gameWorld;
         GraphicsDeviceManager graphics;
+        static GameManager manager;
 
 
         /// <summary>
@@ -51,6 +52,15 @@ namespace TetrisMonoGame {
             IsMouseVisible = true;
         }
 
+        protected override void Initialize() {
+            base.Initialize();
+
+            manager = new GameManager();
+        }
+
+
+
+
         protected override void LoadContent() {
             spriteBatch = new SpriteBatch(GraphicsDevice);
 
@@ -68,6 +78,10 @@ namespace TetrisMonoGame {
         protected override void Draw(GameTime gameTime) {
             GraphicsDevice.Clear(Color.White);
             gameWorld.Draw(gameTime, spriteBatch);
+        }
+
+        public static GameManager Manager {
+            get { return manager; }
         }
     }
 }
