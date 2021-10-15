@@ -36,6 +36,7 @@ namespace TetrisMonoGame {
         }
 
 
+        //Function that makes the block fall down
         public void Gravity(Block blok, float deltaTime) {
 
             counter += deltaTime;

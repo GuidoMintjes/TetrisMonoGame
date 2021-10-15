@@ -20,7 +20,6 @@ namespace TetrisMonoGame {
             blockSize = new Vector2(Constants.DEFAULTBLOCKWIDTH,Constants.DEFAULTBLOCKHEIGHT);
             sprite = grid.emptyCell;
             this.Pos = new Vector2(Constants.STARTX, Constants.STARTY);
-
         }
 
 
@@ -48,11 +47,17 @@ namespace TetrisMonoGame {
                     if (shape[i,j] == true) {
 
                         spriteBatch.Draw(sprite, new Vector2 (x*blockSize.X,y*blockSize.Y), Color.Red);
+                        TetrisGrid.grid[(int)y,(int) x] = 1; 
                     }
                     x = this.Pos.X;
                 }
                 y = this.Pos.Y;
             }
+        }
+
+        public void CheckCollision() {
+
+            
         }
 
 

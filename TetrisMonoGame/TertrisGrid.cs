@@ -22,7 +22,7 @@ namespace TetrisMonoGame {
         public static int Height { get { return 20; } }
 
         /// The grid array itself
-        public int[,] grid = new int[Height, Width];
+        public static  int[,] grid = new int[Height, Width];
 
         private bool drawGridInConsole = true;
  
@@ -54,10 +54,17 @@ namespace TetrisMonoGame {
                     grid[i, j] = 0;
                 }
             }
-
-
-
             //Clear();
+        }
+
+        public int[,] GetGrid() {
+
+            return grid;
+        }
+
+        public void SetGrid(int[,] newGrid) {
+
+            grid = newGrid;
         }
 
         /// <summary>
@@ -66,7 +73,6 @@ namespace TetrisMonoGame {
         /// <param name="gameTime">An object with information about the time that has passed in the game.</param>
         /// <param name="spriteBatch">The SpriteBatch used for drawing sprites and text.</param>
         public void Draw(GameTime gameTime, SpriteBatch spriteBatch) {
-            //int i = 0;
 
             Vector2 pos = new Vector2(0, 0);
 
@@ -89,23 +95,7 @@ namespace TetrisMonoGame {
                 }
             }
 
-            /*
-            if (drawGridInConsole) {
-                //Console.Clear();
 
-                for (int i = 0; i < grid.GetLength(0); i++) {
-
-                    for (int j = 0; j < grid.GetLength(1); j++) {
-                        Console.Write(grid[i, j]);
-                    }
-                    Console.Write("\n");
-                }
-
-                drawGridInConsole = false;
-            } else {
-                drawGridInConsole = true;
-            }
-            */
         }
 
     }

@@ -64,12 +64,12 @@ namespace TetrisMonoGame {
         public void HandleInput(GameTime gameTime, InputHelper inputHelper) {
 
 
-            if (inputHelper.KeyDown(Keys.Left)) {
+            if (inputHelper.KeyDown(Keys.Left) && !inputHelper.KeyDown(Keys.Right) ){
 
                 inputHelper.moveLeftRight(blok, Keys.Left, gameTime);
             }
 
-            if (inputHelper.KeyDown(Keys.Right)) {
+            if (inputHelper.KeyDown(Keys.Right) && !inputHelper.KeyDown(Keys.Left) ){
 
                 inputHelper.moveLeftRight(blok, Keys.Right , gameTime);
             }
@@ -96,8 +96,8 @@ namespace TetrisMonoGame {
 
             float deltaTime = (float)gameTime.ElapsedGameTime.TotalSeconds;
 
-            TetrisGame.Manager.Gravity(blok, deltaTime);
-            
+            //TetrisGame.Manager.Gravity(blok, deltaTime);
+          
         }
 
         public void Draw(GameTime gameTime, SpriteBatch spriteBatch) {
