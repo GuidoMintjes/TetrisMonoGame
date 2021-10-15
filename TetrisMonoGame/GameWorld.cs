@@ -57,7 +57,7 @@ namespace TetrisMonoGame {
 
             grid = new TetrisGrid();
 
-            blok = new BlockL(grid);
+            blok = new BlockI(grid);
 
         }
 
@@ -66,14 +66,14 @@ namespace TetrisMonoGame {
 
             if (inputHelper.KeyDown(Keys.Left) && !inputHelper.KeyDown(Keys.Right) ){
 
-                inputHelper.moveLeftRight(blok, Keys.Left, gameTime);
+                inputHelper.MoveHold(blok, Keys.Left, gameTime);
                 if (blok.CheckColliding()) Block.Move(blok, true);
                 
             }
 
             if (inputHelper.KeyDown(Keys.Right) && !inputHelper.KeyDown(Keys.Left) ){
 
-                inputHelper.moveLeftRight(blok, Keys.Right , gameTime);
+                inputHelper.MoveHold(blok, Keys.Right , gameTime);
                 if (blok.CheckColliding()) Block.Move(blok, false);
             }
 

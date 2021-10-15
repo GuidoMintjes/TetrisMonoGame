@@ -64,7 +64,7 @@ namespace TetrisMonoGame {
         }
 
         //function that handles moving left or right
-        public void moveLeftRight(Block blok, Keys key, GameTime gameTime) {
+        public void MoveHold(Block blok, Keys key, GameTime gameTime) {
 
             float deltaTime = (float)gameTime.ElapsedGameTime.TotalSeconds;
             //boolean for going right or left
