@@ -70,9 +70,6 @@ namespace TetrisMonoGame {
 
             Vector2 pos = new Vector2(0, 0);
 
-            grid[1, 1] = 1;
-
-
             for (int i = 0; i < grid.GetLength(1); i++) {
 
                 for (int j = 0; j < grid.GetLength(0); j++) {

@@ -38,8 +38,6 @@ namespace TetrisMonoGame {
         public void Gravity(Block blok, float deltaTime) {
 
             counter += deltaTime;
-            Console.WriteLine(counter + "dt");
-            Console.WriteLine(timer + "timer");
 
             if (counter >= timer) {
                 blok.Pos += new Vector2 (0 , Constants.DEFAULTBLOCKHEIGHT);
