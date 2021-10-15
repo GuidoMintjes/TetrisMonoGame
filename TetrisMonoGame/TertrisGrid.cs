@@ -92,6 +92,7 @@ namespace TetrisMonoGame {
                 }
             }
 
+            /*
             if (drawGridInConsole) {
                 //Console.Clear();
 
@@ -107,6 +108,7 @@ namespace TetrisMonoGame {
             } else {
                 drawGridInConsole = true;
             }
+            */
         }
 
     }
