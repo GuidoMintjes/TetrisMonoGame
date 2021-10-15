@@ -88,6 +88,27 @@ namespace TetrisMonoGame {
                 return tmp;
             }
         }
+
+
+        public static void Move(Block blok, bool moveRight) {
+
+            Console.WriteLine("move");
+
+            if (moveRight) {
+
+                try {
+                    
+                    blok.Pos += new Vector2(Constants.DEFAULTBLOCKWIDTH, 0);
+                } catch { }
+
+            } else {
+
+                try {
+
+                    blok.Pos -= new Vector2(Constants.DEFAULTBLOCKWIDTH, 0);
+                } catch { }
+            }
+        }
     }
 
 

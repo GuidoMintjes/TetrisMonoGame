@@ -63,10 +63,12 @@ namespace TetrisMonoGame {
 
             if (inputHelper.KeyPressed(Keys.Left)) {
 
+                Block.Move(blok, false);
             }
 
             if (inputHelper.KeyPressed(Keys.Right)) {
 
+                Block.Move(blok, true);
             }
 
             if (inputHelper.KeyPressed(Keys.Up)) {
