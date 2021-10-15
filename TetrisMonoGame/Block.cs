@@ -22,7 +22,17 @@ namespace TetrisMonoGame {
             this.Pos = new Vector2(Constants.GRIDCENTERX, 0);
 
         }
+
+
+        public bool[,] GetShape() {
+
+            return shape;
+        }
         
+        public void SetShape(bool[,] newShape) {
+
+            shape = newShape;
+        }
 
         public virtual void Draw(GameTime gameTime, SpriteBatch spriteBatch) {
             float x = this.Pos.X;

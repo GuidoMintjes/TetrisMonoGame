@@ -70,18 +70,19 @@ namespace TetrisMonoGame {
             }
 
             if (inputHelper.KeyPressed(Keys.Up)) {
+                 
+                blok.SetShape(Block.Rotate(blok.GetShape(), false));
 
-                blok.Rotate(true);
             }
 
             if (inputHelper.KeyPressed(Keys.A)) {
 
-                blok.Rotate(false);
+                blok.SetShape(Block.Rotate(blok.GetShape(), false));
             }
 
             if (inputHelper.KeyPressed(Keys.D)) {
 
-                blok.Rotate(true);
+                blok.SetShape(Block.Rotate(blok.GetShape(), false));
             }
 
         }
