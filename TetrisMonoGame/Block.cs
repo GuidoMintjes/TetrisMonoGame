@@ -65,7 +65,7 @@ namespace TetrisMonoGame {
 
                     for (int j = tmp.GetLength(1) - 1; j >= 0; j--) {
 
-                        tmp[j, i] = shape[j, shape.GetLength(1) - 1 - i];
+                        tmp[i, j] = shape[shape.GetLength(1) - 1 - j, i];
                     }
                 }
 
