@@ -59,7 +59,19 @@ namespace TetrisMonoGame {
 
             if (turnRight) {
 
-                return shape;
+                bool[,] tmp = new bool[shape.GetLength(0), shape.GetLength(1)];
+
+                for (int i = 0; i <= tmp.GetLength(0) - 1; i++) {
+
+                    for (int j = tmp.GetLength(1) - 1; j >= 0; j--) {
+
+                        tmp[j, i] = shape[j, shape.GetLength(1) - 1 - i];
+                    }
+                }
+
+
+                return tmp;
+
             } else {
 
                 bool[,] tmp = new bool[shape.GetLength(0), shape.GetLength(1)];
