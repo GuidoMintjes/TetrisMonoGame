@@ -45,24 +45,25 @@ namespace TetrisMonoGame {
         }
 
 
-        public void Rotate(bool turnRight) {
-
-            bool[,] tmp = shape;
+        public static bool[,] Rotate(bool[,] shape, bool turnRight) {
 
             if (turnRight) {
 
-                for (int i = 0; i < tmp.GetLength(0); i++) {
-                    for (int j = 0; j < tmp.GetLength(1); j++) {
+                return shape;
+            } else {
 
-                        int length = tmp.GetLength(0);      // Because this is a square any side length will do
-                        int xMiddle = length / 2;           // Get the coordinates of the middle block (pivot)
-                        int yMiddle = length / 2;
+                bool[,] tmp = new bool[shape.GetLength(0), shape.GetLength(1)];
 
-                        int xSquare = xMiddle - i, ySquare = yMiddle - j;
+                for (int i = 0; i <= tmp.GetLength(0) - 1; i++) {
 
-                        shape[ySquare, -xSquare] = tmp[i, j];
+                    for (int j = tmp.GetLength(1) - 1; j >= 0; j--) {
+
+                        tmp[i, j] = shape[j, shape.GetLength(1) - 1 - i];
                     }
                 }
+
+
+                return tmp;
             }
         }
     }
