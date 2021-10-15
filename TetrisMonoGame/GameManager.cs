@@ -42,9 +42,10 @@ namespace TetrisMonoGame {
             counter += deltaTime;
 
             if (counter >= timer) {
-                blok.Pos += new Vector2 (0 , weight);
+                Block.MoveUp(blok, false);
                 counter = 0;
-            
+                if (blok.CheckColliding()) Block.MoveUp(blok, true);
+
             }
         }
     }

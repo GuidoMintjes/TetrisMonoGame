@@ -67,16 +67,27 @@ namespace TetrisMonoGame {
             if (inputHelper.KeyDown(Keys.Left) && !inputHelper.KeyDown(Keys.Right) ){
 
                 inputHelper.moveLeftRight(blok, Keys.Left, gameTime);
+                if (blok.CheckColliding()) Block.Move(blok, true);
+                
             }
 
             if (inputHelper.KeyDown(Keys.Right) && !inputHelper.KeyDown(Keys.Left) ){
 
                 inputHelper.moveLeftRight(blok, Keys.Right , gameTime);
+                if (blok.CheckColliding()) Block.Move(blok, false);
             }
 
             if (inputHelper.KeyPressed(Keys.Up)) {
-                 
-                blok.SetShape(Block.Rotate(blok.GetShape(), true));
+
+                //blok.SetShape(Block.Rotate(blok.GetShape(), true));
+                Block.MoveUp(blok, true);
+
+            }
+
+            if (inputHelper.KeyPressed(Keys.Down)) {
+
+                Block.MoveUp(blok, false);
+                if(blok.CheckColliding()) Block.MoveUp(blok, true);
 
             }
 
@@ -96,7 +107,7 @@ namespace TetrisMonoGame {
 
             float deltaTime = (float)gameTime.ElapsedGameTime.TotalSeconds;
 
-            //TetrisGame.Manager.Gravity(blok, deltaTime);
+            TetrisGame.Manager.Gravity(blok, deltaTime);
           
         }
 

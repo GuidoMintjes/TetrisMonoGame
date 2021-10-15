@@ -9,15 +9,15 @@ namespace TetrisMonoGame {
 
         protected bool[,] shape;
 
-        public Vector2 Pos {  get;  set; }
+        public Vector2 Pos { get; set; }
 
         Vector2 blockSize;
 
-        Texture2D sprite; 
+        Texture2D sprite;
 
         public Block(TetrisGrid grid) {
 
-            blockSize = new Vector2(Constants.DEFAULTBLOCKWIDTH,Constants.DEFAULTBLOCKHEIGHT);
+            blockSize = new Vector2(Constants.DEFAULTBLOCKWIDTH, Constants.DEFAULTBLOCKHEIGHT);
             sprite = grid.emptyCell;
             this.Pos = new Vector2(Constants.STARTX, Constants.STARTY);
         }
@@ -27,7 +27,7 @@ namespace TetrisMonoGame {
 
             return shape;
         }
-        
+
         public void SetShape(bool[,] newShape) {
 
             shape = newShape;
@@ -44,10 +44,10 @@ namespace TetrisMonoGame {
                 for (int j = 0; j < shape.GetLength(1); j++) {
 
                     x += j;
-                    if (shape[i,j] == true) {
+                    if (shape[i, j] == true) {
 
-                        spriteBatch.Draw(sprite, new Vector2 (x*blockSize.X,y*blockSize.Y), Color.Red);
-                        TetrisGrid.grid[(int)y,(int) x] = 1; 
+                        spriteBatch.Draw(sprite, new Vector2(x * blockSize.X, y * blockSize.Y), Color.Red);
+                        //TetrisGrid.grid[(int)y, (int)x] = 1;
                     }
                     x = this.Pos.X;
                 }
@@ -55,10 +55,32 @@ namespace TetrisMonoGame {
             }
         }
 
-        public void CheckCollision() {
+        public bool CheckColliding() {
+            float x = this.Pos.X;
+            float y = this.Pos.Y;
+            bool collide = false;
 
-            
+            for (int i = 0; i < shape.GetLength(0); i++) {
+
+                y += i;
+                for (int j = 0; j < shape.GetLength(1); j++) {
+
+                    x += j;
+                    if (shape[i, j] == true) {
+
+                        if (y >= TetrisGrid.grid.GetLength(0) || x >= TetrisGrid.grid.GetLength(1) || x < 0) {
+                            collide = true;
+                            Console.WriteLine("buiten");
+                        }
+                    }
+                    x = this.Pos.X;
+
+                }
+                y = this.Pos.Y;
+            }
+            return collide;
         }
+
 
 
         public static bool[,] Rotate(bool[,] shape, bool turnRight) {
@@ -103,20 +125,40 @@ namespace TetrisMonoGame {
             if (moveRight) {
 
                 try {
-                    
-                    blok.Pos += new Vector2(1 , 0);
+
+                    blok.Pos += new Vector2(1, 0);
                 } catch { }
 
             } else {
 
                 try {
 
-                    blok.Pos -= new Vector2(1 , 0);
+                    blok.Pos -= new Vector2(1, 0);
                 } catch { }
+
             }
         }
-    }
 
+        public static void MoveUp(Block blok, bool moveUp) {
+
+            if (moveUp) {
+
+                try {
+
+                    blok.Pos -= new Vector2(0, 1);
+                } catch { }
+
+            } else {
+
+                try {
+
+                    blok.Pos += new Vector2(0, 1);
+                } catch { }
+
+            }
+
+        }
+    }
 
     class BlockI : Block {
 
