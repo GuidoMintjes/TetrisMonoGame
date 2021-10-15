@@ -94,11 +94,13 @@ namespace TetrisMonoGame {
             if (inputHelper.KeyPressed(Keys.A)) {
 
                 blok.SetShape(Block.Rotate(blok.GetShape(), false));
+                if (blok.CheckColliding()) blok.SetShape(Block.Rotate(blok.GetShape(), true));
             }
 
             if (inputHelper.KeyPressed(Keys.D)) {
 
                 blok.SetShape(Block.Rotate(blok.GetShape(), true));
+                if (blok.CheckColliding()) blok.SetShape(Block.Rotate(blok.GetShape(), false));
             }
 
         }
