@@ -40,8 +40,7 @@ namespace TetrisMonoGame {
             time += deltaTime;
 
             if (time == timer) {
-                blok.Pos = new Vector2 (30,30); //VERANDER DIT LATER
-                //blok.Pos.Y = 30;
+               //blok.Pos = (30,30); //VERANDER DIT LATER
 
             }
         }
