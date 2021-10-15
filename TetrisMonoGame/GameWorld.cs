@@ -71,7 +71,7 @@ namespace TetrisMonoGame {
 
             if (inputHelper.KeyPressed(Keys.Up)) {
                  
-                blok.SetShape(Block.Rotate(blok.GetShape(), false));
+                blok.SetShape(Block.Rotate(blok.GetShape(), true));
 
             }
 
@@ -82,7 +82,7 @@ namespace TetrisMonoGame {
 
             if (inputHelper.KeyPressed(Keys.D)) {
 
-                blok.SetShape(Block.Rotate(blok.GetShape(), false));
+                blok.SetShape(Block.Rotate(blok.GetShape(), true));
             }
 
         }
