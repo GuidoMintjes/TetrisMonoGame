@@ -30,12 +30,13 @@ namespace TetrisMonoGame {
         /// </summary>
         SpriteFont font;
 
+        //the block
         Block blok;
 
-    /// <summary>
-    /// The input helper
-    /// </summary>
-    InputHelper inputHelper;
+        /// <summary>
+        /// The input helper
+        /// </summary>
+        InputHelper inputHelper;
 
     /// <summary>
     /// The current game state.
@@ -57,18 +58,20 @@ namespace TetrisMonoGame {
             grid = new TetrisGrid();
 
             blok = new BlockL(grid);
+
         }
 
         public void HandleInput(GameTime gameTime, InputHelper inputHelper) {
 
-            if (inputHelper.KeyPressed(Keys.Left)) {
 
-                Block.Move(blok, false);
+            if (inputHelper.KeyDown(Keys.Left)) {
+
+                inputHelper.moveLeftRight(blok, Keys.Left, gameTime);
             }
 
-            if (inputHelper.KeyPressed(Keys.Right)) {
+            if (inputHelper.KeyDown(Keys.Right)) {
 
-                Block.Move(blok, true);
+                inputHelper.moveLeftRight(blok, Keys.Right , gameTime);
             }
 
             if (inputHelper.KeyPressed(Keys.Up)) {

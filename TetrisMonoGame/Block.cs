@@ -19,7 +19,7 @@ namespace TetrisMonoGame {
 
             blockSize = new Vector2(Constants.DEFAULTBLOCKWIDTH,Constants.DEFAULTBLOCKHEIGHT);
             sprite = grid.emptyCell;
-            this.Pos = new Vector2(Constants.GRIDCENTERX, 0);
+            this.Pos = new Vector2(Constants.STARTX, Constants.STARTY);
 
         }
 
@@ -34,19 +34,20 @@ namespace TetrisMonoGame {
             shape = newShape;
         }
 
+
         public virtual void Draw(GameTime gameTime, SpriteBatch spriteBatch) {
             float x = this.Pos.X;
             float y = this.Pos.Y;
 
             for (int i = 0; i < shape.GetLength(0); i++) {
 
-                y += i*blockSize.Y;
+                y += i;
                 for (int j = 0; j < shape.GetLength(1); j++) {
 
-                    x += j*blockSize.X;
+                    x += j;
                     if (shape[i,j] == true) {
 
-                        spriteBatch.Draw(sprite, new Vector2 (x,y), Color.Red);
+                        spriteBatch.Draw(sprite, new Vector2 (x*blockSize.X,y*blockSize.Y), Color.Red);
                     }
                     x = this.Pos.X;
                 }
@@ -98,14 +99,14 @@ namespace TetrisMonoGame {
 
                 try {
                     
-                    blok.Pos += new Vector2(Constants.DEFAULTBLOCKWIDTH, 0);
+                    blok.Pos += new Vector2(1 , 0);
                 } catch { }
 
             } else {
 
                 try {
 
-                    blok.Pos -= new Vector2(Constants.DEFAULTBLOCKWIDTH, 0);
+                    blok.Pos -= new Vector2(1 , 0);
                 } catch { }
             }
         }

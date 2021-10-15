@@ -10,6 +10,13 @@ namespace TetrisMonoGame {
         MouseState currentMouseState, previousMouseState;
         KeyboardState currentKeyboardState, previousKeyboardState;
 
+        //related to cooldown
+        float counter = 0;
+        float timer = 0.7f;
+        float cooldownTimer = 0.1f;
+        float cooldownCounter;
+        bool moved = false;
+
         /// <summary>
         /// Updates the InputHelper object by retrieving the new mouse/keyboard state, and keeping the previous state as a back-up.
         /// </summary>
@@ -54,6 +61,55 @@ namespace TetrisMonoGame {
         /// <returns>true if the given key is being held down; false otherwise.</returns>
         public bool KeyDown(Keys k) {
             return currentKeyboardState.IsKeyDown(k);
+        }
+
+        //function that handles moving left or right
+        public void moveLeftRight(Block blok, Keys key, GameTime gameTime) {
+
+            float deltaTime = (float)gameTime.ElapsedGameTime.TotalSeconds;
+            //boolean for going right or left
+            bool right = false;
+
+            if (key == Keys.Right) {
+                right = true;
+            }
+
+            //the initial block movement on key press
+            if (KeyPressed(key)) {
+
+                Block.Move(blok, right);
+            }
+
+            //start the counter while holding down the key
+            counter += deltaTime;
+
+            //if the counter reaches the timer, and there is no movement cooldown, move
+            if (counter >= timer && moved == false) {
+
+                Block.Move(blok, right);
+                moved = true;
+            }
+
+            //check the cooldown
+            Cooldown(gameTime);
+
+            //reset the counter when you release the key
+            if (previousKeyboardState.IsKeyUp(key)) {
+
+                counter = 0;
+            }
+
+        }
+
+        //a cooldown timer for moving the blocks
+        public void Cooldown(GameTime gameTime) {
+
+            cooldownCounter += (float)gameTime.ElapsedGameTime.TotalSeconds;
+            if (cooldownCounter >= cooldownTimer && moved == true) {
+
+                moved = false;
+                cooldownCounter = 0;
+            }
         }
     }
 }

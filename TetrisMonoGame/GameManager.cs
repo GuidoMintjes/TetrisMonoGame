@@ -25,6 +25,7 @@ namespace TetrisMonoGame {
         //gravity
         int timer = 1;
         float counter = 0;
+        float weight = 1;
 
         // Instance of gamestate that says something about the current state our game is in
         public GameState gameState { get; set; }
@@ -40,7 +41,7 @@ namespace TetrisMonoGame {
             counter += deltaTime;
 
             if (counter >= timer) {
-                blok.Pos += new Vector2 (0 , Constants.DEFAULTBLOCKHEIGHT);
+                blok.Pos += new Vector2 (0 , weight);
                 counter = 0;
             
             }

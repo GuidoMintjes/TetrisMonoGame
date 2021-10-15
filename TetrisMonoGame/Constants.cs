@@ -11,8 +11,10 @@ namespace TetrisMonoGame {
         public const int DEFAULTBLOCKWIDTH = 30;
         public const int DEFAULTBLOCKHEIGHT = 30;
 
-        //center of the grid
-        public const int GRIDCENTERX = 120;
+        //startpos
+        public const int STARTX = 4;
+        public const int STARTY = 0; 
+
 
     }
 }
