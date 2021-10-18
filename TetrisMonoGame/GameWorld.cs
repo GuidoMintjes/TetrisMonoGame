@@ -115,7 +115,7 @@ namespace TetrisMonoGame {
             if (inputHelper.KeyPressed(Keys.A)) {
 
                 blok.SetShape(Block.Rotate(blok.GetShape(), false));
-                if (blok.CheckColliding() == 1) {
+                if (blok.CheckColliding() == 1 || blok.CheckColliding() == 2) {
 
                     Block.Move(blok, true);
                     if (blok.CheckColliding() == 1 || blok.CheckColliding() == 2) Block.Move(blok, true);
@@ -125,7 +125,7 @@ namespace TetrisMonoGame {
             if (inputHelper.KeyPressed(Keys.D)) {
 
                 blok.SetShape(Block.Rotate(blok.GetShape(), true));
-                if (blok.CheckColliding() == 1) {
+                if (blok.CheckColliding() == 1 || blok.CheckColliding() == 2) {
 
                     Block.Move(blok, true);
                     if (blok.CheckColliding() == 1 || blok.CheckColliding() == 2) Block.Move(blok, true);
@@ -159,8 +159,9 @@ namespace TetrisMonoGame {
             if (counter >= timer) {
                 Block.MoveUp(blok, false);
                 counter = 0;
+                Console.WriteLine("gravity");
                 if (blok.CheckColliding() == 2 || blok.CheckColliding() == 3) {
-
+                    
                     blok = manager.Respawn(blok);
                     extraBlok = manager.GenerateBlock(true);
                 }
