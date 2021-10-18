@@ -106,6 +106,34 @@ namespace TetrisMonoGame {
 
         }
 
+        //function to handle the turning process
+        public void HandleTurn(Block blok, Keys key) {
+
+            bool rightTurn = false;
+            bool LeftSide = false;
+
+            if(key == Keys.D) rightTurn = true;
+
+            if (blok.Pos.X < 5) LeftSide = true;
+
+            blok.SetShape(Block.Rotate(blok.GetShape(), rightTurn));
+            if (blok.CheckColliding() != 0) {
+
+                Block.Move(blok, LeftSide);
+                if (blok.CheckColliding() != 0) {
+
+                    Block.Move(blok, LeftSide);
+                    if (blok.CheckColliding() != 0) {
+
+                        blok.SetShape(Block.Rotate(blok.GetShape(), !rightTurn));
+                        Block.Move(blok, !LeftSide);
+                        Block.Move(blok, !LeftSide);
+                    }
+                }
+            }
+        }
+
+
         //a cooldown timer for moving the blocks
         public void Cooldown(GameTime gameTime) {
 

@@ -46,7 +46,7 @@ namespace TetrisMonoGame {
 
             switch (rng.Next(1, 8)) {
 
-                //TODO: FIX BUG with wrong block still being drawn
+                //TODO: getting same block twice should not happen
 
                 case 1:
                     if (lastBlok == 1) blok = GenerateBlock(extra);
