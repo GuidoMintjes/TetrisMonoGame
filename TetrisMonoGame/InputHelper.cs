@@ -117,12 +117,15 @@ namespace TetrisMonoGame {
             if (blok.Pos.X < 5) LeftSide = true;
 
             blok.SetShape(Block.Rotate(blok.GetShape(), rightTurn));
+            //if colliding, move one block
             if (blok.CheckColliding() != 0) {
 
                 Block.Move(blok, LeftSide);
+                //if still colliding, move one more block
                 if (blok.CheckColliding() != 0) {
 
                     Block.Move(blok, LeftSide);
+                    //if still colliding now, this position doesn't work. Revert to original position
                     if (blok.CheckColliding() != 0) {
 
                         blok.SetShape(Block.Rotate(blok.GetShape(), !rightTurn));

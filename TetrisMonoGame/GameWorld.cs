@@ -137,7 +137,7 @@ namespace TetrisMonoGame {
             grid.Draw(gameTime, spriteBatch);
             blok.Draw(gameTime, spriteBatch);
             extraBlok.Draw(gameTime, spriteBatch);
-            //spriteBatch.DrawString(font, "Hello!", Vector2.Zero, Color.Black);
+            spriteBatch.DrawString(font, "Next block:", new Vector2(Constants.EXTRAX*Constants.DEFAULTBLOCKWIDTH, Constants.STARTY ), Color.Black);
             spriteBatch.End();
         }
 

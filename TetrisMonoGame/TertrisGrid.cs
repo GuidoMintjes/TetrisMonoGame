@@ -27,19 +27,6 @@ namespace TetrisMonoGame {
         private bool drawGridInConsole = true;
  
 
-        /// blocks enum
-        enum Blocks {
-            blockI,
-            blockJ,
-            blockL,
-            blockO,
-            blockS,
-            blockT,
-            blockZ
-        }
-
-
-        Blocks blocks;
 
         /// <summary>
         /// Creates a new TetrisGrid.

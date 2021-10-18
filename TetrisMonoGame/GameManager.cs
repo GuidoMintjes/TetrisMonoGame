@@ -26,7 +26,6 @@ namespace TetrisMonoGame {
 
         //randomizer
         static Random rng = new Random();
-        int lastBlok = 0;
 
         //Blocklist
         List<Block> blockList = new List<Block>();
@@ -49,59 +48,38 @@ namespace TetrisMonoGame {
                 //TODO: getting same block twice should not happen
 
                 case 1:
-                    if (lastBlok == 1) blok = GenerateBlock(extra);
-                    else {
-                        blok = new BlockI();
-                        lastBlok = 1;
-                    }
+
+                    blok = new BlockI();
                     break;
 
                 case 2:
-                    if (lastBlok == 2) blok = GenerateBlock(extra);
-                    else {
-                        blok = new BlockJ();
-                        lastBlok = 2;
-                    }
+
+                    blok = new BlockJ();
                     break;
 
                 case 3:
-                    if (lastBlok == 3) blok = GenerateBlock(extra);
-                    else {
-                        blok = new BlockL();
-                        lastBlok = 3;
-                    }
+
+                    blok = new BlockL();
                     break;
 
                 case 4:
-                    if (lastBlok == 4) blok = GenerateBlock(extra);
-                    else {
-                        blok = new BlockO();
-                        lastBlok = 4;
-                    }
+
+                    blok = new BlockO();
                     break;
 
                 case 5:
-                    if (lastBlok == 5) blok = GenerateBlock(extra);
-                    else {
-                        blok = new BlockO();
-                        lastBlok = 5;
-                    }
+ 
+                    blok = new BlockO();
                     break;
 
                 case 6:
-                    if (lastBlok == 6) blok = GenerateBlock(extra);
-                    else {
-                        blok = new BlockS();
-                        lastBlok = 5;
-                    }
+
+                    blok = new BlockS();
                     break;
 
                 case 7:
-                    if (lastBlok == 7) blok = GenerateBlock(extra);
-                    else {
-                        blok = new BlockT();
-                        lastBlok = 7;
-                    }
+
+                    blok = new BlockT();
                     break;
             }
 
