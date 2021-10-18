@@ -92,23 +92,5 @@ namespace TetrisMonoGame {
             return blockList[0];
         }
 
-
-        //Function that makes the block fall down
-        public void Gravity(Block blok, float deltaTime, Block extraBlok) {
-
-            counter += deltaTime;
-
-            if (counter >= timer) {
-                Block.MoveUp(blok, false);
-                counter = 0;
-                if (blok.CheckColliding() == 2) {
-
-                    Console.WriteLine("gravity");
-                    Block.MoveUp(blok, true);
-                    Respawn(blok);
-                    extraBlok = GenerateBlock(true);
-                }
-            }
-        }
     }
 }

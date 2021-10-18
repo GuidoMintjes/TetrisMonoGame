@@ -43,10 +43,16 @@ namespace TetrisMonoGame {
         //the game manager
         GameManager manager;
 
-    /// <summary>
-    /// The current game state.
-    /// </summary>
-    GameState gameState;
+        //related to gravity
+        int timer = 1;
+        float counter = 0;
+        float weight = 1;
+
+
+        /// <summary>
+        /// The current game state.
+        /// </summary>
+        GameState gameState;
 
         /// <summary>
         /// The main grid of the game.
@@ -110,13 +116,21 @@ namespace TetrisMonoGame {
             if (inputHelper.KeyPressed(Keys.A)) {
 
                 blok.SetShape(Block.Rotate(blok.GetShape(), false));
-                if (blok.CheckColliding() == 1) blok.SetShape(Block.Rotate(blok.GetShape(), true));
-            }
+                if (blok.CheckColliding() == 1) {
 
+                    Block.Move(blok, true);
+                    if (blok.CheckColliding() == 1) Block.Move(blok, true);
+                }
+            }
+            
             if (inputHelper.KeyPressed(Keys.D)) {
 
                 blok.SetShape(Block.Rotate(blok.GetShape(), true));
-                if (blok.CheckColliding() == 1) blok.SetShape(Block.Rotate(blok.GetShape(), false));
+                if (blok.CheckColliding() == 1) {
+
+                    Block.Move(blok, true);
+                    if (blok.CheckColliding() == 1) Block.Move(blok, true);
+                }
             }
 
         }
@@ -125,7 +139,7 @@ namespace TetrisMonoGame {
 
             float deltaTime = (float)gameTime.ElapsedGameTime.TotalSeconds;
 
-            manager.Gravity(blok, deltaTime, extraBlok);
+            Gravity(deltaTime);
           
         }
 
@@ -138,7 +152,26 @@ namespace TetrisMonoGame {
             spriteBatch.End();
         }
 
-        public void Reset() {
+        //function to make the blocks fall down every second
+        public void Gravity(float deltaTime) {
+
+            counter += deltaTime;
+
+            if (counter >= timer) {
+                Block.MoveUp(blok, false);
+                counter = 0;
+                if (blok.CheckColliding() == 2) {
+
+                    Console.WriteLine("gravity");
+                    Block.MoveUp(blok, true);
+                    blok = manager.Respawn(blok);
+                    extraBlok = manager.GenerateBlock(true);
+                }
+            }
+        }
+    
+
+    public void Reset() {
         }
 
     }
