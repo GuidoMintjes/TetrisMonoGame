@@ -1,5 +1,6 @@
 ﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Input;
+using System;
 
 namespace TetrisMonoGame {
     /// <summary>
@@ -12,7 +13,7 @@ namespace TetrisMonoGame {
 
         //related to cooldown
         float counter = 0;
-        float timer = 0.7f;
+        float timer = 0.3f;
         float cooldownTimer = 0.1f;
         float cooldownCounter;
         bool moved = false;
@@ -69,15 +70,18 @@ namespace TetrisMonoGame {
             float deltaTime = (float)gameTime.ElapsedGameTime.TotalSeconds;
             //boolean for going right or left
             bool right = false;
+            bool down = false;
 
-            if (key == Keys.Right) {
-                right = true;
-            }
+            if (key == Keys.Right) right = true;
+            
+            if (key == Keys.Down) down = true;
+            
 
             //the initial block movement on key press
             if (KeyPressed(key)) {
 
-                Block.Move(blok, right);
+                if (down) Block.MoveUp(blok, right);
+                else Block.Move(blok, right);
             }
 
             //start the counter while holding down the key
@@ -86,7 +90,8 @@ namespace TetrisMonoGame {
             //if the counter reaches the timer, and there is no movement cooldown, move
             if (counter >= timer && moved == false) {
 
-                Block.Move(blok, right);
+                if (down) Block.MoveUp(blok, right);
+                else Block.Move(blok, right);
                 moved = true;
             }
 

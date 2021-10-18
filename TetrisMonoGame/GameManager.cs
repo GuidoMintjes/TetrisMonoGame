@@ -1,9 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Text;
 using Microsoft.Xna.Framework;
-using Microsoft.Xna.Framework.Graphics;
-using Microsoft.Xna.Framework.Content;
 
 namespace TetrisMonoGame {
 
@@ -29,6 +26,7 @@ namespace TetrisMonoGame {
 
         //randomizer
         static Random rng = new Random();
+        int lastBlok = 0;
 
         //Blocklist
         List<Block> blockList = new List<Block>();
@@ -44,36 +42,66 @@ namespace TetrisMonoGame {
 
         public Block GenerateBlock (bool extra) {
 
-            Block blok = new Block();
+            Block blok = new Block();;
 
             switch (rng.Next(1, 8)) {
 
+                //TODO: FIX BUG with wrong block still being drawn
+
                 case 1:
-                    blok = new BlockI();
+                    if (lastBlok == 1) blok = GenerateBlock(extra);
+                    else {
+                        blok = new BlockI();
+                        lastBlok = 1;
+                    }
                     break;
 
                 case 2:
-                    blok = new BlockJ();
+                    if (lastBlok == 2) blok = GenerateBlock(extra);
+                    else {
+                        blok = new BlockJ();
+                        lastBlok = 2;
+                    }
                     break;
 
                 case 3:
-                    blok = new BlockL();
+                    if (lastBlok == 3) blok = GenerateBlock(extra);
+                    else {
+                        blok = new BlockL();
+                        lastBlok = 3;
+                    }
                     break;
 
                 case 4:
-                    blok = new BlockO();
+                    if (lastBlok == 4) blok = GenerateBlock(extra);
+                    else {
+                        blok = new BlockO();
+                        lastBlok = 4;
+                    }
                     break;
 
                 case 5:
-                    blok = new BlockO();
+                    if (lastBlok == 5) blok = GenerateBlock(extra);
+                    else {
+                        blok = new BlockO();
+                        lastBlok = 5;
+                    }
                     break;
 
                 case 6:
-                    blok = new BlockS();
+                    if (lastBlok == 6) blok = GenerateBlock(extra);
+                    else {
+                        blok = new BlockS();
+                        lastBlok = 5;
+                    }
                     break;
 
                 case 7:
-                    blok = new BlockT();
+                    if (lastBlok == 7) blok = GenerateBlock(extra);
+                    else {
+                        blok = new BlockT();
+                        lastBlok = 7;
+                    }
                     break;
             }
 

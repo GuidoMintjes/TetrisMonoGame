@@ -99,9 +99,9 @@ namespace TetrisMonoGame {
 
             }
 
-            if (inputHelper.KeyPressed(Keys.Down)) {
+            if (inputHelper.KeyDown(Keys.Down)) {
 
-                Block.MoveUp(blok, false);
+                inputHelper.MoveHold(blok, Keys.Down, gameTime);
                 if (blok.CheckColliding() == 1) Block.MoveUp(blok, true);
                 if (blok.CheckColliding() == 2 || blok.CheckColliding() == 3) {
 
