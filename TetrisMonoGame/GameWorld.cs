@@ -82,14 +82,14 @@ namespace TetrisMonoGame {
             if (inputHelper.KeyDown(Keys.Left) && !inputHelper.KeyDown(Keys.Right) ){
 
                 inputHelper.MoveHold(blok, Keys.Left, gameTime);
-                if (blok.CheckColliding() == 1) Block.Move(blok, true);
+                if (blok.CheckColliding() == 1 || blok.CheckColliding() == 2) Block.Move(blok, true);
                 
             }
 
             if (inputHelper.KeyDown(Keys.Right) && !inputHelper.KeyDown(Keys.Left) ){
 
                 inputHelper.MoveHold(blok, Keys.Right , gameTime);
-                if (blok.CheckColliding() == 1) Block.Move(blok, false);
+                if (blok.CheckColliding() == 1 || blok.CheckColliding() == 2) Block.Move(blok, false);
             }
 
             if (inputHelper.KeyPressed(Keys.Up)) {
@@ -103,9 +103,8 @@ namespace TetrisMonoGame {
 
                 Block.MoveUp(blok, false);
                 if (blok.CheckColliding() == 1) Block.MoveUp(blok, true);
-                if (blok.CheckColliding() == 2) {
+                if (blok.CheckColliding() == 2 || blok.CheckColliding() == 3) {
 
-                    Block.MoveUp(blok, true);
                     Console.WriteLine("druk ding");
                     blok = manager.Respawn(blok);
                     extraBlok = manager.GenerateBlock(true);
@@ -119,7 +118,7 @@ namespace TetrisMonoGame {
                 if (blok.CheckColliding() == 1) {
 
                     Block.Move(blok, true);
-                    if (blok.CheckColliding() == 1) Block.Move(blok, true);
+                    if (blok.CheckColliding() == 1 || blok.CheckColliding() == 2) Block.Move(blok, true);
                 }
             }
             
@@ -129,7 +128,7 @@ namespace TetrisMonoGame {
                 if (blok.CheckColliding() == 1) {
 
                     Block.Move(blok, true);
-                    if (blok.CheckColliding() == 1) Block.Move(blok, true);
+                    if (blok.CheckColliding() == 1 || blok.CheckColliding() == 2) Block.Move(blok, true);
                 }
             }
 
@@ -160,10 +159,8 @@ namespace TetrisMonoGame {
             if (counter >= timer) {
                 Block.MoveUp(blok, false);
                 counter = 0;
-                if (blok.CheckColliding() == 2) {
+                if (blok.CheckColliding() == 2 || blok.CheckColliding() == 3) {
 
-                    Console.WriteLine("gravity");
-                    Block.MoveUp(blok, true);
                     blok = manager.Respawn(blok);
                     extraBlok = manager.GenerateBlock(true);
                 }

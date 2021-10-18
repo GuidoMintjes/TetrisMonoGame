@@ -106,22 +106,30 @@ namespace TetrisMonoGame {
                     x += j;
                     if (shape[i, j] == true) {
 
+                        //collision = 1 is a wall collision
                         if (x >= TetrisGrid.grid.GetLength(1) || x < 0) {
 
                             collide = 1;
-                            Console.WriteLine("buitenrand");
                         }
 
                         //this is in a try-catch because bouncing against the side of the grid will cause an error
+                        //collide = 2 is a block collision
                         try {
 
-                            if (y >= TetrisGrid.grid.GetLength(0) || (TetrisGrid.grid[(int)y, (int)x] != 0)) {
+                            if ((TetrisGrid.grid[(int)y, (int)x] != 0)) {
 
                                 collide = 2;
-                                this.AddToGrid();
+                                Console.WriteLine("blokje collision");
 
                             }
                         } catch { }
+
+                        //collide = 3 is a floor collision
+                        if (y >= TetrisGrid.grid.GetLength(0) ) {
+
+                            Console.WriteLine("onderaan");
+                            collide = 3;
+                        }
                     }
 
                     x = this.Pos.X;

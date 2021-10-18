@@ -84,8 +84,9 @@ namespace TetrisMonoGame {
 
         public Block Respawn(Block mainBlok) {
 
-            Block newBlock; 
+            Block newBlock;
 
+            mainBlok.AddToGrid();
             blockList.Remove(mainBlok);
             newBlock = blockList[0];
             newBlock.Pos = new Vector2(Constants.STARTX, Constants.STARTY);
