@@ -13,8 +13,11 @@ namespace TetrisMonoGame {
 
         //startpos
         public const int STARTX = 4;
-        public const int STARTY = 0; 
+        public const int STARTY = 0;
 
+        //extra block position next to grid
+        public const int EXTRAX = 10;
+        public const int EXTRAY = 1;
 
     }
 }

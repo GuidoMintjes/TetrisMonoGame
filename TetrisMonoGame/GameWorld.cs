@@ -2,7 +2,7 @@
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
 using System;
-
+using System.Collections.Generic;
 
 
 namespace TetrisMonoGame {
@@ -30,13 +30,18 @@ namespace TetrisMonoGame {
         /// </summary>
         SpriteFont font;
 
-        //the block
+        //the block list
+        //List<Block> blockList = new List<Block>();
         Block blok;
+        Block extraBlok;
 
         /// <summary>
         /// The input helper
         /// </summary>
         InputHelper inputHelper;
+
+        //the game manager
+        GameManager manager;
 
     /// <summary>
     /// The current game state.
@@ -57,7 +62,11 @@ namespace TetrisMonoGame {
 
             grid = new TetrisGrid();
 
-            blok = new BlockI(grid);
+            manager = new GameManager();
+
+            blok = manager.GenerateBlock(false);
+
+            extraBlok = manager.GenerateBlock(true);
 
         }
 
@@ -67,14 +76,14 @@ namespace TetrisMonoGame {
             if (inputHelper.KeyDown(Keys.Left) && !inputHelper.KeyDown(Keys.Right) ){
 
                 inputHelper.MoveHold(blok, Keys.Left, gameTime);
-                if (blok.CheckColliding()) Block.Move(blok, true);
+                if (blok.CheckColliding() == 1) Block.Move(blok, true);
                 
             }
 
             if (inputHelper.KeyDown(Keys.Right) && !inputHelper.KeyDown(Keys.Left) ){
 
                 inputHelper.MoveHold(blok, Keys.Right , gameTime);
-                if (blok.CheckColliding()) Block.Move(blok, false);
+                if (blok.CheckColliding() == 1) Block.Move(blok, false);
             }
 
             if (inputHelper.KeyPressed(Keys.Up)) {
@@ -87,20 +96,27 @@ namespace TetrisMonoGame {
             if (inputHelper.KeyPressed(Keys.Down)) {
 
                 Block.MoveUp(blok, false);
-                if(blok.CheckColliding()) Block.MoveUp(blok, true);
+                if (blok.CheckColliding() == 1) Block.MoveUp(blok, true);
+                if (blok.CheckColliding() == 2) {
 
+                    Block.MoveUp(blok, true);
+                    Console.WriteLine("druk ding");
+                    blok = manager.Respawn(blok);
+                    extraBlok = manager.GenerateBlock(true);
+
+                }
             }
 
             if (inputHelper.KeyPressed(Keys.A)) {
 
                 blok.SetShape(Block.Rotate(blok.GetShape(), false));
-                if (blok.CheckColliding()) blok.SetShape(Block.Rotate(blok.GetShape(), true));
+                if (blok.CheckColliding() == 1) blok.SetShape(Block.Rotate(blok.GetShape(), true));
             }
 
             if (inputHelper.KeyPressed(Keys.D)) {
 
                 blok.SetShape(Block.Rotate(blok.GetShape(), true));
-                if (blok.CheckColliding()) blok.SetShape(Block.Rotate(blok.GetShape(), false));
+                if (blok.CheckColliding() == 1) blok.SetShape(Block.Rotate(blok.GetShape(), false));
             }
 
         }
@@ -109,7 +125,7 @@ namespace TetrisMonoGame {
 
             float deltaTime = (float)gameTime.ElapsedGameTime.TotalSeconds;
 
-            TetrisGame.Manager.Gravity(blok, deltaTime);
+            manager.Gravity(blok, deltaTime, extraBlok);
           
         }
 
@@ -117,6 +133,7 @@ namespace TetrisMonoGame {
             spriteBatch.Begin();
             grid.Draw(gameTime, spriteBatch);
             blok.Draw(gameTime, spriteBatch);
+            extraBlok.Draw(gameTime, spriteBatch);
             //spriteBatch.DrawString(font, "Hello!", Vector2.Zero, Color.Black);
             spriteBatch.End();
         }

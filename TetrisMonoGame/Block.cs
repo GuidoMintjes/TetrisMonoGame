@@ -15,10 +15,16 @@ namespace TetrisMonoGame {
 
         Texture2D sprite;
 
-        public Block(TetrisGrid grid) {
+        //Int to change the color of the grid
+        public int ColorInt { get; protected set; }
+
+        //Color used internally
+        public Color Colour { get; set; }
+
+        public Block() {
 
             blockSize = new Vector2(Constants.DEFAULTBLOCKWIDTH, Constants.DEFAULTBLOCKHEIGHT);
-            sprite = grid.emptyCell;
+            sprite = TetrisGrid.getSprite();
             this.Pos = new Vector2(Constants.STARTX, Constants.STARTY);
         }
 
@@ -31,6 +37,12 @@ namespace TetrisMonoGame {
         public void SetShape(bool[,] newShape) {
 
             shape = newShape;
+        }
+
+        public void Respawn() {
+            this.Pos = new Vector2(Constants.STARTX, Constants.STARTY + 1); // +1 to make sure it spawns inside screen bounds
+            Console.WriteLine(this.GetType());
+
         }
 
 
@@ -46,7 +58,7 @@ namespace TetrisMonoGame {
                     x += j;
                     if (shape[i, j] == true) {
 
-                        spriteBatch.Draw(sprite, new Vector2(x * blockSize.X, y * blockSize.Y), Color.Red);
+                        spriteBatch.Draw(sprite, new Vector2(x * blockSize.X, y * blockSize.Y), this.Colour);
                         //TetrisGrid.grid[(int)y, (int)x] = 1;
                     }
                     x = this.Pos.X;
@@ -55,10 +67,10 @@ namespace TetrisMonoGame {
             }
         }
 
-        public bool CheckColliding() {
+        public void AddToGrid() {
+
             float x = this.Pos.X;
             float y = this.Pos.Y;
-            bool collide = false;
 
             for (int i = 0; i < shape.GetLength(0); i++) {
 
@@ -68,16 +80,56 @@ namespace TetrisMonoGame {
                     x += j;
                     if (shape[i, j] == true) {
 
-                        if (y >= TetrisGrid.grid.GetLength(0) || x >= TetrisGrid.grid.GetLength(1) || x < 0) {
-                            collide = true;
-                            Console.WriteLine("buiten");
-                        }
+                        TetrisGrid.grid[(int)y - 1, (int)x] = this.ColorInt; //y - 1 to make sure it draws in the grid
                     }
-                    x = this.Pos.X;
 
+                    x = this.Pos.X;
                 }
+
                 y = this.Pos.Y;
             }
+
+        }
+
+
+        public int CheckColliding() {
+            float x = this.Pos.X;
+            float y = this.Pos.Y;
+            int collide = 0; //1 for collision, 2 for score
+ 
+
+            for (int i = 0; i < shape.GetLength(0); i++) {
+
+                y += i;
+                for (int j = 0; j < shape.GetLength(1); j++) {
+
+                    x += j;
+                    if (shape[i, j] == true) {
+
+                        if (x >= TetrisGrid.grid.GetLength(1) || x < 0) {
+
+                            collide = 1;
+                            Console.WriteLine("buitenrand");
+                        }
+
+                        //this is in a try-catch because bouncing against the side of the grid will cause an error
+                        try {
+
+                            if (y >= TetrisGrid.grid.GetLength(0) || (TetrisGrid.grid[(int)y, (int)x] != 0)) {
+
+                                collide = 2;
+                                this.AddToGrid();
+
+                            }
+                        } catch { }
+                    }
+
+                    x = this.Pos.X;
+                }
+
+                y = this.Pos.Y;
+            }
+
             return collide;
         }
 
@@ -120,8 +172,6 @@ namespace TetrisMonoGame {
 
         public static void Move(Block blok, bool moveRight) {
 
-            Console.WriteLine("move");
-
             if (moveRight) {
 
                 try {
@@ -162,11 +212,13 @@ namespace TetrisMonoGame {
 
     class BlockI : Block {
 
-        public BlockI(TetrisGrid grid) : base(grid) {
-        shape =new bool[4,4] {   {false, true, false, false},
-                                {false, true, false, false},
-                                {false, true, false, false},
-                                {false, true, false, false}      };
+        public BlockI() : base() {
+            shape =new bool[4,4] {   {false, true, false, false},
+                                    {false, true, false, false},
+                                    {false, true, false, false},
+                                    {false, true, false, false}      };
+            this.ColorInt = 1; //Red
+            this.Colour = Color.Red;
 
         }
 
@@ -175,10 +227,12 @@ namespace TetrisMonoGame {
 
     class BlockJ : Block {
 
-        public BlockJ(TetrisGrid grid) : base(grid) {
+        public BlockJ() : base() {
             shape = new bool [,] {   {false, true, false},
                                     {false, true, false},
                                     {true, true, false}     };
+            this.ColorInt = 2; //Orange
+            this.Colour = Color.Orange;
         }
 
 
@@ -187,48 +241,58 @@ namespace TetrisMonoGame {
 
     class BlockL : Block {
 
-        public BlockL(TetrisGrid grid) : base(grid) {
+        public BlockL() : base() {
             shape = new bool [,] {   {false, true, false},
                                     {false, true, false},
                                     {false, true, true}     };
+            this.ColorInt = 3; //Yellow
+            this.Colour = Color.Yellow;
 
         }
     }
 
     class BlockS : Block {
 
-        public BlockS(TetrisGrid grid) : base(grid) {
+        public BlockS() : base() {
             shape = new bool [,] {   {false, false, false},
                                     {false, true, true},
                                     {true, true, false}     };
+            this.ColorInt = 4; //Green
+            this.Colour = Color.Green;
         }
 
     }
 
     class BlockZ : Block {
 
-        public BlockZ(TetrisGrid grid) : base(grid) {
+        public BlockZ() : base() {
             shape = new bool [,] {   {false, false, false},
                                     {true, true, false},
                                     {false, true, true}      };
+            this.ColorInt = 5; //Light blue
+            this.Colour = Color.LightBlue;
         }
 
     }
 
     class BlockO : Block {
 
-        public BlockO(TetrisGrid grid) : base(grid) {
+        public BlockO() : base() {
             shape = new bool [,] {   {true, true},
                                     {true, true}     };
+            this.ColorInt = 6; //Dark blue
+            this.Colour = Color.DarkBlue;
         }
     }
 
     class BlockT : Block {
 
-        public BlockT(TetrisGrid grid) : base(grid) {
+        public BlockT() : base() {
             shape = new bool [,] {   {false, false, false},
                                     {false, true, false},
                                     {true, true, true}      };
+            this.ColorInt = 7; //Purple
+            this.Colour = Color.Purple;
         }
     }
 }
