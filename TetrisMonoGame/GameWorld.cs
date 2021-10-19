@@ -81,34 +81,31 @@ namespace TetrisMonoGame {
 
             if (inputHelper.KeyDown(Keys.Left) && !inputHelper.KeyDown(Keys.Right) ){
 
-                inputHelper.MoveHold(blok, Keys.Left, gameTime);
+                inputHelper.HandleHold(blok, Keys.Left, gameTime);
                 if (blok.CheckColliding() == 1 || blok.CheckColliding() == 2) Block.Move(blok, true);
                 
             }
 
             if (inputHelper.KeyDown(Keys.Right) && !inputHelper.KeyDown(Keys.Left) ){
 
-                inputHelper.MoveHold(blok, Keys.Right , gameTime);
+                inputHelper.HandleHold(blok, Keys.Right , gameTime);
                 if (blok.CheckColliding() == 1 || blok.CheckColliding() == 2) Block.Move(blok, false);
             }
 
             if (inputHelper.KeyPressed(Keys.Up)) {
 
-                //blok.SetShape(Block.Rotate(blok.GetShape(), true));
-                Block.MoveUp(blok, true);
-
+                inputHelper.HandleTurn(blok, Keys.D);
+               // Block.MoveUp(blok, true);
             }
 
             if (inputHelper.KeyDown(Keys.Down)) {
 
-                inputHelper.MoveHold(blok, Keys.Down, gameTime);
+                inputHelper.HandleHold(blok, Keys.Down, gameTime);
                 if (blok.CheckColliding() == 1) Block.MoveUp(blok, true);
                 if (blok.CheckColliding() == 2 || blok.CheckColliding() == 3) {
 
-                    Console.WriteLine("druk ding");
                     blok = manager.Respawn(blok);
                     extraBlok = manager.GenerateBlock(true);
-
                 }
             }
 
@@ -120,8 +117,12 @@ namespace TetrisMonoGame {
             if (inputHelper.KeyPressed(Keys.D)) {
 
                 inputHelper.HandleTurn(blok, Keys.D);
-            } 
+            }
 
+            if (inputHelper.KeyPressed(Keys.Space)) {
+
+                inputHelper.HandleSpace(blok);
+            }
         }
 
         public void Update(GameTime gameTime) {

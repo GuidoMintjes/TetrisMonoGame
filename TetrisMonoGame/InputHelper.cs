@@ -65,7 +65,7 @@ namespace TetrisMonoGame {
         }
 
         //function that handles moving left or right
-        public void MoveHold(Block blok, Keys key, GameTime gameTime) {
+        public void HandleHold(Block blok, Keys key, GameTime gameTime) {
 
             float deltaTime = (float)gameTime.ElapsedGameTime.TotalSeconds;
             //boolean for going right or left
@@ -109,12 +109,8 @@ namespace TetrisMonoGame {
         //function to handle the turning process
         public void HandleTurn(Block blok, Keys key) {
 
-            bool rightTurn = false;
-            bool LeftSide = false;
-
-            if(key == Keys.D) rightTurn = true;
-
-            if (blok.Pos.X < 5) LeftSide = true;
+            bool rightTurn = (key == Keys.D);
+            bool LeftSide = (blok.Pos.X < 5);
 
             blok.SetShape(Block.Rotate(blok.GetShape(), rightTurn));
             //if colliding, move one block
@@ -132,6 +128,22 @@ namespace TetrisMonoGame {
                         Block.Move(blok, !LeftSide);
                         Block.Move(blok, !LeftSide);
                     }
+                }
+            }
+        }
+
+        
+        public void HandleSpace(Block blok) {
+
+            int toMove = (TetrisGrid.grid.GetLength(0) - (int)blok.Pos.Y);
+
+            for (int i = 0; i < toMove; i++) {
+
+                Block.MoveUp(blok, false);
+                if ( blok.CheckColliding() == 2 || blok.CheckColliding() == 3) {
+
+                    Block.MoveUp(blok, true);
+                    break;
                 }
             }
         }
