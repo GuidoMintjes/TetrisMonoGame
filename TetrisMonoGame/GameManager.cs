@@ -69,7 +69,7 @@ namespace TetrisMonoGame {
 
                 case 5:
  
-                    blok = new BlockO();
+                    blok = new BlockZ();
                     break;
 
                 case 6:
@@ -88,7 +88,8 @@ namespace TetrisMonoGame {
             return blok;
         }
 
-        public Block Respawn(Block mainBlok) {
+        //'resets' the block, by adding the old block to the grid, removing it from the blockList and returning the next block in the list
+        public Block NextBlock(Block mainBlok) {
 
             Block newBlock;
 
@@ -96,7 +97,7 @@ namespace TetrisMonoGame {
             blockList.Remove(mainBlok);
             newBlock = blockList[0];
             newBlock.Pos = new Vector2(Constants.STARTX, Constants.STARTY);
-            return blockList[0];
+            return newBlock;
         }
 
     }

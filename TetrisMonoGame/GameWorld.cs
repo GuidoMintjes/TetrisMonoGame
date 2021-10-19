@@ -78,7 +78,6 @@ namespace TetrisMonoGame {
 
         public void HandleInput(GameTime gameTime, InputHelper inputHelper) {
 
-
             if (inputHelper.KeyDown(Keys.Left) && !inputHelper.KeyDown(Keys.Right) ){
 
                 inputHelper.HandleHold(blok, Keys.Left, gameTime);
@@ -101,12 +100,7 @@ namespace TetrisMonoGame {
             if (inputHelper.KeyDown(Keys.Down)) {
 
                 inputHelper.HandleHold(blok, Keys.Down, gameTime);
-                if (blok.CheckColliding() == 1) Block.MoveUp(blok, true);
-                if (blok.CheckColliding() == 2 || blok.CheckColliding() == 3) {
-
-                    blok = manager.Respawn(blok);
-                    extraBlok = manager.GenerateBlock(true);
-                }
+                RespawnCheck();
             }
 
             if (inputHelper.KeyPressed(Keys.A)) {
@@ -122,6 +116,7 @@ namespace TetrisMonoGame {
             if (inputHelper.KeyPressed(Keys.Space)) {
 
                 inputHelper.HandleSpace(blok);
+                RespawnCheck();
             }
         }
 
@@ -148,19 +143,26 @@ namespace TetrisMonoGame {
             counter += deltaTime;
 
             if (counter >= timer) {
+
                 Block.MoveUp(blok, false);
                 counter = 0;
                 Console.WriteLine("gravity");
-                if (blok.CheckColliding() == 2 || blok.CheckColliding() == 3) {
-                    
-                    blok = manager.Respawn(blok);
-                    extraBlok = manager.GenerateBlock(true);
-                }
+                RespawnCheck();
             }
         }
     
 
-    public void Reset() {
+        //function that checks if the block is at the bottom and respawns if so
+        public void RespawnCheck() {
+            if (blok.CheckColliding() == 2 || blok.CheckColliding() == 3) {
+
+                blok = manager.NextBlock(blok);
+                extraBlok = manager.GenerateBlock(true);
+            }
+        }
+
+        public void Reset() {
+
         }
 
     }

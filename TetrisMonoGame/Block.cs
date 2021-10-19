@@ -95,7 +95,7 @@ namespace TetrisMonoGame {
         public int CheckColliding() {
             float x = this.Pos.X;
             float y = this.Pos.Y;
-            int collide = 0; //1 for collision, 2 for score
+            int collide = 0;
  
 
             for (int i = 0; i < shape.GetLength(0); i++) {
@@ -112,7 +112,7 @@ namespace TetrisMonoGame {
                             collide = 1;
                         }
 
-                        //this is in a try-catch because bouncing against the side of the grid will cause an error
+                        //this is in a try-catch because bumping into the side of the grid will cause an error
                         //collide = 2 is a block collision
                         try {
 
@@ -193,7 +193,6 @@ namespace TetrisMonoGame {
 
                     blok.Pos -= new Vector2(1, 0);
                 } catch { }
-
             }
         }
 
@@ -212,9 +211,7 @@ namespace TetrisMonoGame {
 
                     blok.Pos += new Vector2(0, 1);
                 } catch { }
-
             }
-
         }
     }
 
@@ -225,8 +222,8 @@ namespace TetrisMonoGame {
                                     {false, true, false, false},
                                     {false, true, false, false},
                                     {false, true, false, false}      };
-            this.ColorInt = 1; //Red
-            this.Colour = Color.Red;
+            this.ColorInt = 1; //Cyan
+            this.Colour = Color.Cyan;
 
         }
 
@@ -239,8 +236,8 @@ namespace TetrisMonoGame {
             shape = new bool [,] {   {false, true, false},
                                     {false, true, false},
                                     {true, true, false}     };
-            this.ColorInt = 2; //Orange
-            this.Colour = Color.Orange;
+            this.ColorInt = 2; //Blue
+            this.Colour = Color.Blue;
         }
 
 
@@ -253,8 +250,8 @@ namespace TetrisMonoGame {
             shape = new bool [,] {   {false, true, false},
                                     {false, true, false},
                                     {false, true, true}     };
-            this.ColorInt = 3; //Yellow
-            this.Colour = Color.Yellow;
+            this.ColorInt = 3; //Orange
+            this.Colour = Color.Orange;
 
         }
     }
@@ -266,7 +263,7 @@ namespace TetrisMonoGame {
                                     {false, true, true},
                                     {true, true, false}     };
             this.ColorInt = 4; //Green
-            this.Colour = Color.Green;
+            this.Colour = Color.Lime;
         }
 
     }
@@ -277,8 +274,8 @@ namespace TetrisMonoGame {
             shape = new bool [,] {   {false, false, false},
                                     {true, true, false},
                                     {false, true, true}      };
-            this.ColorInt = 5; //Light blue
-            this.Colour = Color.LightBlue;
+            this.ColorInt = 5; //Red
+            this.Colour = Color.Red;
         }
 
     }
@@ -288,8 +285,8 @@ namespace TetrisMonoGame {
         public BlockO() : base() {
             shape = new bool [,] {   {true, true},
                                     {true, true}     };
-            this.ColorInt = 6; //Dark blue
-            this.Colour = Color.DarkBlue;
+            this.ColorInt = 6; //Yellow
+            this.Colour = Color.Yellow;
         }
     }
 
@@ -300,7 +297,7 @@ namespace TetrisMonoGame {
                                     {false, true, false},
                                     {true, true, true}      };
             this.ColorInt = 7; //Purple
-            this.Colour = Color.Purple;
+            this.Colour = Color.Magenta;
         }
     }
 }
