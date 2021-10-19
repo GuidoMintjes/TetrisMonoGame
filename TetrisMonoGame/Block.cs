@@ -224,10 +224,7 @@ namespace TetrisMonoGame {
                                     {false, true, false, false}      };
             this.ColorInt = 1; //Cyan
             this.Colour = Color.Cyan;
-
         }
-
-
     }
 
     class BlockJ : Block {
@@ -237,11 +234,8 @@ namespace TetrisMonoGame {
                                     {false, true, false},
                                     {true, true, false}     };
             this.ColorInt = 2; //Blue
-            this.Colour = Color.Blue;
-        }
-
-
-        
+            this.Colour = Constants.CobaltBlue;
+        }  
     }
 
     class BlockL : Block {
@@ -251,7 +245,7 @@ namespace TetrisMonoGame {
                                     {false, true, false},
                                     {false, true, true}     };
             this.ColorInt = 3; //Orange
-            this.Colour = Color.Orange;
+            this.Colour = Constants.Beer;
 
         }
     }
@@ -263,21 +257,19 @@ namespace TetrisMonoGame {
                                     {false, true, true},
                                     {true, true, false}     };
             this.ColorInt = 4; //Green
-            this.Colour = Color.Lime;
+            this.Colour = Constants.Apple;
         }
-
     }
 
     class BlockZ : Block {
 
         public BlockZ() : base() {
-            shape = new bool [,] {   {false, false, false},
+            shape = new bool[,] {   {false, false, false},
                                     {true, true, false},
                                     {false, true, true}      };
             this.ColorInt = 5; //Red
-            this.Colour = Color.Red;
+            this.Colour = Constants.RYBRed;
         }
-
     }
 
     class BlockO : Block {
@@ -286,7 +278,7 @@ namespace TetrisMonoGame {
             shape = new bool [,] {   {true, true},
                                     {true, true}     };
             this.ColorInt = 6; //Yellow
-            this.Colour = Color.Yellow;
+            this.Colour = Constants.CyberYellow;
         }
     }
 

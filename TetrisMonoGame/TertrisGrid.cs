@@ -22,7 +22,7 @@ namespace TetrisMonoGame {
         public static int Height { get { return 20; } }
 
         /// The grid array itself
-        public static  int[,] grid = new int[Height, Width];
+        public static int[,] grid = new int[Height, Width];
 
         private bool drawGridInConsole = true;
  
@@ -68,25 +68,25 @@ namespace TetrisMonoGame {
                     switch (grid[j, i]) {
 
                         case 0:
-                            spriteBatch.Draw(emptyCell, new Vector2(i * emptyCell.Height, j * emptyCell.Width), Color.DarkGray);
+                            spriteBatch.Draw(emptyCell, new Vector2(i * emptyCell.Height, j * emptyCell.Width), Constants.VeryDarkGray);
                             break;
                         case 1:
                             spriteBatch.Draw(emptyCell, new Vector2(i * emptyCell.Height, j * emptyCell.Width), Color.Cyan);
                             break;
                         case 2:
-                            spriteBatch.Draw(emptyCell, new Vector2(i * emptyCell.Height, j * emptyCell.Width), Color.Blue);
+                            spriteBatch.Draw(emptyCell, new Vector2(i * emptyCell.Height, j * emptyCell.Width), Constants.CobaltBlue);
                             break;
                         case 3:
-                            spriteBatch.Draw(emptyCell, new Vector2(i * emptyCell.Height, j * emptyCell.Width), Color.Orange);
+                            spriteBatch.Draw(emptyCell, new Vector2(i * emptyCell.Height, j * emptyCell.Width), Constants.Beer);
                             break;
                         case 4:
-                            spriteBatch.Draw(emptyCell, new Vector2(i * emptyCell.Height, j * emptyCell.Width), Color.Lime);
+                            spriteBatch.Draw(emptyCell, new Vector2(i * emptyCell.Height, j * emptyCell.Width), Constants.Apple);
                             break;
                         case 5:
-                            spriteBatch.Draw(emptyCell, new Vector2(i * emptyCell.Height, j * emptyCell.Width), Color.Red);
+                            spriteBatch.Draw(emptyCell, new Vector2(i * emptyCell.Height, j * emptyCell.Width), Constants.RYBRed);
                             break;
                         case 6:
-                            spriteBatch.Draw(emptyCell, new Vector2(i * emptyCell.Height, j * emptyCell.Width), Color.Yellow);
+                            spriteBatch.Draw(emptyCell, new Vector2(i * emptyCell.Height, j * emptyCell.Width), Constants.CyberYellow);
                             break;
                         case 7:
                             spriteBatch.Draw(emptyCell, new Vector2(i * emptyCell.Height, j * emptyCell.Width), Color.Magenta);

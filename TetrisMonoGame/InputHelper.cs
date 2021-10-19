@@ -142,7 +142,7 @@ namespace TetrisMonoGame {
                 Block.MoveUp(blok, false);
                 if ( blok.CheckColliding() == 2 || blok.CheckColliding() == 3) {
 
-                    Block.MoveUp(blok, true);
+                    //Block.MoveUp(blok, true);
                     break;
                 }
             }
