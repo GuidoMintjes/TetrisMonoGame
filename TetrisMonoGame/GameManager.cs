@@ -15,14 +15,8 @@ namespace TetrisMonoGame {
 
     class GameManager {
 
+        //score
         public int score;
-
-        int screenWidth, screenHeight;
-
-        //gravity
-        int timer = 1;
-        float counter = 0;
-        float weight = 1;
 
         //randomizer
         static Random rng = new Random();
@@ -92,40 +86,43 @@ namespace TetrisMonoGame {
         //'resets' the block, by adding the old block to the grid, removing it from the blockList and returning the next block in the list
         public Block NextBlock(Block mainBlok) {
 
-            CheckLineClear(mainBlok.GetYList());
-
             Block newBlock;
+            List<int> yList = mainBlok.GetYList();
 
             mainBlok.AddToGrid();
             blockList.Remove(mainBlok);
             newBlock = blockList[0];
             newBlock.Pos = new Vector2(Constants.STARTX, Constants.STARTY);
+
+            for (int i = yList[0] - 1; i <= yList.Last() - 1; i++) {
+
+                Console.WriteLine("rijen gechecked: " + i);
+
+                if (CheckLineClear(i)) TetrisGrid.ClearLine(i);
+
+            }
+
             return newBlock;
         }
 
-        public void CheckLineClear(List<int> yList) {
+        public bool CheckLineClear(int line) {
 
-            foreach(int abc in yList) {
 
-                Console.Write(abc);
+            for(int j = 0; j <= TetrisGrid.grid.GetLength(1) ; j++) {
+
+                try {
+                    if (TetrisGrid.grid[line, j] == 0) {
+
+                        Console.WriteLine("No clear on: " + line);
+                        return false;
+                    }
+                } catch { break; }
+
+
             }
-            Console.WriteLine();
 
-            for(int i = yList[0]; i <= yList.Last() - 1; i++) {
-
-                for(int j = 0; j <= TetrisGrid.grid.GetLength(1) - 1; j++) {
-
-
-                    try {
-                        if (TetrisGrid.grid[i, j] == 0) {
-
-                            break;
-                        }
-                    } catch { break; }
-
-                    TetrisGrid.ClearLine(i);
-                }
-            }
+            Console.WriteLine("Stiekem toch ook true");
+            return true;
         }
     }
 }

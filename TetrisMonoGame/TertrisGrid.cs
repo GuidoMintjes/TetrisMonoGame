@@ -97,11 +97,14 @@ namespace TetrisMonoGame {
 
         public static void ClearLine(int line) {
 
-            for (int i = 0; i < Width; i++) {
+            try {
+                for (int i = 0; i < Width; i++) {
 
-                grid[line, i] = 0;
-                Console.WriteLine("LOL WEG IS LIJNTJE RBUUBRUBUB");
-            }
+                    grid[line, i] = 0;
+                }
+            } catch { }
+
+            Console.WriteLine("LOL WEG IS LIJNTJE OP: " + line);
         }
     }
 }

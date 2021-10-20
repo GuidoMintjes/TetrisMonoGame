@@ -53,12 +53,6 @@ namespace TetrisMonoGame {
         }
 
 
-        public void Respawn() {
-            this.Pos = new Vector2(Constants.STARTX, Constants.STARTY + 1); // +1 to make sure it spawns inside screen bounds
-            Console.WriteLine(this.GetType());
-
-        }
-
 
         public virtual void Draw(GameTime gameTime, SpriteBatch spriteBatch, Vector2 playerOffset) {
             float x = this.Pos.X;
@@ -94,7 +88,9 @@ namespace TetrisMonoGame {
                     x += j;
                     if (shape[i, j] == true) {
 
-                        TetrisGrid.grid[(int)y - 1, (int)x] = this.ColorInt; //y - 1 to make sure it draws in the grid
+                        try {
+                            TetrisGrid.grid[(int)y - 1, (int)x] = this.ColorInt; //y - 1 to make sure it draws in the grid
+                        } catch { }
                     }
 
                     x = this.Pos.X;
@@ -102,7 +98,6 @@ namespace TetrisMonoGame {
 
                 y = this.Pos.Y;
             }
-
         }
 
 

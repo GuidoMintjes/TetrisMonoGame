@@ -130,7 +130,8 @@ namespace TetrisMonoGame {
                 grid.Draw(gameTime, spriteBatch, Constants.PLAYERONEOFFSET);
                 blok.Draw(gameTime, spriteBatch, Constants.PLAYERONEOFFSET);
                 extraBlok.Draw(gameTime, spriteBatch, Constants.PLAYERONEOFFSET); 
-                //spriteBatch.DrawString(font, "Next block:", new Vector2(Constants.EXTRAX * Constants.DEFAULTBLOCKWIDTH, Constants.STARTY), Color.Black);
+                spriteBatch.DrawString(font, "Next block:", new Vector2(Constants.EXTRAX * Constants.DEFAULTBLOCKWIDTH + Constants.PLAYERONEOFFSET.X,
+                    Constants.STARTY + Constants.PLAYERONEOFFSET.Y), Color.Black);
             }
             spriteBatch.End();
         }
@@ -144,7 +145,7 @@ namespace TetrisMonoGame {
 
                 Block.MoveUp(blok, false);
                 counter = 0;
-                Console.WriteLine("gravity");
+                //Console.WriteLine("gravity");
                 RespawnCheck();
             }
         }
@@ -157,13 +158,6 @@ namespace TetrisMonoGame {
                 blok = manager.NextBlock(blok);
                 extraBlok = manager.GenerateBlock(true);
 
-                List<int> lijstTmp = blok.GetYList();
-
-                foreach (int abc in lijstTmp) {
-
-                    Console.Write(abc);
-                }
-                Console.WriteLine();
             }
         }
 
