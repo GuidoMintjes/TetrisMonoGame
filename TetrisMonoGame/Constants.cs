@@ -28,5 +28,14 @@ namespace TetrisMonoGame {
         public static Color RYBRed = new Color(255, 50, 19);
         public static Color VeryDarkGray = new Color(30, 30, 30);
 
+
+        // Player one offset
+        public static Vector2 PLAYERONEOFFSET = new Vector2(2 * DEFAULTBLOCKWIDTH,
+                    (SCREENSIZE.Y - TetrisGrid.grid.GetLength(0) * DEFAULTBLOCKHEIGHT) / 2);
+
+        // Screensizes
+        public static Vector2 SCREENSIZE = new Vector2 (1280, 720);
+        public const int HEIGHTOFFSET = 100;
+
     }
 }

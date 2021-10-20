@@ -14,10 +14,6 @@ namespace TetrisMonoGame {
         /// <summary>
         /// An enum for the different game states that the game can have.
         /// </summary>
-        enum GameState {
-            Playing,
-            GameOver
-        }
 
         /// <summary>
         /// The random-number generator of the game.
@@ -48,12 +44,6 @@ namespace TetrisMonoGame {
         float counter = 0;
         float weight = 1;
 
-
-        /// <summary>
-        /// The current game state.
-        /// </summary>
-        GameState gameState;
-
         /// <summary>
         /// The main grid of the game.
         /// </summary>
@@ -62,7 +52,6 @@ namespace TetrisMonoGame {
         public GameWorld() {
             random = new Random();
             inputHelper = new InputHelper();
-            gameState = GameState.Playing;
 
             font = TetrisGame.ContentManager.Load<SpriteFont>("SpelFont");
 
@@ -81,8 +70,7 @@ namespace TetrisMonoGame {
             if (inputHelper.KeyDown(Keys.Left) && !inputHelper.KeyDown(Keys.Right) ){
 
                 inputHelper.HandleHold(blok, Keys.Left, gameTime);
-                if (blok.CheckColliding() == 1 || blok.CheckColliding() == 2) Block.Move(blok, true);
-                
+                if (blok.CheckColliding() == 1 || blok.CheckColliding() == 2) Block.Move(blok, true); 
             }
 
             if (inputHelper.KeyDown(Keys.Right) && !inputHelper.KeyDown(Keys.Left) ){
@@ -125,15 +113,25 @@ namespace TetrisMonoGame {
             float deltaTime = (float)gameTime.ElapsedGameTime.TotalSeconds;
 
             Gravity(deltaTime);
-          
         }
 
         public void Draw(GameTime gameTime, SpriteBatch spriteBatch) {
+
             spriteBatch.Begin();
-            grid.Draw(gameTime, spriteBatch);
-            blok.Draw(gameTime, spriteBatch);
-            extraBlok.Draw(gameTime, spriteBatch);
-            spriteBatch.DrawString(font, "Next block:", new Vector2(Constants.EXTRAX*Constants.DEFAULTBLOCKWIDTH, Constants.STARTY ), Color.Black);
+
+            if (GameManager.gameState == GameState.Menu) {
+
+                spriteBatch.Draw(TetrisGame.tetrisArt, new Vector2(Constants.SCREENSIZE.X / 2 - TetrisGame.tetrisArt.Width / 2, 
+                    Constants.SCREENSIZE.Y / 2 - TetrisGame.tetrisArt.Height / 2 - Constants.HEIGHTOFFSET), Color.White);
+            }
+
+            if (GameManager.gameState == GameState.Playing) {
+
+                grid.Draw(gameTime, spriteBatch, Constants.PLAYERONEOFFSET);
+                blok.Draw(gameTime, spriteBatch, Constants.PLAYERONEOFFSET);
+                extraBlok.Draw(gameTime, spriteBatch, Constants.PLAYERONEOFFSET); 
+                //spriteBatch.DrawString(font, "Next block:", new Vector2(Constants.EXTRAX * Constants.DEFAULTBLOCKWIDTH, Constants.STARTY), Color.Black);
+            }
             spriteBatch.End();
         }
 
@@ -158,6 +156,14 @@ namespace TetrisMonoGame {
 
                 blok = manager.NextBlock(blok);
                 extraBlok = manager.GenerateBlock(true);
+
+                List<int> lijstTmp = blok.GetYList();
+
+                foreach (int abc in lijstTmp) {
+
+                    Console.Write(abc);
+                }
+                Console.WriteLine();
             }
         }
 

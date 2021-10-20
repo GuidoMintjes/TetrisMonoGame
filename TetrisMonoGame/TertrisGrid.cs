@@ -43,7 +43,6 @@ namespace TetrisMonoGame {
                 }
             }
 
-            
             //Clear();
         }
 
@@ -57,9 +56,7 @@ namespace TetrisMonoGame {
         /// </summary>
         /// <param name="gameTime">An object with information about the time that has passed in the game.</param>
         /// <param name="spriteBatch">The SpriteBatch used for drawing sprites and text.</param>
-        public void Draw(GameTime gameTime, SpriteBatch spriteBatch) {
-
-            Vector2 pos = new Vector2(0, 0);
+        public void Draw(GameTime gameTime, SpriteBatch spriteBatch, Vector2 playerOneOffset) {
 
             for (int i = 0; i < grid.GetLength(1); i++) {
 
@@ -68,37 +65,44 @@ namespace TetrisMonoGame {
                     switch (grid[j, i]) {
 
                         case 0:
-                            spriteBatch.Draw(emptyCell, new Vector2(i * emptyCell.Height, j * emptyCell.Width), Constants.VeryDarkGray);
+                            spriteBatch.Draw(emptyCell, new Vector2(i * emptyCell.Height + playerOneOffset.X, j * emptyCell.Width + playerOneOffset.Y), Constants.VeryDarkGray);
                             break;
                         case 1:
-                            spriteBatch.Draw(emptyCell, new Vector2(i * emptyCell.Height, j * emptyCell.Width), Color.Cyan);
+                            spriteBatch.Draw(emptyCell, new Vector2(i * emptyCell.Height + playerOneOffset.X, j * emptyCell.Width + playerOneOffset.Y), Color.Cyan);
                             break;
                         case 2:
-                            spriteBatch.Draw(emptyCell, new Vector2(i * emptyCell.Height, j * emptyCell.Width), Constants.CobaltBlue);
+                            spriteBatch.Draw(emptyCell, new Vector2(i * emptyCell.Height + playerOneOffset.X, j * emptyCell.Width + playerOneOffset.Y), Constants.CobaltBlue);
                             break;
                         case 3:
-                            spriteBatch.Draw(emptyCell, new Vector2(i * emptyCell.Height, j * emptyCell.Width), Constants.Beer);
+                            spriteBatch.Draw(emptyCell, new Vector2(i * emptyCell.Height + playerOneOffset.X, j * emptyCell.Width + playerOneOffset.Y), Constants.Beer);
                             break;
                         case 4:
-                            spriteBatch.Draw(emptyCell, new Vector2(i * emptyCell.Height, j * emptyCell.Width), Constants.Apple);
+                            spriteBatch.Draw(emptyCell, new Vector2(i * emptyCell.Height + playerOneOffset.X, j * emptyCell.Width + playerOneOffset.Y), Constants.Apple);
                             break;
                         case 5:
-                            spriteBatch.Draw(emptyCell, new Vector2(i * emptyCell.Height, j * emptyCell.Width), Constants.RYBRed);
+                            spriteBatch.Draw(emptyCell, new Vector2(i * emptyCell.Height + playerOneOffset.X, j * emptyCell.Width + playerOneOffset.Y), Constants.RYBRed);
                             break;
                         case 6:
-                            spriteBatch.Draw(emptyCell, new Vector2(i * emptyCell.Height, j * emptyCell.Width), Constants.CyberYellow);
+                            spriteBatch.Draw(emptyCell, new Vector2(i * emptyCell.Height + playerOneOffset.X, j * emptyCell.Width + playerOneOffset.Y), Constants.CyberYellow);
                             break;
                         case 7:
-                            spriteBatch.Draw(emptyCell, new Vector2(i * emptyCell.Height, j * emptyCell.Width), Color.Magenta);
+                            spriteBatch.Draw(emptyCell, new Vector2(i * emptyCell.Height + playerOneOffset.X, j * emptyCell.Width + playerOneOffset.Y), Color.Magenta);
                             break;
 
                     }
                 }
             }
-
-
         }
 
+
+        public static void ClearLine(int line) {
+
+            for (int i = 0; i < Width; i++) {
+
+                grid[line, i] = 0;
+                Console.WriteLine("LOL WEG IS LIJNTJE RBUUBRUBUB");
+            }
+        }
     }
 }
     /// <summary>

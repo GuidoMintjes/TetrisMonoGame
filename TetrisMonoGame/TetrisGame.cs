@@ -2,6 +2,7 @@
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Content;
+using Microsoft.Xna.Framework.Input;
 
 
 namespace TetrisMonoGame {
@@ -13,6 +14,8 @@ namespace TetrisMonoGame {
         GraphicsDeviceManager graphics;
         static GameManager manager;
 
+        // Menu texture
+        public static Texture2D tetrisArt;
 
         /// <summary>
         /// A static reference to the ContentManager object, used for loading assets.
@@ -23,7 +26,7 @@ namespace TetrisMonoGame {
         /// <summary>
         /// A static reference to the width and height of the screen.
         /// </summary>
-        public static Point ScreenSize { get; private set; }
+        public static Vector2 ScreenSize { get; private set; }
 
         [STAThread]
         static void Main(string[] args) {
@@ -42,9 +45,9 @@ namespace TetrisMonoGame {
             Content.RootDirectory = "Content";
 
             // set the desired window size
-            ScreenSize = new Point(800, 600);
-            graphics.PreferredBackBufferWidth = ScreenSize.X;
-            graphics.PreferredBackBufferHeight = ScreenSize.Y;
+            ScreenSize = Constants.SCREENSIZE;
+            graphics.PreferredBackBufferWidth = (int)ScreenSize.X;
+            graphics.PreferredBackBufferHeight = (int)ScreenSize.Y;
 
             // create the input helper object
             inputHelper = new InputHelper();
@@ -58,11 +61,10 @@ namespace TetrisMonoGame {
             manager = new GameManager();
         }
 
-
-
-
         protected override void LoadContent() {
             spriteBatch = new SpriteBatch(GraphicsDevice);
+
+            tetrisArt = ContentManager.Load<Texture2D>("TetrisArt");
 
             // create and reset the game world
             gameWorld = new GameWorld();
@@ -70,17 +72,32 @@ namespace TetrisMonoGame {
         }
 
         protected override void Update(GameTime gameTime) {
-            inputHelper.Update(gameTime);
-            gameWorld.HandleInput(gameTime, inputHelper);
-            gameWorld.Update(gameTime);
+
+            if (GameManager.gameState == GameState.Menu) {
+
+                inputHelper.Update(gameTime);
+                if (inputHelper.KeyPressed(Keys.Space)) {
+
+                    GameManager.gameState = GameState.Playing;
+                }
+            }
+
+            if (GameManager.gameState == GameState.Playing) {
+
+                inputHelper.Update(gameTime);
+                gameWorld.HandleInput(gameTime, inputHelper);
+                gameWorld.Update(gameTime);
+            }
         }
 
         protected override void Draw(GameTime gameTime) {
+
             GraphicsDevice.Clear(Color.White);
             gameWorld.Draw(gameTime, spriteBatch);
         }
 
         public static GameManager Manager {
+
             get { return manager; }
         }
     }

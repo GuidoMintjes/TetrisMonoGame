@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Linq;
 using System.Collections.Generic;
 using Microsoft.Xna.Framework;
 
@@ -13,7 +14,6 @@ namespace TetrisMonoGame {
 
 
     class GameManager {
-
 
         public int score;
 
@@ -31,11 +31,12 @@ namespace TetrisMonoGame {
         List<Block> blockList = new List<Block>();
 
         // Instance of gamestate that says something about the current state our game is in
-        public GameState gameState { get; set; }
+        public static GameState gameState { get; set; }
 
 
         public GameManager() {
 
+            gameState = GameState.Menu;
         }
 
 
@@ -91,6 +92,8 @@ namespace TetrisMonoGame {
         //'resets' the block, by adding the old block to the grid, removing it from the blockList and returning the next block in the list
         public Block NextBlock(Block mainBlok) {
 
+            CheckLineClear(mainBlok.GetYList());
+
             Block newBlock;
 
             mainBlok.AddToGrid();
@@ -100,5 +103,29 @@ namespace TetrisMonoGame {
             return newBlock;
         }
 
+        public void CheckLineClear(List<int> yList) {
+
+            foreach(int abc in yList) {
+
+                Console.Write(abc);
+            }
+            Console.WriteLine();
+
+            for(int i = yList[0]; i <= yList.Last() - 1; i++) {
+
+                for(int j = 0; j <= TetrisGrid.grid.GetLength(1) - 1; j++) {
+
+
+                    try {
+                        if (TetrisGrid.grid[i, j] == 0) {
+
+                            break;
+                        }
+                    } catch { break; }
+
+                    TetrisGrid.ClearLine(i);
+                }
+            }
+        }
     }
 }

@@ -15,12 +15,12 @@ namespace TetrisMonoGame {
 
         Texture2D sprite;
 
-        //Int to change the color of the grid
+        // Int to change the color of the grid
         public int ColorInt { get; protected set; }
 
-        //Color used internally
+        // Color used internally
         public Color Colour { get; set; }
-
+        
         public Block() {
 
             blockSize = new Vector2(Constants.DEFAULTBLOCKWIDTH, Constants.DEFAULTBLOCKHEIGHT);
@@ -33,11 +33,25 @@ namespace TetrisMonoGame {
 
             return shape;
         }
+        public List<int> GetYList() {
+
+            Console.WriteLine(Pos);
+
+            List<int> yList = new List<int>(); 
+            for (int k = (int)Pos.Y - 1; k <= shape.GetLength(0) + Pos.Y - 1; k++) {
+                yList.Add((int) k);
+
+                //Console.WriteLine(yList[k]);
+            }
+
+            return yList;
+        }
 
         public void SetShape(bool[,] newShape) {
 
             shape = newShape;
         }
+
 
         public void Respawn() {
             this.Pos = new Vector2(Constants.STARTX, Constants.STARTY + 1); // +1 to make sure it spawns inside screen bounds
@@ -46,7 +60,7 @@ namespace TetrisMonoGame {
         }
 
 
-        public virtual void Draw(GameTime gameTime, SpriteBatch spriteBatch) {
+        public virtual void Draw(GameTime gameTime, SpriteBatch spriteBatch, Vector2 playerOffset) {
             float x = this.Pos.X;
             float y = this.Pos.Y;
 
@@ -58,7 +72,7 @@ namespace TetrisMonoGame {
                     x += j;
                     if (shape[i, j] == true) {
 
-                        spriteBatch.Draw(sprite, new Vector2(x * blockSize.X, y * blockSize.Y), this.Colour);
+                        spriteBatch.Draw(sprite, new Vector2(x * blockSize.X + playerOffset.X, y * blockSize.Y + playerOffset.Y), this.Colour);
                         //TetrisGrid.grid[(int)y, (int)x] = 1;
                     }
                     x = this.Pos.X;
@@ -97,7 +111,6 @@ namespace TetrisMonoGame {
             float y = this.Pos.Y;
             int collide = 0;
  
-
             for (int i = 0; i < shape.GetLength(0); i++) {
 
                 y += i;
@@ -120,15 +133,14 @@ namespace TetrisMonoGame {
 
                                 collide = 2;
                                 Console.WriteLine("blokje collision");
-
                             }
                         } catch { }
 
                         //collide = 3 is a floor collision
                         if (y >= TetrisGrid.grid.GetLength(0) ) {
 
-                            Console.WriteLine("onderaan");
                             collide = 3;
+                            Console.WriteLine("onderaan");
                         }
                     }
 
@@ -140,7 +152,6 @@ namespace TetrisMonoGame {
 
             return collide;
         }
-
 
 
         public static bool[,] Rotate(bool[,] shape, bool turnRight) {
@@ -157,7 +168,6 @@ namespace TetrisMonoGame {
                     }
                 }
 
-
                 return tmp;
 
             } else {
@@ -171,7 +181,6 @@ namespace TetrisMonoGame {
                         tmp[i, j] = shape[j, shape.GetLength(1) - 1 - i];
                     }
                 }
-
 
                 return tmp;
             }
@@ -209,6 +218,7 @@ namespace TetrisMonoGame {
 
                 try {
 
+                    //blok.yList.Add((int)blok.Pos.Y);
                     blok.Pos += new Vector2(0, 1);
                 } catch { }
             }
