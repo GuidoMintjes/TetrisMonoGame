@@ -104,7 +104,55 @@ namespace TetrisMonoGame {
                 }
             } catch { }
 
+            MoveLineDown(line);
+
             Console.WriteLine("LOL WEG IS LIJNTJE OP: " + line);
+        }
+
+        public static void MoveLineDown(int line) {
+
+            if (line < Height) { 
+
+                int[,] tempGridStart = new int[Height - (Height - line - 1), Width];
+                int[,] tempGridEnd = new int[Height - line, Width];
+
+                for (int i = 0; i < Height; i++) {
+
+                    for (int j = 0; j < Width; j++) {
+
+                        try {
+
+                            if (i < line) {
+
+                                tempGridStart[i, j] = grid[i, j];
+                            } else if (i > line) {
+
+                                tempGridEnd[i, j] = grid[i, j];
+                            }
+                        } catch { }
+                    }
+                }
+
+                for (int i = 0; i < Height; i++) {
+
+                    for (int j = 0; j < Width; j++) {
+
+                        try {
+
+                            if (i < line) {
+
+                                grid[i + 1, j] = tempGridStart[i, j];
+                            } else if (i >= line) {
+
+                                grid[i, j] = tempGridEnd[i, j];
+                            }
+                        } catch { }
+                    }
+                }
+
+                Console.WriteLine(tempGridStart);
+                Console.WriteLine(tempGridEnd);
+            }
         }
     }
 }

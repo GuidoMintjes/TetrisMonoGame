@@ -107,7 +107,6 @@ namespace TetrisMonoGame {
 
         public bool CheckLineClear(int line) {
 
-
             for(int j = 0; j <= TetrisGrid.grid.GetLength(1) ; j++) {
 
                 try {
@@ -117,11 +116,9 @@ namespace TetrisMonoGame {
                         return false;
                     }
                 } catch { break; }
-
-
             }
 
-            Console.WriteLine("Stiekem toch ook true");
+            Console.WriteLine("Check return true");
             return true;
         }
     }
