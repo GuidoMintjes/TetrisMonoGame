@@ -75,22 +75,16 @@ namespace TetrisMonoGame {
 
         public void HandleInput(GameTime gameTime, InputHelper inputHelper) {
 
-            bool changed = false;
-
             if (inputHelper.KeyDown(Keys.Left) && !inputHelper.KeyDown(Keys.Right) ){
 
                 inputHelper.HandleHold(blok, Keys.Left, gameTime);
                 if (blok.CheckColliding() == 1 || blok.CheckColliding() == 2) Block.Move(blok, true);
-
-                changed = true;
             }
 
             if (inputHelper.KeyDown(Keys.Right) && !inputHelper.KeyDown(Keys.Left) ){
 
-                inputHelper.HandleHold(blok, Keys.Right , gameTime);
+                inputHelper.HandleHold(blok, Keys.Right, gameTime);
                 if (blok.CheckColliding() == 1 || blok.CheckColliding() == 2) Block.Move(blok, false);
-
-                changed = true;
             }
 
             if (inputHelper.KeyPressed(Keys.Up)) {
@@ -107,26 +101,17 @@ namespace TetrisMonoGame {
             if (inputHelper.KeyPressed(Keys.A)) {
 
                 inputHelper.HandleTurn(blok, Keys.A);
-
-                changed = true;
             }
 
             if (inputHelper.KeyPressed(Keys.D)) {
 
                 inputHelper.HandleTurn(blok, Keys.D);
-
-                changed = true;
             }
 
             if (inputHelper.KeyPressed(Keys.Space)) {
 
                 InputHelper.HandleSpace(blok, false);
                 RespawnCheck();
-            }
-
-            if (changed) {
-
-                
             }
         }
 
