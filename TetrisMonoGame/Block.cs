@@ -125,6 +125,7 @@ namespace TetrisMonoGame {
                         if (x >= TetrisGrid.grid.GetLength(1) || x < 0) {
 
                             collide = 1;
+                            return collide;
                         }
 
                         //this is in a try-catch because bumping into the side of the grid will cause an error
@@ -134,6 +135,7 @@ namespace TetrisMonoGame {
                             if ((TetrisGrid.grid[(int)y, (int)x] != 0)) {
 
                                 collide = 2;
+                                return collide;
                             }
                         } catch { }
 
@@ -142,6 +144,7 @@ namespace TetrisMonoGame {
 
                             Console.WriteLine("bottom");
                             collide = 3;
+                            return collide;
                         }
                     }
 

@@ -151,8 +151,8 @@ namespace TetrisMonoGame {
             if (GameManager.gameState == GameState.Playing) {
 
                 grid.Draw(gameTime, spriteBatch, Constants.PLAYERONEOFFSET);
-                blok.Draw(gameTime, spriteBatch, Constants.PLAYERONEOFFSET);
                 targetBlok.Draw(gameTime, spriteBatch, Constants.PLAYERONEOFFSET);
+                blok.Draw(gameTime, spriteBatch, Constants.PLAYERONEOFFSET);
                 extraBlok.Draw(gameTime, spriteBatch, Constants.PLAYERONEOFFSET); 
                 spriteBatch.DrawString(font, "Next block:", new Vector2(Constants.EXTRAX * Constants.DEFAULTBLOCKWIDTH + Constants.PLAYERONEOFFSET.X,
                     Constants.STARTY + Constants.PLAYERONEOFFSET.Y), Color.Black);

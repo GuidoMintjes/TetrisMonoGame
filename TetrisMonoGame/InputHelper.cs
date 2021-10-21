@@ -136,11 +136,13 @@ namespace TetrisMonoGame {
         public void HandleSpace(Block blok, bool target) {
 
             int toMove = (TetrisGrid.grid.GetLength(0) - (int)blok.Pos.Y);
+            int x = (int)blok.Pos.X;
+            int y = (int)blok.Pos.Y;
 
             for (int i = 0; i < toMove; i++) {
 
                 blok.Pos += new Vector2(0, 1);
-                if ( blok.CheckColliding() == 2 || blok.CheckColliding() == 3) {
+                if (blok.CheckColliding() == 2 || blok.CheckColliding() == 3 ){
 
                     if (target) Block.MoveUp(blok, true);
                     break;
