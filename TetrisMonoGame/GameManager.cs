@@ -160,12 +160,12 @@ namespace TetrisMonoGame {
 
         public static void MoveTarget() {
 
-            Console.WriteLine();
-            Console.WriteLine("Moved target!");
-            Console.WriteLine();
-
             GameWorld.targetBlok.SetShape(GameWorld.blok.GetShape());
-            GameWorld.targetBlok.Pos = GameWorld.blok.Pos;
+
+            Vector2 blokPos = GameWorld.blok.Pos;
+
+            GameWorld.targetBlok.Pos = blokPos;
+
             InputHelper.HandleSpace(GameWorld.targetBlok, true);
         }
     }

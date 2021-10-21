@@ -198,6 +198,7 @@ namespace TetrisMonoGame {
                 try {
 
                     blok.Pos += new Vector2(1, 0);
+                    GameManager.MoveTarget();
                 } catch { }
 
             } else {
@@ -205,6 +206,7 @@ namespace TetrisMonoGame {
                 try {
 
                     blok.Pos -= new Vector2(1, 0);
+                    GameManager.MoveTarget();
                 } catch { }
             }
         }

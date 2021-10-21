@@ -113,13 +113,13 @@ namespace TetrisMonoGame {
         //function to handle the turning process
         public void HandleTurn(Block blok, Keys key) {
 
-            GameManager.MoveTarget();
-
-
             bool rightTurn = (key == Keys.D);
             bool LeftSide = (blok.Pos.X < 5);
 
             blok.SetShape(Block.Rotate(blok.GetShape(), rightTurn));
+
+            GameManager.MoveTarget();
+
             //if colliding, move one block
             if (blok.CheckColliding() != 0) {
 

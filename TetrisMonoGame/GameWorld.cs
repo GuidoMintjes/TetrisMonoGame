@@ -90,6 +90,7 @@ namespace TetrisMonoGame {
             if (inputHelper.KeyPressed(Keys.Up)) {
 
                 inputHelper.HandleTurn(blok, Keys.D);
+                inputHelper.HandleTurn(targetBlok, Keys.D);
             }
 
             if (inputHelper.KeyDown(Keys.Down)) {
@@ -101,11 +102,13 @@ namespace TetrisMonoGame {
             if (inputHelper.KeyPressed(Keys.A)) {
 
                 inputHelper.HandleTurn(blok, Keys.A);
+                inputHelper.HandleTurn(targetBlok, Keys.A);
             }
 
             if (inputHelper.KeyPressed(Keys.D)) {
 
                 inputHelper.HandleTurn(blok, Keys.D);
+                inputHelper.HandleTurn(targetBlok, Keys.D);
             }
 
             if (inputHelper.KeyPressed(Keys.Space)) {

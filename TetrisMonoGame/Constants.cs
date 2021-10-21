@@ -29,7 +29,7 @@ namespace TetrisMonoGame {
         public const int SCORESTART = 1000;
 
 
-        //Colors
+        // Colors
         public static Color CyberYellow = new Color(255, 213, 0);
         public static Color CobaltBlue = new Color(3, 65, 174);
         public static Color Apple = new Color(114, 203, 59);
