@@ -318,11 +318,5 @@ namespace TetrisMonoGame {
             this.ColorInt = 0; //grid color
             this.Colour = Color.White;
         }
-
-        //public void UpdateBlock(bool[,] newShape = shape, Vector2 newPos) {
-
-          //  shape = newShape;
-            //Pos = newPos;
-       // }
     }
 }

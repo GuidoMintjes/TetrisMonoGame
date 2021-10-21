@@ -93,6 +93,10 @@ namespace TetrisMonoGame {
                 if (down) Block.MoveUp(blok, right);
                 else Block.Move(blok, right);
                 moved = true;
+
+                GameWorld.targetBlok.SetShape(blok.GetShape());
+                GameWorld.targetBlok.Pos = blok.Pos;
+                HandleSpace(GameWorld.targetBlok, true);
             }
 
             //check the cooldown
@@ -134,10 +138,8 @@ namespace TetrisMonoGame {
 
         
         public void HandleSpace(Block blok, bool target) {
-
-            int toMove = (TetrisGrid.grid.GetLength(0) - (int)blok.Pos.Y);
-            int x = (int)blok.Pos.X;
-            int y = (int)blok.Pos.Y;
+           
+            int toMove = TetrisGrid.grid.GetLength(0) - (int)blok.Pos.Y;
 
             for (int i = 0; i < toMove; i++) {
 

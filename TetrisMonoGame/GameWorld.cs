@@ -29,7 +29,7 @@ namespace TetrisMonoGame {
         // The blocks
         Block blok;
         Block extraBlok;
-        TargetBlock targetBlok;
+        public static TargetBlock targetBlok;
 
         /// <summary>
         /// The input helper
@@ -129,9 +129,7 @@ namespace TetrisMonoGame {
 
             if (changed) {
 
-                targetBlok.SetShape(blok.GetShape());
-                targetBlok.Pos = blok.Pos;
-                inputHelper.HandleSpace(targetBlok, true);
+                
             }
         }
 
