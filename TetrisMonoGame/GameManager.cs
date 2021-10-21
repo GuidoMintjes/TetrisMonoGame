@@ -16,7 +16,7 @@ namespace TetrisMonoGame {
     class GameManager {
 
         //score
-        public int score;
+        public int Score { get; private set; }
 
         //randomizer
         static Random rng = new Random();
@@ -98,8 +98,11 @@ namespace TetrisMonoGame {
 
                 Console.WriteLine("rijen gechecked: " + i);
 
-                if (CheckLineClear(i)) TetrisGrid.ClearLine(i);
+                if (CheckLineClear(i)) {
 
+                    TetrisGrid.ClearLine(i);
+                    Score += 100;
+                }
             }
 
             return newBlock;
@@ -107,7 +110,7 @@ namespace TetrisMonoGame {
 
         public bool CheckLineClear(int line) {
 
-            for(int j = 0; j <= TetrisGrid.grid.GetLength(1) ; j++) {
+            for(int j = 0; j <= TetrisGrid.grid.GetLength(1) - 1 ; j++) {
 
                 try {
                     if (TetrisGrid.grid[line, j] == 0) {

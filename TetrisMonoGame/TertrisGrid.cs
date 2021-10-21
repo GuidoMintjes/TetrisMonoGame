@@ -112,6 +112,7 @@ namespace TetrisMonoGame {
             MoveLineDown(line);
 
             Console.WriteLine("LOL WEG IS LIJNTJE OP: " + line);
+
         }
 
 
