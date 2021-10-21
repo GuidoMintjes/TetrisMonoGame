@@ -13,7 +13,7 @@ namespace TetrisMonoGame {
 
         Vector2 blockSize;
 
-        Texture2D sprite;
+        protected Texture2D sprite;
 
         // Int to change the color of the grid
         public int ColorInt { get; protected set; }
@@ -53,8 +53,8 @@ namespace TetrisMonoGame {
         }
 
 
-
-        public virtual void Draw(GameTime gameTime, SpriteBatch spriteBatch, Vector2 playerOffset) {
+        // Function that draws the correct blocks according to the shape of the blok
+        public void Draw(GameTime gameTime, SpriteBatch spriteBatch, Vector2 playerOffset) {
             float x = this.Pos.X;
             float y = this.Pos.Y;
 
@@ -74,6 +74,13 @@ namespace TetrisMonoGame {
                 y = this.Pos.Y;
             }
         }
+
+
+        //public void DrawTarget() {
+
+
+        //}
+
 
         public void AddToGrid() {
 
@@ -127,15 +134,14 @@ namespace TetrisMonoGame {
                             if ((TetrisGrid.grid[(int)y, (int)x] != 0)) {
 
                                 collide = 2;
-                                Console.WriteLine("blokje collision");
                             }
                         } catch { }
 
                         //collide = 3 is a floor collision
                         if (y >= TetrisGrid.grid.GetLength(0) ) {
 
+                            Console.WriteLine("bottom");
                             collide = 3;
-                            Console.WriteLine("onderaan");
                         }
                     }
 
@@ -296,5 +302,24 @@ namespace TetrisMonoGame {
             this.ColorInt = 7; //Purple
             this.Colour = Color.Magenta;
         }
+    }
+
+    class TargetBlock : Block {
+
+        public TargetBlock(bool [,] newShape, Vector2 newPos) : base() {
+
+            shape = newShape;
+            Pos = newPos;
+            sprite = TetrisGame.ContentManager.Load<Texture2D>("blockClearing");
+
+            this.ColorInt = 0; //grid color
+            this.Colour = Color.White;
+        }
+
+        //public void UpdateBlock(bool[,] newShape = shape, Vector2 newPos) {
+
+          //  shape = newShape;
+            //Pos = newPos;
+       // }
     }
 }

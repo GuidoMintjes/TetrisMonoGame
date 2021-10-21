@@ -26,20 +26,20 @@ namespace TetrisMonoGame {
         /// </summary>
         SpriteFont font;
 
-        //the block list
-        //List<Block> blockList = new List<Block>();
+        // The blocks
         Block blok;
         Block extraBlok;
+        TargetBlock targetBlok;
 
         /// <summary>
         /// The input helper
         /// </summary>
         InputHelper inputHelper;
 
-        //the game manager
+        // The game manager
         GameManager manager;
 
-        //related to gravity
+        // Related to gravity
         int timer = 1;
         float counter = 0;
         float weight = 1;
@@ -50,10 +50,10 @@ namespace TetrisMonoGame {
         TetrisGrid grid;
 
         public GameWorld() {
-            random = new Random();
-            inputHelper = new InputHelper();
 
-            font = TetrisGame.ContentManager.Load<SpriteFont>("SpelFont");
+            random = new Random();
+
+            inputHelper = new InputHelper();
 
             grid = new TetrisGrid();
 
@@ -63,26 +63,38 @@ namespace TetrisMonoGame {
 
             extraBlok = manager.GenerateBlock(true);
 
+            targetBlok = new TargetBlock(blok.GetShape(), blok.Pos);
+            inputHelper.HandleSpace(targetBlok, true);
+
+            font = TetrisGame.ContentManager.Load<SpriteFont>("SpelFont");
         }
 
         public void HandleInput(GameTime gameTime, InputHelper inputHelper) {
 
+            bool changed = false;
+
             if (inputHelper.KeyDown(Keys.Left) && !inputHelper.KeyDown(Keys.Right) ){
 
                 inputHelper.HandleHold(blok, Keys.Left, gameTime);
-                if (blok.CheckColliding() == 1 || blok.CheckColliding() == 2) Block.Move(blok, true); 
+                if (blok.CheckColliding() == 1 || blok.CheckColliding() == 2) Block.Move(blok, true);
+
+                changed = true;
             }
 
             if (inputHelper.KeyDown(Keys.Right) && !inputHelper.KeyDown(Keys.Left) ){
 
                 inputHelper.HandleHold(blok, Keys.Right , gameTime);
                 if (blok.CheckColliding() == 1 || blok.CheckColliding() == 2) Block.Move(blok, false);
+
+                changed = true;
             }
 
             if (inputHelper.KeyPressed(Keys.Up)) {
 
                 inputHelper.HandleTurn(blok, Keys.D);
-               // Block.MoveUp(blok, true);
+
+                changed = true;
+                // Block.MoveUp(blok, true);
             }
 
             if (inputHelper.KeyDown(Keys.Down)) {
@@ -94,17 +106,28 @@ namespace TetrisMonoGame {
             if (inputHelper.KeyPressed(Keys.A)) {
 
                 inputHelper.HandleTurn(blok, Keys.A);
+
+                changed = true;
             }
-            
+
             if (inputHelper.KeyPressed(Keys.D)) {
 
                 inputHelper.HandleTurn(blok, Keys.D);
+
+                changed = true;
             }
 
             if (inputHelper.KeyPressed(Keys.Space)) {
 
-                inputHelper.HandleSpace(blok);
+                inputHelper.HandleSpace(blok, false);
                 RespawnCheck();
+            }
+
+            if (changed) {
+
+                targetBlok.SetShape(blok.GetShape());
+                targetBlok.Pos = blok.Pos;
+                inputHelper.HandleSpace(targetBlok, true);
             }
         }
 
@@ -129,6 +152,7 @@ namespace TetrisMonoGame {
 
                 grid.Draw(gameTime, spriteBatch, Constants.PLAYERONEOFFSET);
                 blok.Draw(gameTime, spriteBatch, Constants.PLAYERONEOFFSET);
+                targetBlok.Draw(gameTime, spriteBatch, Constants.PLAYERONEOFFSET);
                 extraBlok.Draw(gameTime, spriteBatch, Constants.PLAYERONEOFFSET); 
                 spriteBatch.DrawString(font, "Next block:", new Vector2(Constants.EXTRAX * Constants.DEFAULTBLOCKWIDTH + Constants.PLAYERONEOFFSET.X,
                     Constants.STARTY + Constants.PLAYERONEOFFSET.Y), Color.Black);
@@ -158,6 +182,9 @@ namespace TetrisMonoGame {
                 blok = manager.NextBlock(blok);
                 extraBlok = manager.GenerateBlock(true);
 
+                targetBlok.SetShape(blok.GetShape());
+                targetBlok.Pos = blok.Pos;
+                inputHelper.HandleSpace(targetBlok, true);
             }
         }
 

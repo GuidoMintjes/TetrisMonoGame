@@ -9,8 +9,11 @@ namespace TetrisMonoGame {
     /// A class for representing the Tetris playing grid.
     /// </summary>
     public class TetrisGrid {
-        /// The sprite of a single empty cell in the grid.
-        static Texture2D emptyCell;
+        /// The sprite of a single cell in the grid.
+        static Texture2D cell;
+
+        // The sprite a a cell that's being targeted
+        static Texture2D targetCell;
 
         /// The position at which this TetrisGrid should be drawn.
         Vector2 position;
@@ -33,7 +36,9 @@ namespace TetrisMonoGame {
         /// </summary>
         /// <param name="b"></param>
         public TetrisGrid() {
-            emptyCell = TetrisGame.ContentManager.Load<Texture2D>("block");
+
+            cell = TetrisGame.ContentManager.Load<Texture2D>("block");
+
             position = Vector2.Zero;
 
             for (int i = 0; i < grid.GetLength(0); i++) {
@@ -48,7 +53,7 @@ namespace TetrisMonoGame {
 
         public static Texture2D getSprite() {
 
-            return emptyCell;
+            return cell;
         }
 
         /// <summary>
@@ -65,28 +70,28 @@ namespace TetrisMonoGame {
                     switch (grid[j, i]) {
 
                         case 0:
-                            spriteBatch.Draw(emptyCell, new Vector2(i * emptyCell.Height + playerOneOffset.X, j * emptyCell.Width + playerOneOffset.Y), Constants.VeryDarkGray);
+                            spriteBatch.Draw(cell, new Vector2(i * cell.Height + playerOneOffset.X, j * cell.Width + playerOneOffset.Y), Constants.VeryDarkGray);
                             break;
                         case 1:
-                            spriteBatch.Draw(emptyCell, new Vector2(i * emptyCell.Height + playerOneOffset.X, j * emptyCell.Width + playerOneOffset.Y), Color.Cyan);
+                            spriteBatch.Draw(cell, new Vector2(i * cell.Height + playerOneOffset.X, j * cell.Width + playerOneOffset.Y), Color.Cyan);
                             break;
                         case 2:
-                            spriteBatch.Draw(emptyCell, new Vector2(i * emptyCell.Height + playerOneOffset.X, j * emptyCell.Width + playerOneOffset.Y), Constants.CobaltBlue);
+                            spriteBatch.Draw(cell, new Vector2(i * cell.Height + playerOneOffset.X, j * cell.Width + playerOneOffset.Y), Constants.CobaltBlue);
                             break;
                         case 3:
-                            spriteBatch.Draw(emptyCell, new Vector2(i * emptyCell.Height + playerOneOffset.X, j * emptyCell.Width + playerOneOffset.Y), Constants.Beer);
+                            spriteBatch.Draw(cell, new Vector2(i * cell.Height + playerOneOffset.X, j * cell.Width + playerOneOffset.Y), Constants.Beer);
                             break;
                         case 4:
-                            spriteBatch.Draw(emptyCell, new Vector2(i * emptyCell.Height + playerOneOffset.X, j * emptyCell.Width + playerOneOffset.Y), Constants.Apple);
+                            spriteBatch.Draw(cell, new Vector2(i * cell.Height + playerOneOffset.X, j * cell.Width + playerOneOffset.Y), Constants.Apple);
                             break;
                         case 5:
-                            spriteBatch.Draw(emptyCell, new Vector2(i * emptyCell.Height + playerOneOffset.X, j * emptyCell.Width + playerOneOffset.Y), Constants.RYBRed);
+                            spriteBatch.Draw(cell, new Vector2(i * cell.Height + playerOneOffset.X, j * cell.Width + playerOneOffset.Y), Constants.RYBRed);
                             break;
                         case 6:
-                            spriteBatch.Draw(emptyCell, new Vector2(i * emptyCell.Height + playerOneOffset.X, j * emptyCell.Width + playerOneOffset.Y), Constants.CyberYellow);
+                            spriteBatch.Draw(cell, new Vector2(i * cell.Height + playerOneOffset.X, j * cell.Width + playerOneOffset.Y), Constants.CyberYellow);
                             break;
                         case 7:
-                            spriteBatch.Draw(emptyCell, new Vector2(i * emptyCell.Height + playerOneOffset.X, j * emptyCell.Width + playerOneOffset.Y), Color.Magenta);
+                            spriteBatch.Draw(cell, new Vector2(i * cell.Height + playerOneOffset.X, j * cell.Width + playerOneOffset.Y), Color.Magenta);
                             break;
 
                     }
@@ -108,6 +113,7 @@ namespace TetrisMonoGame {
 
             Console.WriteLine("LOL WEG IS LIJNTJE OP: " + line);
         }
+
 
         public static void MoveLineDown(int line) {
 
