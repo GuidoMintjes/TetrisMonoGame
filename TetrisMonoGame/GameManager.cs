@@ -156,5 +156,17 @@ namespace TetrisMonoGame {
             Console.WriteLine("Check return true");
             return true;
         }
+
+
+        public static void MoveTarget() {
+
+            Console.WriteLine();
+            Console.WriteLine("Moved target!");
+            Console.WriteLine();
+
+            GameWorld.targetBlok.SetShape(GameWorld.blok.GetShape());
+            GameWorld.targetBlok.Pos = GameWorld.blok.Pos;
+            InputHelper.HandleSpace(GameWorld.targetBlok, true);
+        }
     }
 }

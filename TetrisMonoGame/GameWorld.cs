@@ -27,7 +27,7 @@ namespace TetrisMonoGame {
         SpriteFont font;
 
         // The blocks
-        Block blok;
+        public static Block blok;
         Block extraBlok;
         public static TargetBlock targetBlok;
 
@@ -63,7 +63,7 @@ namespace TetrisMonoGame {
             extraBlok = manager.GenerateBlock(true);
 
             targetBlok = new TargetBlock(blok.GetShape(), blok.Pos);
-            inputHelper.HandleSpace(targetBlok, true);
+            InputHelper.HandleSpace(targetBlok, true);
 
             font = TetrisGame.ContentManager.Load<SpriteFont>("SpelFont");
         }
@@ -96,9 +96,6 @@ namespace TetrisMonoGame {
             if (inputHelper.KeyPressed(Keys.Up)) {
 
                 inputHelper.HandleTurn(blok, Keys.D);
-
-                changed = true;
-                // Block.MoveUp(blok, true);
             }
 
             if (inputHelper.KeyDown(Keys.Down)) {
@@ -123,7 +120,7 @@ namespace TetrisMonoGame {
 
             if (inputHelper.KeyPressed(Keys.Space)) {
 
-                inputHelper.HandleSpace(blok, false);
+                InputHelper.HandleSpace(blok, false);
                 RespawnCheck();
             }
 
@@ -197,7 +194,7 @@ namespace TetrisMonoGame {
 
                 targetBlok.SetShape(blok.GetShape());
                 targetBlok.Pos = blok.Pos;
-                inputHelper.HandleSpace(targetBlok, true);
+                InputHelper.HandleSpace(targetBlok, true);
             }
         }
 
@@ -212,7 +209,7 @@ namespace TetrisMonoGame {
             extraBlok = manager.GenerateBlock(true);
 
             targetBlok = new TargetBlock(blok.GetShape(), blok.Pos);
-            inputHelper.HandleSpace(targetBlok, true);
+            InputHelper.HandleSpace(targetBlok, true);
         }
 
     }

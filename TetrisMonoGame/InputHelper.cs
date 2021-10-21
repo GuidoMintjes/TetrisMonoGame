@@ -94,9 +94,7 @@ namespace TetrisMonoGame {
                 else Block.Move(blok, right);
                 moved = true;
 
-                GameWorld.targetBlok.SetShape(blok.GetShape());
-                GameWorld.targetBlok.Pos = blok.Pos;
-                HandleSpace(GameWorld.targetBlok, true);
+                GameManager.MoveTarget();
             }
 
             //check the cooldown
@@ -112,6 +110,9 @@ namespace TetrisMonoGame {
 
         //function to handle the turning process
         public void HandleTurn(Block blok, Keys key) {
+
+            GameManager.MoveTarget();
+
 
             bool rightTurn = (key == Keys.D);
             bool LeftSide = (blok.Pos.X < 5);
@@ -137,7 +138,7 @@ namespace TetrisMonoGame {
         }
 
         
-        public void HandleSpace(Block blok, bool target) {
+        public static void HandleSpace(Block blok, bool target) {
            
             int toMove = TetrisGrid.grid.GetLength(0) - (int)blok.Pos.Y;
 
