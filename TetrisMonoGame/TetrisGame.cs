@@ -76,6 +76,7 @@ namespace TetrisMonoGame {
             if (GameManager.gameState == GameState.Menu) {
 
                 inputHelper.Update(gameTime);
+
                 if (inputHelper.KeyPressed(Keys.Space)) {
 
                     GameManager.gameState = GameState.Playing;
@@ -85,8 +86,20 @@ namespace TetrisMonoGame {
             if (GameManager.gameState == GameState.Playing) {
 
                 inputHelper.Update(gameTime);
+
                 gameWorld.HandleInput(gameTime, inputHelper);
                 gameWorld.Update(gameTime);
+            }
+
+            if (GameManager.gameState == GameState.End) {
+
+                inputHelper.Update(gameTime);
+
+                if (inputHelper.KeyPressed(Keys.Space)) {
+
+                    GameManager.gameState = GameState.Playing;
+                    gameWorld.Reset();
+                }
             }
         }
 

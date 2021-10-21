@@ -8,7 +8,6 @@ namespace TetrisMonoGame {
     public enum GameState {
         Menu,
         Playing,
-        Pause,
         End,
         Multiplayer
     }
@@ -35,6 +34,7 @@ namespace TetrisMonoGame {
         public GameManager() {
 
             gameState = GameState.Menu;
+
         }
 
 
