@@ -40,9 +40,8 @@ namespace TetrisMonoGame {
         GameManager manager;
 
         // Related to gravity
-        int timer = 1;
+        static float timer = 1;
         float counter = 0;
-        float weight = 1;
 
         /// <summary>
         /// The main grid of the game.
@@ -67,6 +66,11 @@ namespace TetrisMonoGame {
             inputHelper.HandleSpace(targetBlok, true);
 
             font = TetrisGame.ContentManager.Load<SpriteFont>("SpelFont");
+        }
+
+        public static void SetTimer(float factor) {
+
+            timer *= factor;
         }
 
         public void HandleInput(GameTime gameTime, InputHelper inputHelper) {
@@ -156,7 +160,16 @@ namespace TetrisMonoGame {
                 extraBlok.Draw(gameTime, spriteBatch, Constants.PLAYERONEOFFSET); 
                 spriteBatch.DrawString(font, "Next block:", new Vector2(Constants.EXTRAX * Constants.DEFAULTBLOCKWIDTH + Constants.PLAYERONEOFFSET.X,
                     Constants.STARTY + Constants.PLAYERONEOFFSET.Y), Color.Black);
-                spriteBatch.DrawString(font, manager.Score.ToString(), new Vector2(Constants.DEFAULTBLOCKWIDTH * 5 + Constants.PLAYERONEOFFSET.X, Constants.PLAYERONEOFFSET.Y - Constants.DEFAULTBLOCKHEIGHT), Color.Black);
+                spriteBatch.DrawString(font, "Score: " +manager.Score.ToString(), new Vector2(Constants.SCOREX * Constants.DEFAULTBLOCKWIDTH + Constants.PLAYERONEOFFSET.X, 
+                    Constants.PLAYERONEOFFSET.Y - Constants.SCOREYOFFSET * Constants.DEFAULTBLOCKHEIGHT), Color.Black);
+                spriteBatch.DrawString(font, "Level: " + manager.Level.ToString(), new Vector2(Constants.SCOREX * Constants.DEFAULTBLOCKWIDTH + Constants.PLAYERONEOFFSET.X,
+                    Constants.PLAYERONEOFFSET.Y - Constants.LEVELYOFFSET * Constants.DEFAULTBLOCKHEIGHT), Color.Black);
+            }
+
+            if (GameManager.gameState == GameState.End) {
+
+                spriteBatch.DrawString(font, "U ded ", new Vector2(Constants.SCREENSIZE.X / 2 - TetrisGame.tetrisArt.Width / 2,
+                    Constants.SCREENSIZE.Y / 2 - TetrisGame.tetrisArt.Height / 2 - Constants.HEIGHTOFFSET), Color.Black);
             }
             spriteBatch.End();
         }

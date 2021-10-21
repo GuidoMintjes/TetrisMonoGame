@@ -8,17 +8,22 @@ namespace TetrisMonoGame {
 
     public static class Constants {
 
-        //related to blocks
+        // Related to blocks
         public const int DEFAULTBLOCKWIDTH = 30;
         public const int DEFAULTBLOCKHEIGHT = 30;
 
-        //startpos
+        // Startpos
         public const int STARTX = 4;
         public const int STARTY = 0;
 
-        //extra block position next to grid
+        // Extra block position next to grid
         public const int EXTRAX = 10;
         public const int EXTRAY = 1;
+
+        // Score display
+        public const int SCOREX = 4;
+        public const int SCOREYOFFSET = 2;
+        public const int LEVELYOFFSET = 1;
 
         //Colors
         public static Color CyberYellow = new Color(255, 213, 0);

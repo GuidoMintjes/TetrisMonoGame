@@ -9,19 +9,23 @@ namespace TetrisMonoGame {
         Menu,
         Playing,
         Pause,
-        End
+        End,
+        Multiplayer
     }
 
 
     class GameManager {
 
-        //score
+        // Score related
         public int Score { get; private set; }
+        public int Level { get; private set; }
+        int scoreLimit;
 
-        //randomizer
+
+        // Randomizer
         static Random rng = new Random();
 
-        //Blocklist
+        // Blocklist
         List<Block> blockList = new List<Block>();
 
         // Instance of gamestate that says something about the current state our game is in
@@ -88,6 +92,7 @@ namespace TetrisMonoGame {
 
             Block newBlock;
             List<int> yList = mainBlok.GetYList();
+            float scored = 0;
 
             mainBlok.AddToGrid();
             blockList.Remove(mainBlok);
@@ -100,13 +105,38 @@ namespace TetrisMonoGame {
 
                 if (CheckLineClear(i)) {
 
+                    scored ++;
                     TetrisGrid.ClearLine(i);
-                    Score += 100;
                 }
+            }
+
+            Score += (int)(scored * 100);
+            if (scored > 1) {
+                Score += (int)(0.5 * scored * 100);
+            }
+
+            ScoreCheck();
+
+            if (newBlock.CheckColliding() == 2) {
+
+                gameState = GameState.End;
             }
 
             return newBlock;
         }
+
+        public void ScoreCheck() {
+
+            if (Score >= scoreLimit) {
+
+                Score = 0;
+                scoreLimit += 500;
+                Level ++;
+
+                GameWorld.SetTimer(0.8f);
+            }
+        }
+
 
         public bool CheckLineClear(int line) {
 
