@@ -20,10 +20,14 @@ namespace TetrisMonoGame {
         public const int EXTRAX = 10;
         public const int EXTRAY = 1;
 
-        // Score display
+        // Score display and start limit
         public const int SCOREX = 4;
         public const int SCOREYOFFSET = 2;
         public const int LEVELYOFFSET = 1;
+        public const int ENDX = 2;
+        public const int ENDY = 3;
+        public const int SCORESTART = 1000;
+
 
         //Colors
         public static Color CyberYellow = new Color(255, 213, 0);

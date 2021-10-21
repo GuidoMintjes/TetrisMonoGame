@@ -18,7 +18,7 @@ namespace TetrisMonoGame {
         // Score related
         public int Score { get; private set; }
         public int Level { get; private set; }
-        int scoreLimit;
+        int scoreLimit = Constants.SCORESTART;
 
 
         // Randomizer
@@ -140,7 +140,9 @@ namespace TetrisMonoGame {
 
         public bool CheckLineClear(int line) {
 
-            for(int j = 0; j <= TetrisGrid.grid.GetLength(1) - 1 ; j++) {
+            if (line == 20) return false;
+
+            for (int j = 0; j <= TetrisGrid.grid.GetLength(1) - 1 ; j++) {
 
                 try {
                     if (TetrisGrid.grid[line, j] == 0) {

@@ -168,8 +168,9 @@ namespace TetrisMonoGame {
 
             if (GameManager.gameState == GameState.End) {
 
-                spriteBatch.DrawString(font, "U ded \n\nPress space to restart", new Vector2(Constants.SCREENSIZE.X / 2 - TetrisGame.tetrisArt.Width / 2,
-                    Constants.SCREENSIZE.Y / 2 - TetrisGame.tetrisArt.Height / 2 - Constants.HEIGHTOFFSET), Color.Black);
+                spriteBatch.DrawString(font, "U ded \n\nScore: " + manager.Score.ToString() + "\nLevel: " + manager.Level.ToString() + "\n\nPress space to restart",
+                    new Vector2(Constants.PLAYERONEOFFSET.X + Constants.ENDX * Constants.DEFAULTBLOCKWIDTH , 
+                    Constants.PLAYERONEOFFSET.Y + Constants.ENDY * Constants.DEFAULTBLOCKHEIGHT ), Color.Black);
             }
             spriteBatch.End();
         }
