@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Text;
 
-namespace TCPChatClient {
+namespace TetrisMonoGame {
 
     // Packet sent from server to client, in this case only a welcome message
     public enum ServerPackets {
@@ -12,7 +12,8 @@ namespace TCPChatClient {
         chat = 3,
         names = 4,
         connected = 5,
-        disconnected = 6
+        disconnected = 6,
+        block = 7
     }
 
 
@@ -24,7 +25,8 @@ namespace TCPChatClient {
         chatReceived = 3,
         namesReceived = 4,
         connectedReceived = 5,
-        disconnectedReceived = 6
+        disconnectedReceived = 6,
+        blockInfoReceived = 7
     }
 
 
@@ -152,6 +154,12 @@ namespace TCPChatClient {
             buffer.AddRange(Encoding.Unicode.GetBytes(_stringValue)); // Add to the packet/datastream the string itself
         }
 
+
+        public void PacketWrite(bool _boolValue) {
+
+            buffer.AddRange(BitConverter.GetBytes(_boolValue));
+        }
+
         #endregion
 
         #region Packet Data Reading Functions
@@ -171,6 +179,23 @@ namespace TCPChatClient {
             } else {
                 Funcs.printMessage(0, "Value of type 'byte' could not be read!", false);
                 return nullByte;
+            }
+        }
+
+
+        public bool PacketReadBool(bool moveDataPointer) {
+
+            if (buffer.Count > readPointer) {
+
+                bool boolRead = BitConverter.ToBoolean(byteArray, readPointer);
+                if (moveDataPointer)
+                    readPointer++;
+
+                return boolRead;
+
+            } else {
+                Funcs.printMessage(0, "Value of type 'bool' could not be read!", false);
+                return false;
             }
         }
 

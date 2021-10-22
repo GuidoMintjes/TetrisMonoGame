@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 
-namespace TCPChatClient {
+namespace TetrisMonoGame {
     class ThreadManager {
 
         // An action is kind of like a thread, but it needs to be placed on a thread, in this case we only have the main thread

@@ -155,6 +155,23 @@ namespace TetrisMonoGame {
                     new Vector2(Constants.PLAYERONEOFFSET.X + Constants.ENDX * Constants.DEFAULTBLOCKWIDTH , 
                     Constants.PLAYERONEOFFSET.Y + Constants.ENDY * Constants.DEFAULTBLOCKHEIGHT ), Color.Black);
             }
+
+
+            if (GameManager.gameState == GameState.Multiplayer) {
+
+                grid.Draw(gameTime, spriteBatch, Constants.PLAYERONEOFFSET);
+                targetBlok.Draw(gameTime, spriteBatch, Constants.PLAYERONEOFFSET);
+                blok.Draw(gameTime, spriteBatch, Constants.PLAYERONEOFFSET);
+                extraBlok.Draw(gameTime, spriteBatch, Constants.PLAYERONEOFFSET);
+                spriteBatch.DrawString(font, "Next block:", new Vector2(Constants.EXTRAX * Constants.DEFAULTBLOCKWIDTH + Constants.PLAYERONEOFFSET.X,
+                    Constants.STARTY + Constants.PLAYERONEOFFSET.Y), Color.Black);
+                spriteBatch.DrawString(font, "Score: " + manager.Score.ToString(), new Vector2(Constants.SCOREX * Constants.DEFAULTBLOCKWIDTH + Constants.PLAYERONEOFFSET.X,
+                    Constants.PLAYERONEOFFSET.Y - Constants.SCOREYOFFSET * Constants.DEFAULTBLOCKHEIGHT), Color.Black);
+                spriteBatch.DrawString(font, "Level: " + manager.Level.ToString(), new Vector2(Constants.SCOREX * Constants.DEFAULTBLOCKWIDTH + Constants.PLAYERONEOFFSET.X,
+                    Constants.PLAYERONEOFFSET.Y - Constants.LEVELYOFFSET * Constants.DEFAULTBLOCKHEIGHT), Color.Black);
+            }
+
+
             spriteBatch.End();
         }
 
@@ -169,6 +186,8 @@ namespace TetrisMonoGame {
                 counter = 0;
                 //Console.WriteLine("gravity");
                 RespawnCheck();
+
+                //TCPClientSend.SendBlockInfo(GameWorld.blok);
             }
         }
     

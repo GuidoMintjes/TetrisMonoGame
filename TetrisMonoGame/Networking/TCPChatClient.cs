@@ -5,7 +5,7 @@ using System.Threading;
 using System.Net.Sockets;
 
 
-namespace TCPChatClient {
+namespace TetrisMonoGame {
 
     public class TCPChatClient {
 
@@ -15,8 +15,6 @@ namespace TCPChatClient {
         public static TCPChatClient instance;
 
         
-        public static string connectIP;
-        public static int connectPort = 8900;
         public static int dataBufferSize = 4096;
         public static TCP tcp;
 
@@ -36,23 +34,14 @@ namespace TCPChatClient {
 
         #region Start Program
 
-        public static void Main() {
+        public static void StartConnect() {
 
             Console.Title = "TCP Chat Client Demo";
 
             tcp = new TCP();
 
-            Funcs.printMessage(3, "What is your desired username?", true);
-            string name = Console.ReadLine();
-            userName = name;
 
-
-            Funcs.printMessage(3, "What is the ip of the server you are trying to connect to?", true);
-            string ip = Console.ReadLine();
-            connectIP = ip;
-
-
-            Funcs.printMessage(3, "Trying to connect to server on port: " + connectPort, true);
+            Funcs.printMessage(3, "Trying to connect to server on port: " + Constants.port, true);
             tcp.Connect();
 
             ThreadManager.UpdateMain();
@@ -115,9 +104,7 @@ namespace TCPChatClient {
 
                 receiveByteArray = new byte[dataBufferSize];    // Gets the 'stream' of info provided by the socket
 
-                socket.BeginConnect(connectIP, connectPort, SocketConnectCallback, socket);
-
-                NetworkCommand.CommandLoop();
+                socket.BeginConnect(Constants.ipAddress, Constants.port, SocketConnectCallback, socket);
             }
 
 
@@ -136,7 +123,7 @@ namespace TCPChatClient {
 
                 stream.BeginRead(receiveByteArray, 0, dataBufferSize, StreamReceiveCallback, null);
 
-                Funcs.printMessage(3, "Connected to server on port: " + TCPChatClient.connectPort, true);
+                Funcs.printMessage(3, "Connected to server on port: " + Constants.port, true);
             }
 
 
@@ -291,7 +278,8 @@ namespace TCPChatClient {
                     { (int) ServerPackets.chat, TCPClientHandle.DisplayChat },
                     { (int) ServerPackets.names, TCPClientHandle.DisplayNames },
                     { (int) ServerPackets.connected, TCPClientHandle.DisplayConnected },
-                    { (int) ServerPackets.disconnected, TCPClientHandle.DisplayDisconnected }
+                    { (int) ServerPackets.disconnected, TCPClientHandle.DisplayDisconnected },
+                    { (int) ServerPackets.block, TCPClientHandle.UpdateOpponentBlock }
                 };
 
                 Funcs.printMessage(2, "Packet handler dictionary initiated!", true);

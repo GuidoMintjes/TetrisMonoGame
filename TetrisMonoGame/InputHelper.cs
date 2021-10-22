@@ -84,6 +84,8 @@ namespace TetrisMonoGame {
                 else Block.Move(blok, right);
 
                 GameManager.MoveTarget();
+
+                
             }
 
             //start the counter while holding down the key

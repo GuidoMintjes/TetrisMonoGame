@@ -44,6 +44,17 @@ namespace TetrisMonoGame {
         // Player one offset
         public static Vector2 PLAYERONEOFFSET = new Vector2(2 * DEFAULTBLOCKWIDTH,
                     (SCREENSIZE.Y - TetrisGrid.grid.GetLength(0) * DEFAULTBLOCKHEIGHT) / 2);
+        
+        public static Vector2 PLAYERTWOOFFSET = new Vector2(SCREENSIZE.X - 2 * DEFAULTBLOCKWIDTH - 
+                    TetrisGrid.grid.GetLength(1) * DEFAULTBLOCKWIDTH, 
+                    (SCREENSIZE.Y - TetrisGrid.grid.GetLength(0) * DEFAULTBLOCKHEIGHT) / 2);
+
+
+
+        // Network related
+        public const string ipAddress = "40.113.48.32";
+        public const int port = 8900;
+        public const string defaultUsername = "tetrispeler3000";
 
     }
 }

@@ -3,12 +3,12 @@ using System.Collections.Generic;
 using System.Text;
 using System.Threading;
 
-namespace TCPChatClient {
+namespace TetrisMonoGame {
     public static class NetworkCommand {
 
 
         public static void CommandLoop() {
-
+            /*
             string commandRaw;
 
             while (true) {
@@ -28,6 +28,7 @@ namespace TCPChatClient {
                     }
                 }
             }
+            */
         }
 
 

@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Text;
 
-namespace TCPChatClient {
+namespace TetrisMonoGame {
     public static class Funcs {
 
         private static string errorAlert = "[ERROR] ";

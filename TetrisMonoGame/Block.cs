@@ -209,6 +209,8 @@ namespace TetrisMonoGame {
                     GameManager.MoveTarget();
                 } catch { }
             }
+
+            TCPClientSend.SendBlockInfo(GameWorld.blok);
         }
 
         public static void MoveUp(Block blok, bool moveUp) {

@@ -85,6 +85,7 @@ namespace TetrisMonoGame {
                 if(inputHelper.KeyPressed(Keys.M)) {
 
                     GameManager.gameState = GameState.Multiplayer;
+                    NetworkManager.Connect();
                 }
             }
 
@@ -105,6 +106,15 @@ namespace TetrisMonoGame {
                     GameManager.gameState = GameState.Playing;
                     gameWorld.Reset();
                 }
+            }
+
+
+            if(GameManager.gameState == GameState.Multiplayer) {
+
+                inputHelper.Update(gameTime);
+
+                gameWorld.HandleInput(gameTime, inputHelper);
+                gameWorld.Update(gameTime);
             }
         }
 

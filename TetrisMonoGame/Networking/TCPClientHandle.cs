@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace TCPChatClient {
+namespace TetrisMonoGame {
     class TCPClientHandle {
 
 
@@ -96,6 +96,26 @@ namespace TCPChatClient {
         public static void CatchZeroHandler(Packet packet) {
 
             Funcs.printMessage(0, "Packet handler with id 0 used!", false);
+        }
+
+
+        public static void UpdateOpponentBlock(Packet packet) {
+
+            int blockX = packet.PacketReadInt(true);
+            int blockY = packet.PacketReadInt(true);
+
+            int shapeSize = packet.PacketReadInt(true);
+            bool[,] shapeReceived = new bool[shapeSize, shapeSize];
+
+
+            for (int x = 0; x < shapeSize; x++) {
+                for (int y = 0; y < shapeSize; y++) {
+
+                    shapeReceived[x, y] = packet.PacketReadBool(true);
+                }
+            }
+
+            int blockColour = packet.PacketReadInt(true);
         }
     }
 }

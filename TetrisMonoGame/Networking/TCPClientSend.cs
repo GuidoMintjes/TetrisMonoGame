@@ -3,7 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Text;
 
-namespace TCPChatClient {
+namespace TetrisMonoGame {
     class TCPClientSend {
     
         // Acknowledge the welcome message and send back client ID as confirmation and username
@@ -18,6 +18,32 @@ namespace TCPChatClient {
 
             Funcs.printMessage(2, $"Sent welcome received packet with username {TCPChatClient.userName} and this is ID {TCPChatClient.clientID}",
                                 false);
+        }
+
+
+        public static void SendBlockInfo(Block block) {
+
+            Funcs.printMessage(2, "Trying to send block info!", false);
+
+            using (Packet packet = new Packet(7)) {
+
+                packet.PacketWrite((int) block.Pos.X);
+                packet.PacketWrite((int) block.Pos.Y);
+
+                int shapeSize = block.GetShape().GetLength(0);
+                packet.PacketWrite(shapeSize);
+
+                for (int x = 0; x < shapeSize; x++) {
+                    for (int y = 0; y < shapeSize; y++) {
+
+                        packet.PacketWrite(block.GetShape()[x, y]);
+                    }
+                }
+
+                packet.PacketWrite(block.ColorInt);
+
+                TCPSendData(packet);
+            }
         }
 
         
