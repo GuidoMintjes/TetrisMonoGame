@@ -199,6 +199,9 @@ namespace TetrisMonoGame {
 
                     blok.Pos += new Vector2(1, 0);
                     GameManager.MoveTarget();
+
+                    TCPClientSend.SendBlockInfo(GameWorld.blok);
+
                 } catch { }
 
             } else {
@@ -207,10 +210,11 @@ namespace TetrisMonoGame {
 
                     blok.Pos -= new Vector2(1, 0);
                     GameManager.MoveTarget();
+
+                    TCPClientSend.SendBlockInfo(GameWorld.blok);
+
                 } catch { }
             }
-
-            TCPClientSend.SendBlockInfo(GameWorld.blok);
         }
 
         public static void MoveUp(Block blok, bool moveUp) {

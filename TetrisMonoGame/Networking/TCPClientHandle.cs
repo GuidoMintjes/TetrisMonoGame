@@ -101,6 +101,8 @@ namespace TetrisMonoGame {
 
         public static void UpdateOpponentBlock(Packet packet) {
 
+            Funcs.printMessage(2, "Trying to update Opponent block!", false);
+
             int blockX = packet.PacketReadInt(true);
             int blockY = packet.PacketReadInt(true);
 
