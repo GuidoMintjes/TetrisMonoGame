@@ -237,6 +237,10 @@ namespace TetrisMonoGame {
 
             } else {
                 Funcs.printMessage(0, "Value of type 'int' could not be read!", false);
+
+                TCPChatClient.Disconnect();
+                NetworkManager.Connect();
+
                 return 0;
             }
         }
