@@ -13,7 +13,7 @@ namespace TetrisMonoGame {
 
         //related to cooldown
         float counter = 0;
-        float timer = 0.3f;
+        float timer = 0.45f;
         float cooldownTimer = 0.1f;
         float cooldownCounter;
         bool moved = false;
@@ -107,7 +107,6 @@ namespace TetrisMonoGame {
 
                 counter = 0;
             }
-
         }
 
         //function to handle the turning process

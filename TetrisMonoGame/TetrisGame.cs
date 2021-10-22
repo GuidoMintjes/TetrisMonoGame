@@ -81,6 +81,11 @@ namespace TetrisMonoGame {
 
                     GameManager.gameState = GameState.Playing;
                 }
+
+                if(inputHelper.KeyPressed(Keys.M)) {
+
+                    GameManager.gameState = GameState.Multiplayer;
+                }
             }
 
             if (GameManager.gameState == GameState.Playing) {
