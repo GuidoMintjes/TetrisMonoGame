@@ -152,8 +152,17 @@ namespace TetrisMonoGame {
 
                     receivedData.NullifyPacket(HandleData(dataArray));
 
-                    stream.BeginRead(receiveByteArray, 0, dataBufferSize, StreamReceiveCallback, null);
+                    try {
+                        stream.BeginRead(receiveByteArray, 0, dataBufferSize, StreamReceiveCallback, null);
+                    } catch {
+                        Thread.Sleep(100);
 
+                        try {
+                            stream.BeginRead(receiveByteArray, 0, dataBufferSize, StreamReceiveCallback, null);
+                        } catch {
+
+                        }
+                    }
                 } catch(Exception exc) {
 
                     Funcs.printMessage(0, "Error! ==> disconnecting " + exc, false);
