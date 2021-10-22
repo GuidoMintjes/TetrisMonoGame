@@ -142,7 +142,6 @@ namespace TetrisMonoGame {
                         //collide = 3 is a floor collision
                         if (y >= TetrisGrid.grid.GetLength(0) ) {
 
-                            Console.WriteLine("bottom");
                             collide = 3;
                             return collide;
                         }
