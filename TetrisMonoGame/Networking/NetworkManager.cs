@@ -16,5 +16,10 @@ namespace TetrisMonoGame {
 
             TCPClientSend.SendBlockInfo(GameWorld.blok);
         }
+
+        internal static void Disconnect() {
+
+            TCPChatClient.Disconnect();
+        }
     }
 }

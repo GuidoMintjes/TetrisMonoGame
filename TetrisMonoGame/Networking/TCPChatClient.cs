@@ -150,34 +150,10 @@ namespace TetrisMonoGame {
 
                     stream = socket.GetStream();
 
-                    try {
-                        receivedData.NullifyPacket(HandleData(dataArray));
-                    } catch {
+                    receivedData.NullifyPacket(HandleData(dataArray));
 
-                        try {
-                            stream.BeginRead(receiveByteArray, 0, dataBufferSize, StreamReceiveCallback, null);
-                        } catch {
-                            Thread.Sleep(100);
+                    stream.BeginRead(receiveByteArray, 0, dataBufferSize, StreamReceiveCallback, null);
 
-                            try {
-                                stream.BeginRead(receiveByteArray, 0, dataBufferSize, StreamReceiveCallback, null);
-                            } catch {
-
-                            }
-                        }
-                    }
-
-                    try {
-                        stream.BeginRead(receiveByteArray, 0, dataBufferSize, StreamReceiveCallback, null);
-                    } catch {
-                        Thread.Sleep(100);
-
-                        try {
-                            stream.BeginRead(receiveByteArray, 0, dataBufferSize, StreamReceiveCallback, null);
-                        } catch {
-
-                        }
-                    }
                 } catch(Exception exc) {
 
                     Funcs.printMessage(0, "Error! ==> disconnecting " + exc, false);

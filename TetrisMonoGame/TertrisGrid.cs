@@ -163,9 +163,3 @@ namespace TetrisMonoGame {
         }
     }
 }
-    /// <summary>
-    /// Clears the grid.
-    /// </summary>
-   // public void Clear() {
-
-   // }

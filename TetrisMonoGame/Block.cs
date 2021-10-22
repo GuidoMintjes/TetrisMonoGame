@@ -10,6 +10,7 @@ namespace TetrisMonoGame {
         protected bool[,] shape;
 
         public Vector2 Pos { get; set; }
+        public Vector2 LastPos { get; set; }
 
         Vector2 blockSize;
 
@@ -197,9 +198,14 @@ namespace TetrisMonoGame {
                 try {
 
                     blok.Pos += new Vector2(1, 0);
+
+                    Console.WriteLine(blok.Pos.X);
+
                     GameManager.MoveTarget();
 
-                    TCPClientSend.SendBlockInfo(GameWorld.blok);
+                    if (GameManager.gameState == GameState.Multiplayer && GameWorld.blok.LastPos != GameWorld.blok.Pos) {
+                        TCPClientSend.SendBlockInfo(GameWorld.blok);
+                    }
 
                 } catch { }
 
@@ -210,7 +216,9 @@ namespace TetrisMonoGame {
                     blok.Pos -= new Vector2(1, 0);
                     GameManager.MoveTarget();
 
-                    TCPClientSend.SendBlockInfo(GameWorld.blok);
+                    if (GameManager.gameState == GameState.Multiplayer && GameWorld.blok.LastPos != GameWorld.blok.Pos) {
+                        TCPClientSend.SendBlockInfo(GameWorld.blok);
+                    }
 
                 } catch { }
             }

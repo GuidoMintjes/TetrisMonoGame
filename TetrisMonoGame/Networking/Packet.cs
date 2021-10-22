@@ -225,8 +225,19 @@ namespace TetrisMonoGame {
 
                 TCPChatClient.countIntegers++;
 
-                int intRead = BitConverter.ToInt32(byteArray, readPointer);
+                int intRead = 0;
 
+                try {
+                    intRead = BitConverter.ToInt32(byteArray, readPointer);
+                } catch {
+                    Console.WriteLine();
+                    Console.WriteLine("byte Array length: " + byteArray.Length + " rp: " + readPointer);
+                    Console.WriteLine("buffer length: " + buffer.Count);
+                    Console.WriteLine();
+                }
+                
+                
+                
                 //Console.WriteLine(intRead.ToString() + " read as no. " + TCPChatClient.countIntegers + 
                     //" from: " + (new System.Diagnostics.StackTrace()).GetFrame(1).GetMethod());
 
@@ -237,9 +248,6 @@ namespace TetrisMonoGame {
 
             } else {
                 Funcs.printMessage(0, "Value of type 'int' could not be read!", false);
-
-                TCPChatClient.Disconnect();
-                NetworkManager.Connect();
 
                 return 0;
             }

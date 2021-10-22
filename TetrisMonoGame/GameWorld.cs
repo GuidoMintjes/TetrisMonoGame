@@ -127,6 +127,8 @@ namespace TetrisMonoGame {
             float deltaTime = (float)gameTime.ElapsedGameTime.TotalSeconds;
 
             Gravity(deltaTime);
+
+            blok.LastPos = blok.Pos;
         }
 
         public void Draw(GameTime gameTime, SpriteBatch spriteBatch) {

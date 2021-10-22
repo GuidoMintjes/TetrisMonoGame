@@ -119,6 +119,11 @@ namespace TetrisMonoGame {
 
             if (newBlock.CheckColliding() == 2) {
 
+                if(GameManager.gameState == GameState.Multiplayer) {
+
+                    NetworkManager.Disconnect();
+                }
+
                 gameState = GameState.End;
             }
 
