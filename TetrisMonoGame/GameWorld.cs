@@ -167,6 +167,7 @@ namespace TetrisMonoGame {
                 targetBlok.Draw(gameTime, spriteBatch, Constants.PLAYERONEOFFSET);
                 blok.Draw(gameTime, spriteBatch, Constants.PLAYERONEOFFSET);
                 extraBlok.Draw(gameTime, spriteBatch, Constants.PLAYERONEOFFSET);
+                NetworkedBlock.Draw(gameTime, spriteBatch, Constants.PLAYERTWOOFFSET);
                 spriteBatch.DrawString(font, "Next block:", new Vector2(Constants.EXTRAX * Constants.DEFAULTBLOCKWIDTH + Constants.PLAYERONEOFFSET.X,
                     Constants.STARTY + Constants.PLAYERONEOFFSET.Y), Color.Black);
                 spriteBatch.DrawString(font, "Score: " + manager.Score.ToString(), new Vector2(Constants.SCOREX * Constants.DEFAULTBLOCKWIDTH + Constants.PLAYERONEOFFSET.X,
