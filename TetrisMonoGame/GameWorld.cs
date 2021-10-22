@@ -31,6 +31,8 @@ namespace TetrisMonoGame {
         Block extraBlok;
         public static TargetBlock targetBlok;
 
+        public static Block NetworkedBlock;
+
         /// <summary>
         /// The input helper
         /// </summary>
@@ -61,6 +63,8 @@ namespace TetrisMonoGame {
             blok = manager.GenerateBlock(false);
 
             extraBlok = manager.GenerateBlock(true);
+
+            NetworkedBlock = manager.GenerateBlock(false);
 
             targetBlok = new TargetBlock(blok.GetShape(), blok.Pos);
             InputHelper.HandleSpace(targetBlok, true);

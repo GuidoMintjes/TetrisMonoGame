@@ -23,8 +23,6 @@ namespace TetrisMonoGame {
 
         public static void SendBlockInfo(Block block) {
 
-            Funcs.printMessage(2, "Trying to send block info!", false);
-
             using (Packet packet = new Packet(7)) {
 
                 packet.PacketWrite((int) block.Pos.X);
