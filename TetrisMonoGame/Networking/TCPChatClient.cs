@@ -111,7 +111,11 @@ namespace TetrisMonoGame {
             // Method that gets called back on when client connects to server
             void SocketConnectCallback(IAsyncResult aResult) {
 
-                socket.EndConnect(aResult);
+                try {
+                    socket.EndConnect(aResult);
+
+                } catch { // Currently reconnecting
+                          }
 
                 if (!socket.Connected) {
                     return;
