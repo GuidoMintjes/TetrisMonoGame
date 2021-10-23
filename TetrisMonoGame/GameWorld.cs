@@ -11,9 +11,6 @@ namespace TetrisMonoGame {
     /// This contains the grid, the falling block, and everything else that the player can see/do.
     /// </summary>
     class GameWorld {
-        /// <summary>
-        /// An enum for the different game states that the game can have.
-        /// </summary>
 
         /// <summary>
         /// The random-number generator of the game.
@@ -31,7 +28,9 @@ namespace TetrisMonoGame {
         Block extraBlok;
         public static TargetBlock targetBlok;
 
+        // Multiplayer related
         public static Block NetworkedBlock;
+        PlayerTwoGrid NetworkedGrid;
 
         /// <summary>
         /// The input helper
@@ -64,7 +63,11 @@ namespace TetrisMonoGame {
 
             extraBlok = manager.GenerateBlock(true);
 
-            NetworkedBlock = manager.GenerateBlock(false);
+            if (GameManager.gameState == GameState.Multiplayer) {
+
+                NetworkedBlock = manager.GenerateBlock(false);
+                NetworkedGrid = new PlayerTwoGrid();
+            }
 
             targetBlok = new TargetBlock(blok.GetShape(), blok.Pos);
             InputHelper.HandleSpace(targetBlok, true);
@@ -143,7 +146,7 @@ namespace TetrisMonoGame {
 
             if (GameManager.gameState == GameState.Playing) {
 
-                grid.Draw(gameTime, spriteBatch, Constants.PLAYERONEOFFSET);
+                grid.Draw(gameTime, spriteBatch);
                 targetBlok.Draw(gameTime, spriteBatch, Constants.PLAYERONEOFFSET);
                 blok.Draw(gameTime, spriteBatch, Constants.PLAYERONEOFFSET);
                 extraBlok.Draw(gameTime, spriteBatch, Constants.PLAYERONEOFFSET); 
@@ -165,11 +168,17 @@ namespace TetrisMonoGame {
 
             if (GameManager.gameState == GameState.Multiplayer) {
 
-                grid.Draw(gameTime, spriteBatch, Constants.PLAYERONEOFFSET);
+                // Player one
+                grid.Draw(gameTime, spriteBatch);
                 targetBlok.Draw(gameTime, spriteBatch, Constants.PLAYERONEOFFSET);
                 blok.Draw(gameTime, spriteBatch, Constants.PLAYERONEOFFSET);
                 extraBlok.Draw(gameTime, spriteBatch, Constants.PLAYERONEOFFSET);
+
+                // Player two
+                NetworkedGrid.Draw(gameTime, spriteBatch);
                 NetworkedBlock.Draw(gameTime, spriteBatch, Constants.PLAYERTWOOFFSET);
+
+                // Player one text
                 spriteBatch.DrawString(font, "Next block:", new Vector2(Constants.EXTRAX * Constants.DEFAULTBLOCKWIDTH + Constants.PLAYERONEOFFSET.X,
                     Constants.STARTY + Constants.PLAYERONEOFFSET.Y), Color.Black);
                 spriteBatch.DrawString(font, "Score: " + manager.Score.ToString(), new Vector2(Constants.SCOREX * Constants.DEFAULTBLOCKWIDTH + Constants.PLAYERONEOFFSET.X,
@@ -209,6 +218,11 @@ namespace TetrisMonoGame {
                 targetBlok.SetShape(blok.GetShape());
                 targetBlok.Pos = blok.Pos;
                 InputHelper.HandleSpace(targetBlok, true);
+
+                if (GameManager.gameState == GameState.Multiplayer) {
+
+                    NetworkedGrid.UpdateNetworkedGrid();
+                }
             }
         }
 

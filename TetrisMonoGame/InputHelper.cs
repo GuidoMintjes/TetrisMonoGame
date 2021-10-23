@@ -142,7 +142,7 @@ namespace TetrisMonoGame {
         
         public static void HandleSpace(Block blok, bool target) {
            
-            int toMove = TetrisGrid.grid.GetLength(0) - (int)blok.Pos.Y;
+            int toMove = TetrisGrid.Height - (int)blok.Pos.Y;
 
             for (int i = 0; i < toMove; i++) {
 

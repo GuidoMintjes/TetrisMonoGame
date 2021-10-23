@@ -97,6 +97,7 @@ namespace TetrisMonoGame {
                     if (shape[i, j] == true) {
 
                         try {
+
                             TetrisGrid.grid[(int)y - 1, (int)x] = this.ColorInt; //y - 1 to make sure it draws in the grid
                         } catch { }
                     }
@@ -123,7 +124,7 @@ namespace TetrisMonoGame {
                     if (shape[i, j] == true) {
 
                         //collision = 1 is a wall collision
-                        if (x >= TetrisGrid.grid.GetLength(1) || x < 0) {
+                        if (x >= TetrisGrid.Width || x < 0) {
 
                             collide = 1;
                             return collide;
@@ -141,7 +142,7 @@ namespace TetrisMonoGame {
                         } catch { }
 
                         //collide = 3 is a floor collision
-                        if (y >= TetrisGrid.grid.GetLength(0) ) {
+                        if (y >= TetrisGrid.Height ) {
 
                             collide = 3;
                             return collide;

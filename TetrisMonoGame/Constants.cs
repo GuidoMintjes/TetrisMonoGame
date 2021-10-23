@@ -43,11 +43,11 @@ namespace TetrisMonoGame {
 
         // Player one offset
         public static Vector2 PLAYERONEOFFSET = new Vector2(2 * DEFAULTBLOCKWIDTH,
-                    (SCREENSIZE.Y - TetrisGrid.grid.GetLength(0) * DEFAULTBLOCKHEIGHT) / 2);
+                    (SCREENSIZE.Y - TetrisGrid.Height * DEFAULTBLOCKHEIGHT) / 2);
         
         public static Vector2 PLAYERTWOOFFSET = new Vector2(SCREENSIZE.X - 2 * DEFAULTBLOCKWIDTH - 
-                    TetrisGrid.grid.GetLength(1) * DEFAULTBLOCKWIDTH, 
-                    (SCREENSIZE.Y - TetrisGrid.grid.GetLength(0) * DEFAULTBLOCKHEIGHT) / 2);
+                    TetrisGrid.Width * DEFAULTBLOCKWIDTH, 
+                    (SCREENSIZE.Y - TetrisGrid.Height * DEFAULTBLOCKHEIGHT) / 2);
 
 
 

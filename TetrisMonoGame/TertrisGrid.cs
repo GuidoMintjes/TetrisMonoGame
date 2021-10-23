@@ -10,13 +10,7 @@ namespace TetrisMonoGame {
     /// </summary>
     public class TetrisGrid {
         /// The sprite of a single cell in the grid.
-        static Texture2D cell;
-
-        // The sprite a a cell that's being targeted
-        static Texture2D targetCell;
-
-        /// The position at which this TetrisGrid should be drawn.
-        Vector2 position;
+        protected static Texture2D cell;
 
         /// The number of grid elements in the x-direction.
         public static int Width { get { return 10; } }
@@ -39,16 +33,12 @@ namespace TetrisMonoGame {
 
             cell = TetrisGame.ContentManager.Load<Texture2D>("block");
 
-            position = Vector2.Zero;
-
             for (int i = 0; i < grid.GetLength(0); i++) {
                 for (int j = 0; j < grid.GetLength(1); j++) {
                     grid[i, j] = 0;
 
                 }
             }
-
-            //Clear();
         }
 
         public static Texture2D getSprite() {
@@ -56,12 +46,19 @@ namespace TetrisMonoGame {
             return cell;
         }
 
+        public static void setGrid(int x, int y, int value) {
+
+            grid[x, y] = value;
+        }
+
         /// <summary>
         /// Draws the grid on the screen.
         /// </summary>
         /// <param name="gameTime">An object with information about the time that has passed in the game.</param>
         /// <param name="spriteBatch">The SpriteBatch used for drawing sprites and text.</param>
-        public void Draw(GameTime gameTime, SpriteBatch spriteBatch, Vector2 playerOneOffset) {
+        public virtual void Draw(GameTime gameTime, SpriteBatch spriteBatch) {
+
+            Vector2 playerOneOffset = Constants.PLAYERONEOFFSET;
 
             for (int i = 0; i < grid.GetLength(1); i++) {
 
@@ -162,4 +159,67 @@ namespace TetrisMonoGame {
             }
         }
     }
+
+    public class PlayerTwoGrid : TetrisGrid {
+
+        int[,] grid2 = new int[Height,Width];
+
+        public PlayerTwoGrid() {
+
+            for (int i = 0; i < grid.GetLength(0); i++) {
+                for (int j = 0; j < grid.GetLength(1); j++) {
+                    grid2[i, j] = 0;
+
+                }
+            }
+        }
+
+        public void UpdateNetworkedGrid() {
+
+
+        }
+
+        public override void Draw(GameTime gameTime, SpriteBatch spriteBatch) {
+
+            Vector2 playerTwoOffset = Constants.PLAYERTWOOFFSET;
+
+            for (int i = 0; i < grid.GetLength(1); i++) {
+
+                for (int j = 0; j < grid.GetLength(0); j++) {
+
+                    switch (grid[j, i]) {
+
+                        case 0:
+                            spriteBatch.Draw(cell, new Vector2(i * cell.Height + playerTwoOffset.X, j * cell.Width + playerTwoOffset.Y), Constants.VeryDarkGray);
+                            break;
+                        case 1:
+                            spriteBatch.Draw(cell, new Vector2(i * cell.Height + playerTwoOffset.X, j * cell.Width + playerTwoOffset.Y), Color.Cyan);
+                            break;
+                        case 2:
+                            spriteBatch.Draw(cell, new Vector2(i * cell.Height + playerTwoOffset.X, j * cell.Width + playerTwoOffset.Y), Constants.CobaltBlue);
+                            break;
+                        case 3:
+                            spriteBatch.Draw(cell, new Vector2(i * cell.Height + playerTwoOffset.X, j * cell.Width + playerTwoOffset.Y), Constants.Beer);
+                            break;
+                        case 4:
+                            spriteBatch.Draw(cell, new Vector2(i * cell.Height + playerTwoOffset.X, j * cell.Width + playerTwoOffset.Y), Constants.Apple);
+                            break;
+                        case 5:
+                            spriteBatch.Draw(cell, new Vector2(i * cell.Height + playerTwoOffset.X, j * cell.Width + playerTwoOffset.Y), Constants.RYBRed);
+                            break;
+                        case 6:
+                            spriteBatch.Draw(cell, new Vector2(i * cell.Height + playerTwoOffset.X, j * cell.Width + playerTwoOffset.Y), Constants.CyberYellow);
+                            break;
+                        case 7:
+                            spriteBatch.Draw(cell, new Vector2(i * cell.Height + playerTwoOffset.X, j * cell.Width + playerTwoOffset.Y), Color.Magenta);
+                            break;
+
+                    }
+                }
+            }
+        }
+
+    }
+
+
 }

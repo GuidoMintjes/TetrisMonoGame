@@ -147,7 +147,7 @@ namespace TetrisMonoGame {
 
             if (line == 20) return false;
 
-            for (int j = 0; j <= TetrisGrid.grid.GetLength(1) - 1 ; j++) {
+            for (int j = 0; j <= TetrisGrid.Width - 1 ; j++) {
 
                 try {
                     if (TetrisGrid.grid[line, j] == 0) {
