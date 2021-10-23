@@ -21,9 +21,6 @@ namespace TetrisMonoGame {
         /// The grid array itself
         public static int[,] grid = new int[Height, Width];
 
-        private bool drawGridInConsole = true;
- 
-
 
         /// <summary>
         /// Creates a new TetrisGrid.
@@ -183,11 +180,11 @@ namespace TetrisMonoGame {
 
             Vector2 playerTwoOffset = Constants.PLAYERTWOOFFSET;
 
-            for (int i = 0; i < grid.GetLength(1); i++) {
+            for (int i = 0; i < grid2.GetLength(1); i++) {
 
-                for (int j = 0; j < grid.GetLength(0); j++) {
+                for (int j = 0; j < grid2.GetLength(0); j++) {
 
-                    switch (grid[j, i]) {
+                    switch (grid2[j, i]) {
 
                         case 0:
                             spriteBatch.Draw(cell, new Vector2(i * cell.Height + playerTwoOffset.X, j * cell.Width + playerTwoOffset.Y), Constants.VeryDarkGray);
