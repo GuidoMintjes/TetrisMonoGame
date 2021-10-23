@@ -85,7 +85,7 @@ namespace TetrisMonoGame {
                 if (inputHelper.KeyPressed(Keys.M)) {
 
                     GameManager.gameState = GameState.Multiplayer;
-                    //NetworkManager.Connect();
+                    NetworkManager.Connect();
                 }
             }
 
