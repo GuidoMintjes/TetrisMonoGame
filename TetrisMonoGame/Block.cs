@@ -237,8 +237,10 @@ namespace TetrisMonoGame {
 
                 try {
 
-                    //blok.yList.Add((int)blok.Pos.Y);
                     blok.Pos += new Vector2(0, 1);
+                    if (GameManager.gameState == GameState.Multiplayer && GameWorld.blok.LastPos != GameWorld.blok.Pos) {
+                        TCPClientSend.SendBlockInfo(GameWorld.blok);
+                    }
                 } catch { }
             }
         }
