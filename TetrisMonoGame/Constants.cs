@@ -52,7 +52,7 @@ namespace TetrisMonoGame {
 
 
         // Network related
-        public const string ipAddress = "40.113.48.32";
+        public const string ipAddress = "127.0.0.1";
         public const int port = 8900;
         public const string defaultUsername = "tetrispeler3000";
 

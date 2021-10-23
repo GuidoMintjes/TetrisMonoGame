@@ -68,7 +68,8 @@ namespace TetrisMonoGame {
         public void HandleHold(Block blok, Keys key, GameTime gameTime) {
 
             float deltaTime = (float)gameTime.ElapsedGameTime.TotalSeconds;
-            //boolean for going right or left
+
+            // Booleans for going right or left, or down
             bool right = false;
             bool down = false;
 
@@ -77,21 +78,19 @@ namespace TetrisMonoGame {
             if (key == Keys.Down) down = true;
             
 
-            //the initial block movement on key press
+            // The initial block movement on key press
             if (KeyPressed(key)) {
 
                 if (down) Block.MoveUp(blok, right);
                 else Block.Move(blok, right);
 
                 GameManager.MoveTarget();
-
-                
             }
 
-            //start the counter while holding down the key
+            // Start the counter while holding down the key
             counter += deltaTime;
 
-            //if the counter reaches the timer, and there is no movement cooldown, move
+            // If the counter reaches the timer, and there is no movement cooldown, move
             if (counter >= timer && moved == false) {
 
                 if (down) Block.MoveUp(blok, right);
@@ -101,17 +100,17 @@ namespace TetrisMonoGame {
                 GameManager.MoveTarget();
             }
 
-            //check the cooldown
+            // Check the cooldown
             Cooldown(gameTime);
 
-            //reset the counter when you release the key
+            // Reset the counter when you release the key
             if (previousKeyboardState.IsKeyUp(key)) {
 
                 counter = 0;
             }
         }
 
-        //function to handle the turning process
+        // Function to handle the turning process
         public void HandleTurn(Block blok, Keys key) {
 
             bool rightTurn = (key == Keys.D);
@@ -121,15 +120,15 @@ namespace TetrisMonoGame {
 
             GameManager.MoveTarget();
 
-            //if colliding, move one block
+            // If colliding, move one block
             if (blok.CheckColliding() != 0) {
 
                 Block.Move(blok, LeftSide);
-                //if still colliding, move one more block
+                // If still colliding, move one more block
                 if (blok.CheckColliding() != 0) {
 
                     Block.Move(blok, LeftSide);
-                    //if still colliding now, this position doesn't work. Revert to original position
+                    // If still colliding now, this position doesn't work. Revert to original position
                     if (blok.CheckColliding() != 0) {
 
                         blok.SetShape(Block.Rotate(blok.GetShape(), !rightTurn));
@@ -157,7 +156,7 @@ namespace TetrisMonoGame {
         }
 
 
-        //a cooldown timer for moving the blocks
+        // A cooldown timer for moving the blocks
         public void Cooldown(GameTime gameTime) {
 
             cooldownCounter += (float)gameTime.ElapsedGameTime.TotalSeconds;

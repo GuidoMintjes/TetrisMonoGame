@@ -116,10 +116,44 @@ namespace TetrisMonoGame {
                 }
             }
 
-            int blockColour = packet.PacketReadInt(true);
+            int blockColorInt = packet.PacketReadInt(true);
 
+            Block block = GameWorld.NetworkedBlock;
 
-            GameWorld.NetworkedBlock.Pos = new Vector2(blockX, blockY);
+            block.Pos = new Vector2(blockX, blockY);
+            block.SetShape(shapeReceived);
+
+            switch(blockColorInt) {
+
+                case 1:
+                    block.Colour = Color.Cyan;
+                    break;
+
+                case 2:
+                    block.Colour = Constants.CobaltBlue;
+                    break;
+
+                case 3:
+                    block.Colour = Constants.Beer;
+                    break;
+
+                case 4:
+                    block.Colour = Constants.Apple;
+                    break;
+
+                case 5:
+                    block.Colour = Constants.RYBRed;
+                    break;
+
+                case 6:
+                    block.Colour = Constants.CyberYellow;
+                    break;
+
+                case 7:
+                    block.Colour = Color.Magenta;
+                    break;
+
+            }
 
             Funcs.printMessage(2, "Position received: " + new Vector2(blockX, blockY), false);
         }
