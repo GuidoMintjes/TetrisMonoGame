@@ -2,7 +2,6 @@
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
 using System;
-using System.Collections.Generic;
 
 
 namespace TetrisMonoGame {
@@ -65,7 +64,7 @@ namespace TetrisMonoGame {
 
             NetworkedBlock = manager.GenerateBlock(false);
             NetworkedGrid = new PlayerTwoGrid();
-            
+
             targetBlok = new TargetBlock(blok.GetShape(), blok.Pos);
             InputHelper.HandleSpace(targetBlok, true);
 
@@ -79,13 +78,13 @@ namespace TetrisMonoGame {
 
         public void HandleInput(GameTime gameTime, InputHelper inputHelper) {
 
-            if (inputHelper.KeyDown(Keys.Left) && !inputHelper.KeyDown(Keys.Right) ){
+            if (inputHelper.KeyDown(Keys.Left) && !inputHelper.KeyDown(Keys.Right)) {
 
                 inputHelper.HandleHold(blok, Keys.Left, gameTime);
                 if (blok.CheckColliding() == 1 || blok.CheckColliding() == 2) Block.Move(blok, true);
             }
 
-            if (inputHelper.KeyDown(Keys.Right) && !inputHelper.KeyDown(Keys.Left) ){
+            if (inputHelper.KeyDown(Keys.Right) && !inputHelper.KeyDown(Keys.Left)) {
 
                 inputHelper.HandleHold(blok, Keys.Right, gameTime);
                 if (blok.CheckColliding() == 1 || blok.CheckColliding() == 2) Block.Move(blok, false);
@@ -137,7 +136,7 @@ namespace TetrisMonoGame {
 
             if (GameManager.gameState == GameState.Menu) {
 
-                spriteBatch.Draw(TetrisGame.tetrisArt, new Vector2(Constants.SCREENSIZE.X / 2 - TetrisGame.tetrisArt.Width / 2, 
+                spriteBatch.Draw(TetrisGame.tetrisArt, new Vector2(Constants.SCREENSIZE.X / 2 - TetrisGame.tetrisArt.Width / 2,
                     Constants.SCREENSIZE.Y / 2 - TetrisGame.tetrisArt.Height / 2 - Constants.HEIGHTOFFSET), Color.White);
             }
 
@@ -146,10 +145,10 @@ namespace TetrisMonoGame {
                 grid.Draw(gameTime, spriteBatch);
                 targetBlok.Draw(gameTime, spriteBatch, Constants.PLAYERONEOFFSET);
                 blok.Draw(gameTime, spriteBatch, Constants.PLAYERONEOFFSET);
-                extraBlok.Draw(gameTime, spriteBatch, Constants.PLAYERONEOFFSET); 
+                extraBlok.Draw(gameTime, spriteBatch, Constants.PLAYERONEOFFSET);
                 spriteBatch.DrawString(font, "Next block:", new Vector2(Constants.EXTRAX * Constants.DEFAULTBLOCKWIDTH + Constants.PLAYERONEOFFSET.X,
                     Constants.STARTY + Constants.PLAYERONEOFFSET.Y), Color.Black);
-                spriteBatch.DrawString(font, "Score: " +manager.Score.ToString(), new Vector2(Constants.SCOREX * Constants.DEFAULTBLOCKWIDTH + Constants.PLAYERONEOFFSET.X, 
+                spriteBatch.DrawString(font, "Score: " + manager.Score.ToString(), new Vector2(Constants.SCOREX * Constants.DEFAULTBLOCKWIDTH + Constants.PLAYERONEOFFSET.X,
                     Constants.PLAYERONEOFFSET.Y - Constants.SCOREYOFFSET * Constants.DEFAULTBLOCKHEIGHT), Color.Black);
                 spriteBatch.DrawString(font, "Level: " + manager.Level.ToString(), new Vector2(Constants.SCOREX * Constants.DEFAULTBLOCKWIDTH + Constants.PLAYERONEOFFSET.X,
                     Constants.PLAYERONEOFFSET.Y - Constants.LEVELYOFFSET * Constants.DEFAULTBLOCKHEIGHT), Color.Black);
@@ -158,8 +157,8 @@ namespace TetrisMonoGame {
             if (GameManager.gameState == GameState.End) {
 
                 spriteBatch.DrawString(font, "U ded \n\nScore: " + manager.Score.ToString() + "\nLevel: " + manager.Level.ToString() + "\n\nPress space to restart",
-                    new Vector2(Constants.PLAYERONEOFFSET.X + Constants.ENDX * Constants.DEFAULTBLOCKWIDTH , 
-                    Constants.PLAYERONEOFFSET.Y + Constants.ENDY * Constants.DEFAULTBLOCKHEIGHT ), Color.Black);
+                    new Vector2(Constants.PLAYERONEOFFSET.X + Constants.ENDX * Constants.DEFAULTBLOCKWIDTH,
+                    Constants.PLAYERONEOFFSET.Y + Constants.ENDY * Constants.DEFAULTBLOCKHEIGHT), Color.Black);
             }
 
 
@@ -202,7 +201,7 @@ namespace TetrisMonoGame {
 
             }
         }
-    
+
 
         //function that checks if the block is at the bottom and respawns if so
         public void RespawnCheck() {
@@ -217,7 +216,7 @@ namespace TetrisMonoGame {
 
                 if (GameManager.gameState == GameState.Multiplayer) {
 
-                    NetworkedGrid.UpdateNetworkedGrid();
+                    //NetworkedGrid.UpdateNetworkedGrid();
                 }
             }
         }

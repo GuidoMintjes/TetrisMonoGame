@@ -1,5 +1,5 @@
-﻿using System;
-using Microsoft.Xna.Framework;
+﻿using Microsoft.Xna.Framework;
+using System;
 
 namespace TetrisMonoGame {
     class TCPClientHandle {
@@ -123,7 +123,7 @@ namespace TetrisMonoGame {
             block.Pos = new Vector2(blockX, blockY);
             block.SetShape(shapeReceived);
 
-            switch(blockColorInt) {
+            switch (blockColorInt) {
 
                 case 1:
                     block.Colour = Color.Cyan;

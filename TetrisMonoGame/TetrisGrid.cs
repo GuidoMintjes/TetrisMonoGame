@@ -112,7 +112,7 @@ namespace TetrisMonoGame {
 
         public static void MoveLineDown(int line) {
 
-            if (line < Height) { 
+            if (line < Height) {
 
                 int[,] tempGridStart = new int[Height - (Height - line - 1), Width];
                 int[,] tempGridEnd = new int[Height - line, Width];
@@ -159,7 +159,7 @@ namespace TetrisMonoGame {
 
     public class PlayerTwoGrid : TetrisGrid {
 
-        int[,] grid2 = new int[Height,Width];
+        int[,] grid2 = new int[Height, Width];
 
         public PlayerTwoGrid() {
 

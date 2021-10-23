@@ -1,19 +1,14 @@
-﻿using System;
-using System.Collections;
-using System.Collections.Generic;
-using System.Text;
-
-namespace TetrisMonoGame {
+﻿namespace TetrisMonoGame {
     class TCPClientSend {
-    
+
         // Acknowledge the welcome message and send back client ID as confirmation and username
         public static void ReceivedWelcome() {
 
-            Packet packet = new Packet((int) ClientPackets.welcomeReceived);
+            Packet packet = new Packet((int)ClientPackets.welcomeReceived);
 
             packet.PacketWrite(TCPChatClient.clientID);
             packet.PacketWrite(TCPChatClient.userName);
-            
+
             TCPSendData(packet);
 
             Funcs.printMessage(2, $"Sent welcome received packet with username {TCPChatClient.userName} and this is ID {TCPChatClient.clientID}",
@@ -25,8 +20,8 @@ namespace TetrisMonoGame {
 
             using (Packet packet = new Packet(7)) {
 
-                packet.PacketWrite((int) block.Pos.X);
-                packet.PacketWrite((int) block.Pos.Y);
+                packet.PacketWrite((int)block.Pos.X);
+                packet.PacketWrite((int)block.Pos.Y);
 
                 int shapeSize = block.GetShape().GetLength(0);
                 packet.PacketWrite(shapeSize);
@@ -44,7 +39,7 @@ namespace TetrisMonoGame {
             }
         }
 
-        
+
         // Method to call to start to send an actual packet
         public static void TCPSendData(Packet packet) {
 

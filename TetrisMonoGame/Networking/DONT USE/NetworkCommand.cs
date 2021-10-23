@@ -1,9 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-using System.Threading;
-
-namespace TetrisMonoGame {
+﻿namespace TetrisMonoGame {
     public static class NetworkCommand {
 
 

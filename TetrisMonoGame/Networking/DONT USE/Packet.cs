@@ -235,11 +235,11 @@ namespace TetrisMonoGame {
                     Console.WriteLine("buffer length: " + buffer.Count);
                     Console.WriteLine();
                 }
-                
-                
-                
+
+
+
                 //Console.WriteLine(intRead.ToString() + " read as no. " + TCPChatClient.countIntegers + 
-                    //" from: " + (new System.Diagnostics.StackTrace()).GetFrame(1).GetMethod());
+                //" from: " + (new System.Diagnostics.StackTrace()).GetFrame(1).GetMethod());
 
                 if (moveDataPointer)
                     readPointer += 4;   // Increase pointer by 4 because an int is 32 bits = 4 bytes
@@ -270,12 +270,12 @@ namespace TetrisMonoGame {
                 } catch {
 
                     length -= 4;
-                    stringRead = Encoding.Unicode.GetString(byteArray, readPointer, length) + 
+                    stringRead = Encoding.Unicode.GetString(byteArray, readPointer, length) +
                         " (Error, entire username could not be read! /// Displaying received username)";
                 }
-                
 
-                
+
+
 
                 if (moveDataPointer)
                     readPointer += length;

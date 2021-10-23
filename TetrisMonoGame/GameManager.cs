@@ -1,7 +1,7 @@
-﻿using System;
-using System.Linq;
+﻿using Microsoft.Xna.Framework;
+using System;
 using System.Collections.Generic;
-using Microsoft.Xna.Framework;
+using System.Linq;
 
 namespace TetrisMonoGame {
 
@@ -38,9 +38,9 @@ namespace TetrisMonoGame {
         }
 
 
-        public Block GenerateBlock (bool extra) {
+        public Block GenerateBlock(bool extra) {
 
-            Block blok = new Block();;
+            Block blok = new Block(); ;
 
             switch (rng.Next(1, 8)) {
 
@@ -67,7 +67,7 @@ namespace TetrisMonoGame {
                     break;
 
                 case 5:
- 
+
                     blok = new BlockZ();
                     break;
 
@@ -105,7 +105,7 @@ namespace TetrisMonoGame {
 
                 if (CheckLineClear(i)) {
 
-                    scored ++;
+                    scored++;
                     TetrisGrid.ClearLine(i);
                 }
             }
@@ -119,9 +119,9 @@ namespace TetrisMonoGame {
 
             if (newBlock.CheckColliding() == 2) {
 
-                if(GameManager.gameState == GameState.Multiplayer) {
+                if (GameManager.gameState == GameState.Multiplayer) {
 
-                    NetworkManager.Disconnect();
+                    //NetworkManager.Disconnect();
                 }
 
                 gameState = GameState.End;
@@ -136,7 +136,7 @@ namespace TetrisMonoGame {
 
                 Score = 0;
                 scoreLimit += 500;
-                Level ++;
+                Level++;
 
                 GameWorld.SetTimer(0.8f);
             }
@@ -147,7 +147,7 @@ namespace TetrisMonoGame {
 
             if (line == 20) return false;
 
-            for (int j = 0; j <= TetrisGrid.Width - 1 ; j++) {
+            for (int j = 0; j <= TetrisGrid.Width - 1; j++) {
 
                 try {
                     if (TetrisGrid.grid[line, j] == 0) {

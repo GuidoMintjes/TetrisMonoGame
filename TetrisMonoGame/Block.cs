@@ -1,8 +1,7 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-using Microsoft.Xna.Framework;
+﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
+using System;
+using System.Collections.Generic;
 
 namespace TetrisMonoGame {
     public class Block {
@@ -21,7 +20,7 @@ namespace TetrisMonoGame {
 
         // Color used internally
         public Color Colour { get; set; }
-        
+
         public Block() {
 
             blockSize = new Vector2(Constants.DEFAULTBLOCKWIDTH, Constants.DEFAULTBLOCKHEIGHT);
@@ -38,9 +37,9 @@ namespace TetrisMonoGame {
 
             Console.WriteLine(Pos);
 
-            List<int> yList = new List<int>(); 
+            List<int> yList = new List<int>();
             for (int k = (int)Pos.Y - 1; k <= shape.GetLength(0) + Pos.Y - 1; k++) {
-                yList.Add((int) k);
+                yList.Add((int)k);
 
                 //Console.WriteLine(yList[k]);
             }
@@ -114,7 +113,7 @@ namespace TetrisMonoGame {
             float x = this.Pos.X;
             float y = this.Pos.Y;
             int collide = 0;
- 
+
             for (int i = 0; i < shape.GetLength(0); i++) {
 
                 y += i;
@@ -142,7 +141,7 @@ namespace TetrisMonoGame {
                         } catch { }
 
                         //collide = 3 is a floor collision
-                        if (y >= TetrisGrid.Height ) {
+                        if (y >= TetrisGrid.Height) {
 
                             collide = 3;
                             return collide;
@@ -204,9 +203,7 @@ namespace TetrisMonoGame {
 
                     GameManager.MoveTarget();
 
-                    if (GameManager.gameState == GameState.Multiplayer && GameWorld.blok.LastPos != GameWorld.blok.Pos) {
-                        TCPClientSend.SendBlockInfo(GameWorld.blok);
-                    }
+                    // To-Do, check for multiplayer and send data if needed
 
                 } catch { }
 
@@ -217,9 +214,7 @@ namespace TetrisMonoGame {
                     blok.Pos -= new Vector2(1, 0);
                     GameManager.MoveTarget();
 
-                    if (GameManager.gameState == GameState.Multiplayer && GameWorld.blok.LastPos != GameWorld.blok.Pos) {
-                        TCPClientSend.SendBlockInfo(GameWorld.blok);
-                    }
+                    // To-Do, check for multiplayer and send data if needed
 
                 } catch { }
             }
@@ -239,9 +234,9 @@ namespace TetrisMonoGame {
                 try {
 
                     blok.Pos += new Vector2(0, 1);
-                    if (GameManager.gameState == GameState.Multiplayer && GameWorld.blok.LastPos != GameWorld.blok.Pos) {
-                        TCPClientSend.SendBlockInfo(GameWorld.blok);
-                    }
+
+                    // To-Do, check for multiplayer and send data if needed
+
                 } catch { }
             }
         }
@@ -250,7 +245,7 @@ namespace TetrisMonoGame {
     class BlockI : Block {
 
         public BlockI() : base() {
-            shape =new bool[4,4] {   {false, true, false, false},
+            shape = new bool[4, 4] {   {false, true, false, false},
                                     {false, true, false, false},
                                     {false, true, false, false},
                                     {false, true, false, false}      };
@@ -262,18 +257,18 @@ namespace TetrisMonoGame {
     class BlockJ : Block {
 
         public BlockJ() : base() {
-            shape = new bool [,] {   {false, true, false},
+            shape = new bool[,] {   {false, true, false},
                                     {false, true, false},
                                     {true, true, false}     };
             this.ColorInt = 2; //Blue
             this.Colour = Constants.CobaltBlue;
-        }  
+        }
     }
 
     class BlockL : Block {
 
         public BlockL() : base() {
-            shape = new bool [,] {   {false, true, false},
+            shape = new bool[,] {   {false, true, false},
                                     {false, true, false},
                                     {false, true, true}     };
             this.ColorInt = 3; //Orange
@@ -285,7 +280,7 @@ namespace TetrisMonoGame {
     class BlockS : Block {
 
         public BlockS() : base() {
-            shape = new bool [,] {   {false, false, false},
+            shape = new bool[,] {   {false, false, false},
                                     {false, true, true},
                                     {true, true, false}     };
             this.ColorInt = 4; //Green
@@ -307,7 +302,7 @@ namespace TetrisMonoGame {
     class BlockO : Block {
 
         public BlockO() : base() {
-            shape = new bool [,] {   {true, true},
+            shape = new bool[,] {   {true, true},
                                     {true, true}     };
             this.ColorInt = 6; //Yellow
             this.Colour = Constants.CyberYellow;
@@ -317,7 +312,7 @@ namespace TetrisMonoGame {
     class BlockT : Block {
 
         public BlockT() : base() {
-            shape = new bool [,] {   {false, false, false},
+            shape = new bool[,] {   {false, false, false},
                                     {false, true, false},
                                     {true, true, true}      };
             this.ColorInt = 7; //Purple
@@ -327,7 +322,7 @@ namespace TetrisMonoGame {
 
     class TargetBlock : Block {
 
-        public TargetBlock(bool [,] newShape, Vector2 newPos) : base() {
+        public TargetBlock(bool[,] newShape, Vector2 newPos) : base() {
 
             shape = newShape;
             Pos = newPos;

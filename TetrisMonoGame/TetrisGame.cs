@@ -1,8 +1,8 @@
-﻿using System;
-using Microsoft.Xna.Framework;
-using Microsoft.Xna.Framework.Graphics;
+﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Content;
+using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
+using System;
 
 
 namespace TetrisMonoGame {
@@ -82,10 +82,10 @@ namespace TetrisMonoGame {
                     GameManager.gameState = GameState.Playing;
                 }
 
-                if(inputHelper.KeyPressed(Keys.M)) {
+                if (inputHelper.KeyPressed(Keys.M)) {
 
                     GameManager.gameState = GameState.Multiplayer;
-                    NetworkManager.Connect();
+                    //NetworkManager.Connect();
                 }
             }
 
@@ -109,7 +109,7 @@ namespace TetrisMonoGame {
             }
 
 
-            if(GameManager.gameState == GameState.Multiplayer) {
+            if (GameManager.gameState == GameState.Multiplayer) {
 
                 inputHelper.Update(gameTime);
 

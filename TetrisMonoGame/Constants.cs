@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-using Microsoft.Xna.Framework;
-using Microsoft.Xna.Framework.Graphics;
+﻿using Microsoft.Xna.Framework;
 
 namespace TetrisMonoGame {
 
@@ -38,15 +34,15 @@ namespace TetrisMonoGame {
         public static Color VeryDarkGray = new Color(30, 30, 30);
 
         // Screensizes
-        public static Vector2 SCREENSIZE = new Vector2 (1280, 720);
+        public static Vector2 SCREENSIZE = new Vector2(1280, 720);
         public const int HEIGHTOFFSET = 100;
 
         // Player one offset
         public static Vector2 PLAYERONEOFFSET = new Vector2(2 * DEFAULTBLOCKWIDTH,
                     (SCREENSIZE.Y - TetrisGrid.Height * DEFAULTBLOCKHEIGHT) / 2);
-        
-        public static Vector2 PLAYERTWOOFFSET = new Vector2(SCREENSIZE.X - 2 * DEFAULTBLOCKWIDTH - 
-                    TetrisGrid.Width * DEFAULTBLOCKWIDTH, 
+
+        public static Vector2 PLAYERTWOOFFSET = new Vector2(SCREENSIZE.X - 2 * DEFAULTBLOCKWIDTH -
+                    TetrisGrid.Width * DEFAULTBLOCKWIDTH,
                     (SCREENSIZE.Y - TetrisGrid.Height * DEFAULTBLOCKHEIGHT) / 2);
 
 

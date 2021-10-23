@@ -1,8 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Net;
-using System.Threading;
 using System.Net.Sockets;
+using System.Threading;
 
 
 namespace TetrisMonoGame {
@@ -14,7 +13,7 @@ namespace TetrisMonoGame {
 
         public static TCPChatClient instance;
 
-        
+
         public static int dataBufferSize = 4096;
         public static TCP tcp;
 
@@ -28,7 +27,7 @@ namespace TetrisMonoGame {
 
 
         public static int clientID = 0;
-        
+
         public static int countIntegers = 0;
 
 
@@ -115,7 +114,7 @@ namespace TetrisMonoGame {
                     socket.EndConnect(aResult);
 
                 } catch { // Currently reconnecting
-                          }
+                }
 
                 if (!socket.Connected) {
                     return;
@@ -154,7 +153,7 @@ namespace TetrisMonoGame {
 
                     stream.BeginRead(receiveByteArray, 0, dataBufferSize, StreamReceiveCallback, null);
 
-                } catch(Exception exc) {
+                } catch (Exception exc) {
 
                     Funcs.printMessage(0, "Error! ==> disconnecting " + exc, false);
                     Console.WriteLine();
@@ -201,7 +200,7 @@ namespace TetrisMonoGame {
 
                     byte[] packetBytes = receivedData.PacketReadBytes(packetLength, true);
 
-                    
+
                     using (Packet packet = new Packet()) {
 
                         packet.SetPacketBytes(packetBytes);

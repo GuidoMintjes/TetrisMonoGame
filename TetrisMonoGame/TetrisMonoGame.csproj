@@ -12,6 +12,18 @@
     <StartupObject />
   </PropertyGroup>
   <ItemGroup>
+    <Compile Remove="Networking\DONT USE\Consts.cs" />
+    <Compile Remove="Networking\DONT USE\Funcs.cs" />
+    <Compile Remove="Networking\DONT USE\Logic.cs" />
+    <Compile Remove="Networking\DONT USE\NetworkCommand.cs" />
+    <Compile Remove="Networking\DONT USE\NetworkManager.cs" />
+    <Compile Remove="Networking\DONT USE\Packet.cs" />
+    <Compile Remove="Networking\DONT USE\TCPChatClient.cs" />
+    <Compile Remove="Networking\DONT USE\TCPClientHandle.cs" />
+    <Compile Remove="Networking\DONT USE\TCPClientSend.cs" />
+    <Compile Remove="Networking\DONT USE\ThreadManager.cs" />
+  </ItemGroup>
+  <ItemGroup>
     <TrimmerRootAssembly Include="Microsoft.Xna.Framework.Content.ContentTypeReader" Visible="false" />
   </ItemGroup>
   <ItemGroup>
@@ -20,5 +32,8 @@
   </ItemGroup>
   <ItemGroup>
     <MonoGameContentReference Include="Content\Content.mgcb" />
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="Networking\DONT USE\" />
   </ItemGroup>
 </Project>
