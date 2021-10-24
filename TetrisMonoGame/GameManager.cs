@@ -49,7 +49,7 @@ namespace TetrisMonoGame {
 
             if (Keyboard.GetState().IsKeyDown(Keys.I)){
 
-                Console.WriteLine("keyDown");
+                Console.WriteLine("Cheat active, generating I block");
                 blok = new BlockI();
             } else {
                 switch (rng.Next(1, 8)) {
@@ -110,14 +110,14 @@ namespace TetrisMonoGame {
             newBlock = blockList[0];
             newBlock.Pos = new Vector2(Constants.STARTX, Constants.STARTY);
 
-            for (int i = yList[0] - 1; i <= yList.Last() - 1; i++) {
-
-                Console.WriteLine("rijen gechecked: " + i);
+            for (int i = yList[0] - 1 ; i <= yList.Last() - 1; i++) {
 
                 if (CheckLineClear(i)) {
 
                     scored++;
                     TetrisGrid.ClearLine(i);
+                    //TetrisGrid.MoveLineDown(i);
+                    //TetrisGrid.setAnimation(i);
                 }
             }
 
@@ -163,13 +163,11 @@ namespace TetrisMonoGame {
                 try {
                     if (TetrisGrid.grid[line, j] == 0) {
 
-                        Console.WriteLine("No clear on: " + line);
                         return false;
                     }
                 } catch { break; }
             }
 
-            Console.WriteLine("Check return true");
             return true;
         }
 
