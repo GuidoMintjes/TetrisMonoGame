@@ -297,6 +297,7 @@ namespace TetrisMonoGame {
                     if (socket != null) {
 
                         stream.BeginWrite(packet.GetPacketBytes(), 0, packet.GetPacketSize(), null, null);
+                        Console.WriteLine("Send block info");
                     }
 
                 } catch (Exception exc) {

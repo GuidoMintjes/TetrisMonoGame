@@ -14,6 +14,7 @@ namespace TetrisMonoGame {
 
         public static void SendBlockInfo() {
 
+            
             TCPClientSend.SendBlockInfo(GameWorld.blok);
         }
 

@@ -202,6 +202,7 @@ namespace TetrisMonoGame {
                 //Console.WriteLine("gravity");
                 RespawnCheck();
 
+                NetworkManager.SendBlockInfo();
             }
         }
 
