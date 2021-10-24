@@ -83,7 +83,7 @@ namespace TetrisMonoGame {
                 if (down) Block.MoveUp(blok, right);
                 else Block.Move(blok, right);
 
-                GameManager.MoveTarget();
+                GameManager.UpdateTarget();
             }
 
             // Start the counter while holding down the key
@@ -96,7 +96,7 @@ namespace TetrisMonoGame {
                 else Block.Move(blok, right);
                 moved = true;
 
-                GameManager.MoveTarget();
+                GameManager.UpdateTarget();
             }
 
             // Check the cooldown
@@ -117,7 +117,7 @@ namespace TetrisMonoGame {
 
             blok.SetShape(Block.Rotate(blok.GetShape(), rightTurn));
 
-            GameManager.MoveTarget();
+            GameManager.UpdateTarget();
 
             // If colliding, move one block
             if (blok.CheckColliding() != 0) {

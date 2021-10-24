@@ -11,133 +11,242 @@ namespace TetrisMonoGame {
     /// </summary>
     class GameWorld {
 
-        /// <summary>
-        /// The random-number generator of the game.
-        /// </summary>
-        public static Random Random { get { return random; } }
-        static Random random;
-
-        /// <summary>
-        /// The main font of the game.
-        /// </summary>
+        // The main font of the game.
         SpriteFont font;
 
-        // The blocks
-        public static Block blok;
-        Block extraBlok;
+        // The main falling block which the player can control
+        public static Block mainBlock;
+        // The extra block which is drawn next to the grid
+        Block extraBlock;
+        // The target block which indicated where the main block will land
         public static TargetBlock targetBlok;
+        public static TargetBlock targetBlok2;
 
-        // Multiplayer related
+        // The enemy player's block
         public static Block NetworkedBlock;
+        // The enemy player's grid
         PlayerTwoGrid NetworkedGrid;
 
-        /// <summary>
-        /// The input helper
-        /// </summary>
-        InputHelper inputHelper;
-
-        // The game manager
+        // The game manager object
         GameManager manager;
 
-        // Related to gravity
+        // Related to the gravity timer
         static float timer = 1;
         float counter = 0;
 
-        /// <summary>
-        /// The main grid of the game.
-        /// </summary>
+        // The main grid of the game.
         TetrisGrid grid;
 
+
         public GameWorld() {
-
-            random = new Random();
-
-            inputHelper = new InputHelper();
 
             grid = new TetrisGrid();
 
             manager = new GameManager();
 
-            blok = manager.GenerateBlock(false);
+            mainBlock = manager.GenerateBlock(false);
 
-            extraBlok = manager.GenerateBlock(true);
+            extraBlock = manager.GenerateBlock(true);
 
             NetworkedBlock = manager.GenerateBlock(false);
             NetworkedGrid = new PlayerTwoGrid();
 
-            targetBlok = new TargetBlock(blok.GetShape(), blok.Pos);
+            targetBlok = new TargetBlock(mainBlock.GetShape(), mainBlock.Pos);
+            targetBlok2 = new TargetBlock(NetworkedBlock.GetShape(), NetworkedBlock.Pos);
             InputHelper.HandleSpace(targetBlok, true);
 
             font = TetrisGame.ContentManager.Load<SpriteFont>("SpelFont");
         }
 
+
+        // Sets the timer for the gravity tick
         public static void SetTimer(float factor) {
 
             timer *= factor;
         }
 
+
+        // Handles all the inputs, and checks for collisions
         public void HandleInput(GameTime gameTime, InputHelper inputHelper) {
 
-            if (inputHelper.KeyDown(Keys.Left) && !inputHelper.KeyDown(Keys.Right)) {
+            if (GameManager.gameState == GameState.Playing) {
+                // If the correct key is pressed, start moving the block
+                if (inputHelper.KeyDown(Keys.Left) && !inputHelper.KeyDown(Keys.Right)) {
 
-                inputHelper.HandleHold(blok, Keys.Left, gameTime);
-                if (blok.CheckColliding() == 1 || blok.CheckColliding() == 2) Block.Move(blok, true);
+                    inputHelper.HandleHold(mainBlock, Keys.Left, gameTime);
+                    // If colliding, move the block back
+                    if (mainBlock.CheckColliding() == 1 || mainBlock.CheckColliding() == 2) Block.Move(mainBlock, true);
+                }
+
+                if (inputHelper.KeyDown(Keys.Right) && !inputHelper.KeyDown(Keys.Left)) {
+
+                    inputHelper.HandleHold(mainBlock, Keys.Right, gameTime);
+                    if (mainBlock.CheckColliding() == 1 || mainBlock.CheckColliding() == 2) Block.Move(mainBlock, false);
+                }
+
+                // Up rotated the block right
+                if (inputHelper.KeyPressed(Keys.Up)) {
+
+                    inputHelper.HandleTurn(mainBlock, Keys.D);
+                    inputHelper.HandleTurn(targetBlok, Keys.D);
+                }
+
+                // Down moves the block down, and checks if the bottom has been reached
+                if (inputHelper.KeyDown(Keys.Down)) {
+
+                    inputHelper.HandleHold(mainBlock, Keys.Down, gameTime);
+                    RespawnCheck();
+                }
+
+                if (inputHelper.KeyPressed(Keys.A)) {
+
+                    inputHelper.HandleTurn(mainBlock, Keys.A);
+                    inputHelper.HandleTurn(targetBlok, Keys.A);
+                }
+
+                if (inputHelper.KeyPressed(Keys.D)) {
+
+                    inputHelper.HandleTurn(mainBlock, Keys.D);
+                    inputHelper.HandleTurn(targetBlok, Keys.D);
+                }
+
+                // Space moves the block all the way down instantly
+                if (inputHelper.KeyPressed(Keys.Space)) {
+
+                    InputHelper.HandleSpace(mainBlock, false);
+                    RespawnCheck();
+                }
+
             }
 
-            if (inputHelper.KeyDown(Keys.Right) && !inputHelper.KeyDown(Keys.Left)) {
+           if (GameManager.gameState == GameState.Multiplayer) {
 
-                inputHelper.HandleHold(blok, Keys.Right, gameTime);
-                if (blok.CheckColliding() == 1 || blok.CheckColliding() == 2) Block.Move(blok, false);
+                // Player One
+                // If the correct key is pressed, start moving the block
+                if (inputHelper.KeyDown(Keys.A) && !inputHelper.KeyDown(Keys.D)) {
+
+                    inputHelper.HandleHold(mainBlock, Keys.A, gameTime);
+                    // If colliding, move the block back
+                    if (mainBlock.CheckColliding() == 1 || mainBlock.CheckColliding() == 2) Block.Move(mainBlock, true);
+                }
+
+                if (inputHelper.KeyDown(Keys.D) && !inputHelper.KeyDown(Keys.A)) {
+
+                    inputHelper.HandleHold(mainBlock, Keys.D, gameTime);
+                    if (mainBlock.CheckColliding() == 1 || mainBlock.CheckColliding() == 2) Block.Move(mainBlock, false);
+                }
+
+                // Up rotated the block right
+                if (inputHelper.KeyPressed(Keys.W)) {
+
+                    inputHelper.HandleTurn(mainBlock, Keys.D);
+                    inputHelper.HandleTurn(targetBlok, Keys.D);
+                }
+
+                // Down moves the block down, and checks if the bottom has been reached
+                if (inputHelper.KeyDown(Keys.S)) {
+
+                    inputHelper.HandleHold(mainBlock, Keys.Down, gameTime);
+                    RespawnCheck();
+                }
+
+                if (inputHelper.KeyPressed(Keys.R)) {
+
+                    inputHelper.HandleTurn(mainBlock, Keys.A);
+                    inputHelper.HandleTurn(targetBlok, Keys.A);
+                }
+
+                if (inputHelper.KeyPressed(Keys.T)) {
+
+                    inputHelper.HandleTurn(mainBlock, Keys.D);
+                    inputHelper.HandleTurn(targetBlok, Keys.D);
+                }
+
+                // Space moves the block all the way down instantly
+                if (inputHelper.KeyPressed(Keys.Space)) {
+
+                    InputHelper.HandleSpace(mainBlock, false);
+                    RespawnCheck();
+                }
+
+
+                // Playet Two
+
+                // If the correct key is pressed, start moving the block
+                if (inputHelper.KeyDown(Keys.Left) && !inputHelper.KeyDown(Keys.Right)) {
+
+                    inputHelper.HandleHold(NetworkedBlock, Keys.Left, gameTime);
+                    // If colliding, move the block back
+                    if (mainBlock.CheckColliding() == 1 || mainBlock.CheckColliding() == 2) Block.Move(mainBlock, true);
+                }
+
+                if (inputHelper.KeyDown(Keys.Right) && !inputHelper.KeyDown(Keys.Left)) {
+
+                    inputHelper.HandleHold(NetworkedBlock, Keys.Right, gameTime);
+                    if (mainBlock.CheckColliding() == 1 || mainBlock.CheckColliding() == 2) Block.Move(mainBlock, false);
+                }
+
+                // Up rotated the block right
+                if (inputHelper.KeyPressed(Keys.Up)) {
+
+                    inputHelper.HandleTurn(NetworkedBlock, Keys.D);
+                    inputHelper.HandleTurn(targetBlok2, Keys.D);
+                }
+
+                // Down moves the block down, and checks if the bottom has been reached
+                if (inputHelper.KeyDown(Keys.Down)) {
+
+                    inputHelper.HandleHold(NetworkedBlock, Keys.Down, gameTime);
+                    RespawnCheck();
+                }
+
+                if (inputHelper.KeyPressed(Keys.O)) {
+
+                    inputHelper.HandleTurn(NetworkedBlock, Keys.A);
+                    inputHelper.HandleTurn(targetBlok2, Keys.A);
+                }
+
+                if (inputHelper.KeyPressed(Keys.P)) {
+
+                    inputHelper.HandleTurn(NetworkedBlock, Keys.D);
+                    inputHelper.HandleTurn(targetBlok2, Keys.D);
+                }
+
+                // Space moves the block all the way down instantly
+                if (inputHelper.KeyPressed(Keys.L)) {
+
+                    InputHelper.HandleSpace(NetworkedBlock, false);
+                    RespawnCheck();
+                }
+
+
             }
 
-            if (inputHelper.KeyPressed(Keys.Up)) {
 
-                inputHelper.HandleTurn(blok, Keys.D);
-                inputHelper.HandleTurn(targetBlok, Keys.D);
-            }
-
-            if (inputHelper.KeyDown(Keys.Down)) {
-
-                inputHelper.HandleHold(blok, Keys.Down, gameTime);
-                RespawnCheck();
-            }
-
-            if (inputHelper.KeyPressed(Keys.A)) {
-
-                inputHelper.HandleTurn(blok, Keys.A);
-                inputHelper.HandleTurn(targetBlok, Keys.A);
-            }
-
-            if (inputHelper.KeyPressed(Keys.D)) {
-
-                inputHelper.HandleTurn(blok, Keys.D);
-                inputHelper.HandleTurn(targetBlok, Keys.D);
-            }
-
-            if (inputHelper.KeyPressed(Keys.Space)) {
-
-                InputHelper.HandleSpace(blok, false);
-                RespawnCheck();
-            }
         }
 
+
+        // Updates the gravity, and sets the blocks' last position
         public void Update(GameTime gameTime) {
 
             float deltaTime = (float)gameTime.ElapsedGameTime.TotalSeconds;
 
             Gravity(deltaTime);
 
-            blok.LastPos = blok.Pos;
+            mainBlock.LastPos = mainBlock.Pos;
         }
 
+
+        // Draw the correct things depending on the gameSta
         public void Draw(GameTime gameTime, SpriteBatch spriteBatch) {
 
             spriteBatch.Begin();
 
             if (GameManager.gameState == GameState.Menu) {
 
+                // Draw the splash art and the text that displays the controls
                 spriteBatch.Draw(TetrisGame.tetrisArt, new Vector2(Constants.SCREENSIZE.X / 2 - TetrisGame.tetrisArt.Width / 2,
-                    Constants.SCREENSIZE.Y / 2 - TetrisGame.tetrisArt.Height / 2 - Constants.HEIGHTOFFSET), Color.White);
+                    Constants.SCREENSIZE.Y / 2 - TetrisGame.tetrisArt.Height / 2 - Constants.ARTYOFFSET), Color.White);
                 spriteBatch.DrawString(font, "Use arrow keys to move, up to turn right\npress A for left rotation, D for right rotation\nPress space to place block immediately" +
                     "\nPress M for multiplayer\n\nPress space to start", new Vector2(Constants.SCREENSIZE.X / 2 + Constants.MENUTEXTOFFSET.X,
                     Constants.SCREENSIZE.Y / 2 + Constants.MENUTEXTOFFSET.Y), Color.Black);
@@ -145,10 +254,11 @@ namespace TetrisMonoGame {
 
             if (GameManager.gameState == GameState.Playing) {
 
+                // Draw all the game objects which should be visible to the player, and some text
                 grid.Draw(gameTime, spriteBatch);
                 targetBlok.Draw(gameTime, spriteBatch, Constants.PLAYERONEOFFSET);
-                blok.Draw(gameTime, spriteBatch, Constants.PLAYERONEOFFSET);
-                extraBlok.Draw(gameTime, spriteBatch, Constants.PLAYERONEOFFSET);
+                mainBlock.Draw(gameTime, spriteBatch, Constants.PLAYERONEOFFSET);
+                extraBlock.Draw(gameTime, spriteBatch, Constants.PLAYERONEOFFSET);
                 spriteBatch.DrawString(font, "Next block:", new Vector2(Constants.EXTRAX * Constants.DEFAULTBLOCKWIDTH + Constants.PLAYERONEOFFSET.X,
                     Constants.STARTY + Constants.PLAYERONEOFFSET.Y), Color.Black);
                 spriteBatch.DrawString(font, "Score: " + manager.Score.ToString(), new Vector2(Constants.SCOREX * Constants.DEFAULTBLOCKWIDTH + Constants.PLAYERONEOFFSET.X,
@@ -159,6 +269,7 @@ namespace TetrisMonoGame {
 
             if (GameManager.gameState == GameState.End) {
 
+                // Draw the gameover message
                 spriteBatch.DrawString(font, "U ded \n\nScore: " + manager.Score.ToString() + "\nLevel: " + manager.Level.ToString() + "\n\nPress space to restart",
                     new Vector2(Constants.PLAYERONEOFFSET.X + Constants.ENDX * Constants.DEFAULTBLOCKWIDTH,
                     Constants.PLAYERONEOFFSET.Y + Constants.ENDY * Constants.DEFAULTBLOCKHEIGHT), Color.Black);
@@ -170,12 +281,13 @@ namespace TetrisMonoGame {
                 // Player one
                 grid.Draw(gameTime, spriteBatch);
                 targetBlok.Draw(gameTime, spriteBatch, Constants.PLAYERONEOFFSET);
-                blok.Draw(gameTime, spriteBatch, Constants.PLAYERONEOFFSET);
-                extraBlok.Draw(gameTime, spriteBatch, Constants.PLAYERONEOFFSET);
+                mainBlock.Draw(gameTime, spriteBatch, Constants.PLAYERONEOFFSET);
+                extraBlock.Draw(gameTime, spriteBatch, Constants.PLAYERONEOFFSET);
 
                 // Player two
                 NetworkedGrid.Draw(gameTime, spriteBatch);
                 NetworkedBlock.Draw(gameTime, spriteBatch, Constants.PLAYERTWOOFFSET);
+                targetBlok2.Draw(gameTime, spriteBatch, Constants.PLAYERTWOOFFSET);
 
                 // Player one text
                 spriteBatch.DrawString(font, "Next block:", new Vector2(Constants.EXTRAX * Constants.DEFAULTBLOCKWIDTH + Constants.PLAYERONEOFFSET.X,
@@ -190,35 +302,45 @@ namespace TetrisMonoGame {
             spriteBatch.End();
         }
 
-        //function to make the blocks fall down every second
+
+        // Makes the main block fall down depending on the GameWorld timer
         public void Gravity(float deltaTime) {
 
             counter += deltaTime;
 
             if (counter >= timer) {
 
-                Block.MoveUp(blok, false);
+                Block.MoveUp(mainBlock, false);
                 counter = 0;
-                //Console.WriteLine("gravity");
                 RespawnCheck();
 
-                NetworkManager.SendBlockInfo();
+                if (GameManager.gameState == GameState.Multiplayer) {
+
+                    // In multiplayer, sends the block info every tick of gravity
+                    
+                }
             }
         }
 
 
-        //function that checks if the block is at the bottom and respawns if so
+        // Checks whether the block has reached the bottom (another block or the grid), and respawns if so
         public void RespawnCheck() {
-            if (blok.CheckColliding() == 2 || blok.CheckColliding() == 3) {
+
+            if (mainBlock.CheckColliding() == 2 || mainBlock.CheckColliding() == 3) {
 
                 TetrisGame.placeSound.Play();
 
-                blok = manager.NextBlock(blok);
-                extraBlok = manager.GenerateBlock(true);
+                // Move on to new blocks
+                mainBlock = manager.NextBlock(mainBlock);
+                extraBlock = manager.GenerateBlock(true);
 
-                targetBlok.SetShape(blok.GetShape());
-                targetBlok.Pos = blok.Pos;
+                // Updates the target Blocks
+                targetBlok.SetShape(mainBlock.GetShape());
+                targetBlok.Pos = mainBlock.Pos;
                 InputHelper.HandleSpace(targetBlok, true);
+                targetBlok2.SetShape(mainBlock.GetShape());
+                targetBlok2.Pos = mainBlock.Pos;
+                InputHelper.HandleSpace(targetBlok2, true);
 
                 if (GameManager.gameState == GameState.Multiplayer) {
 
@@ -227,17 +349,19 @@ namespace TetrisMonoGame {
             }
         }
 
+
+        // Reset the Game World Objects
         public void Reset() {
 
             grid = new TetrisGrid();
 
             manager = new GameManager();
 
-            blok = manager.GenerateBlock(false);
+            mainBlock = manager.GenerateBlock(false);
 
-            extraBlok = manager.GenerateBlock(true);
+            extraBlock = manager.GenerateBlock(true);
 
-            targetBlok = new TargetBlock(blok.GetShape(), blok.Pos);
+            targetBlok = new TargetBlock(mainBlock.GetShape(), mainBlock.Pos);
             InputHelper.HandleSpace(targetBlok, true);
         }
     }

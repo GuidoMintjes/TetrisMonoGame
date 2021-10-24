@@ -6,11 +6,14 @@ using System.Collections.Generic;
 namespace TetrisMonoGame {
     public class Block {
 
+        // An array of booleans to store the shape
         protected bool[,] shape;
 
+        // Vectors to store the position and previous position
         public Vector2 Pos { get; set; }
         public Vector2 LastPos { get; set; }
 
+        // A vector to store the size
         Vector2 blockSize;
 
         protected Texture2D sprite;
@@ -18,14 +21,14 @@ namespace TetrisMonoGame {
         // Int to change the color of the grid
         public int ColorInt { get; protected set; }
 
-        // Color used internally
+        // Color used to draw active blocks
         public Color Colour { get; set; }
 
         public Block() {
 
             blockSize = new Vector2(Constants.DEFAULTBLOCKWIDTH, Constants.DEFAULTBLOCKHEIGHT);
             sprite = TetrisGrid.getSprite();
-            this.Pos = new Vector2(Constants.STARTX, Constants.STARTY);
+            Pos = new Vector2(Constants.STARTX, Constants.STARTY);
         }
 
 
@@ -33,19 +36,7 @@ namespace TetrisMonoGame {
 
             return shape;
         }
-        public List<int> GetYList() {
 
-            Console.WriteLine(Pos);
-
-            List<int> yList = new List<int>();
-            for (int k = (int)Pos.Y - 1; k <= shape.GetLength(0) + Pos.Y - 1; k++) {
-                yList.Add((int)k);
-
-                //Console.WriteLine(yList[k]);
-            }
-
-            return yList;
-        }
 
         public void SetShape(bool[,] newShape) {
 
@@ -53,7 +44,20 @@ namespace TetrisMonoGame {
         }
 
 
-        // Function that draws the correct blocks according to the shape of the blok
+        // Function that returns a list of the Y coordinates the current block is occupying
+        public List<int> GetYList() {
+
+            List<int> yList = new List<int>();
+            for (int k = (int)Pos.Y - 1; k <= shape.GetLength(0) + Pos.Y - 1; k++) {
+                yList.Add((int)k);
+
+            }
+
+            return yList;
+        }
+
+
+        // Draws the correct blocks according to the shape of the blok
         public void Draw(GameTime gameTime, SpriteBatch spriteBatch, Vector2 playerOffset) {
             float x = this.Pos.X;
             float y = this.Pos.Y;
@@ -67,7 +71,6 @@ namespace TetrisMonoGame {
                     if (shape[i, j] == true) {
 
                         spriteBatch.Draw(sprite, new Vector2(x * blockSize.X + playerOffset.X, y * blockSize.Y + playerOffset.Y), this.Colour);
-                        //TetrisGrid.grid[(int)y, (int)x] = 1;
                     }
                     x = this.Pos.X;
                 }
@@ -76,12 +79,7 @@ namespace TetrisMonoGame {
         }
 
 
-        //public void DrawTarget() {
-
-
-        //}
-
-
+        // Adds the block to the grid, by using the ColorInt
         public void AddToGrid() {
 
             float x = this.Pos.X;
@@ -97,7 +95,7 @@ namespace TetrisMonoGame {
 
                         try {
 
-                            TetrisGrid.grid[(int)y - 1, (int)x] = this.ColorInt; //y - 1 to make sure it draws in the grid
+                            TetrisGrid.grid[(int)y - 1, (int)x] = this.ColorInt; // y - 1 to make sure it draws inside the grid
                         } catch { }
                     }
 
@@ -109,6 +107,7 @@ namespace TetrisMonoGame {
         }
 
 
+        // Checks if the current position is colliding with anything, and returns an int according to the situation
         public int CheckColliding() {
             float x = this.Pos.X;
             float y = this.Pos.Y;
@@ -122,8 +121,8 @@ namespace TetrisMonoGame {
                     x += j;
                     if (shape[i, j] == true) {
 
-                        //collision = 1 is a wall collision
-                        if (x >= TetrisGrid.Width || x < 0) {
+                        //colliside = 1 is a wall collision
+                        if (x >= TetrisGrid.Width || x < 0 ||  ) {
 
                             collide = 1;
                             return collide;
@@ -133,7 +132,7 @@ namespace TetrisMonoGame {
                         //collide = 2 is a block collision
                         try {
 
-                            if ((TetrisGrid.grid[(int)y, (int)x] != 0)) {
+                            if ((TetrisGrid.grid[(int)y, (int)x] != 0) || PlayerTwoGrid.grid2[(int)y, (int)x] != 0) {
 
                                 collide = 2;
                                 return collide;
@@ -158,6 +157,7 @@ namespace TetrisMonoGame {
         }
 
 
+        // Rotates the block, left or right depending on the value of the bool
         public static bool[,] Rotate(bool[,] shape, bool turnRight) {
 
             if (turnRight) {
@@ -191,6 +191,7 @@ namespace TetrisMonoGame {
         }
 
 
+        // Moves the block right/left and updates the target block
         public static void Move(Block blok, bool moveRight) {
 
             if (moveRight) {
@@ -199,11 +200,7 @@ namespace TetrisMonoGame {
 
                     blok.Pos += new Vector2(1, 0);
 
-                    Console.WriteLine(blok.Pos.X);
-
-                    GameManager.MoveTarget();
-
-                    // To-Do, check for multiplayer and send data if needed
+                    GameManager.UpdateTarget();
 
                 } catch { }
 
@@ -212,14 +209,15 @@ namespace TetrisMonoGame {
                 try {
 
                     blok.Pos -= new Vector2(1, 0);
-                    GameManager.MoveTarget();
 
-                    // To-Do, check for multiplayer and send data if needed
+                    GameManager.UpdateTarget();
 
                 } catch { }
             }
         }
 
+
+        // Moves the block up/down
         public static void MoveUp(Block blok, bool moveUp) {
 
             if (moveUp) {
@@ -227,6 +225,7 @@ namespace TetrisMonoGame {
                 try {
 
                     blok.Pos -= new Vector2(0, 1);
+
                 } catch { }
 
             } else {
@@ -234,8 +233,6 @@ namespace TetrisMonoGame {
                 try {
 
                     blok.Pos += new Vector2(0, 1);
-
-                    // To-Do, check for multiplayer and send data if needed
 
                 } catch { }
             }
@@ -320,6 +317,8 @@ namespace TetrisMonoGame {
         }
     }
 
+
+    // The target block, which changes shape and position depending on the active block
     class TargetBlock : Block {
 
         public TargetBlock(bool[,] newShape, Vector2 newPos) : base() {

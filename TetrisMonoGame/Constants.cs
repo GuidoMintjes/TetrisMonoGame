@@ -8,7 +8,7 @@ namespace TetrisMonoGame {
         public const int DEFAULTBLOCKWIDTH = 30;
         public const int DEFAULTBLOCKHEIGHT = 30;
 
-        // Startpos
+        // Start position of the active block
         public const int STARTX = 4;
         public const int STARTY = 0;
 
@@ -19,13 +19,15 @@ namespace TetrisMonoGame {
         public const int EXTRAX = 10;
         public const int EXTRAY = 1;
 
-        // Score display and start limit
+        // Score display and starting limit of the score to level up
         public const int SCOREX = 4;
         public const int SCOREYOFFSET = 2;
         public const int LEVELYOFFSET = 1;
+        public const int SCORESTART = 1000;
+
+        // Positions of the text on the game end screen
         public const int ENDX = 2;
         public const int ENDY = 3;
-        public const int SCORESTART = 1000;
 
         // Colors
         public static Color CyberYellow = new Color(255, 213, 0);
@@ -35,9 +37,11 @@ namespace TetrisMonoGame {
         public static Color RYBRed = new Color(255, 50, 19);
         public static Color VeryDarkGray = new Color(30, 30, 30);
 
-        // Screensizes
+        // Screensize
         public static Vector2 SCREENSIZE = new Vector2(1280, 720);
-        public const int HEIGHTOFFSET = 100;
+
+        // Height offset for the splash art
+        public const int ARTYOFFSET = 100;
 
         // Player offsets
         public static Vector2 PLAYERONEOFFSET = new Vector2(2 * DEFAULTBLOCKWIDTH,
@@ -46,7 +50,6 @@ namespace TetrisMonoGame {
         public static Vector2 PLAYERTWOOFFSET = new Vector2(SCREENSIZE.X - 2 * DEFAULTBLOCKWIDTH -
                     TetrisGrid.Width * DEFAULTBLOCKWIDTH,
                     (SCREENSIZE.Y - TetrisGrid.Height * DEFAULTBLOCKHEIGHT) / 2);
-
 
 
         // Network related

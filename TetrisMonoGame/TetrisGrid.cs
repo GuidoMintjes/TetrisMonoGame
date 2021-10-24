@@ -213,7 +213,7 @@ namespace TetrisMonoGame {
 
     public class PlayerTwoGrid : TetrisGrid {
 
-        int[,] grid2 = new int[Height, Width];
+        public static int[,] grid2 = new int[Height, Width];
 
         public PlayerTwoGrid() {
 
@@ -223,11 +223,6 @@ namespace TetrisMonoGame {
 
                 }
             }
-        }
-
-        public void UpdateNetworkedGrid() {
-
-
         }
 
         public override void Draw(GameTime gameTime, SpriteBatch spriteBatch) {
