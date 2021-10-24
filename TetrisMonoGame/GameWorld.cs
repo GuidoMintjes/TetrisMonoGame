@@ -311,6 +311,7 @@ namespace TetrisMonoGame {
             if (counter >= timer) {
 
                 Block.MoveUp(mainBlock, false);
+                Block.MoveUp(NetworkedBlock, false);
                 counter = 0;
                 RespawnCheck();
 

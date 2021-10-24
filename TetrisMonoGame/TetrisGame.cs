@@ -69,7 +69,7 @@ namespace TetrisMonoGame {
 
             // Load the splash art and sounds
             tetrisArt = ContentManager.Load<Texture2D>("TetrisArt");
-            bgSong = Content.Load<Song>("Audio/Tetris3");
+            bgSong = Content.Load<Song>("Audio/Tetris");
             placeSound = Content.Load<SoundEffect>("Audio/placeSound");
             scoreSound = Content.Load<SoundEffect>("Audio/score");
             levelUp = Content.Load<SoundEffect>("Audio/levelUp");
