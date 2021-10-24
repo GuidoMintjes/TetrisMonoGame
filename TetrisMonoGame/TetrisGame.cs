@@ -9,7 +9,7 @@ using System;
 namespace TetrisMonoGame {
     class TetrisGame : Game {
 
-        public static SpriteBatch spriteBatch;
+        SpriteBatch spriteBatch;
         InputHelper inputHelper;
         GameWorld gameWorld;
         GraphicsDeviceManager graphics;
