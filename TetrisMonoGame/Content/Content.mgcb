@@ -13,6 +13,12 @@
 
 #---------------------------------- Content ---------------------------------#
 
+#begin Audio/levelUp.wav
+/importer:WavImporter
+/processor:SoundEffectProcessor
+/processorParam:Quality=Best
+/build:Audio/levelUp.wav
+
 #begin Audio/Met_OD_nu.mp3
 /importer:Mp3Importer
 /processor:SongProcessor

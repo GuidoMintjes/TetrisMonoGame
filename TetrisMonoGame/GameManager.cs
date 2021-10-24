@@ -115,16 +115,14 @@ namespace TetrisMonoGame {
                 if (CheckLineClear(i)) {
 
                     scored++;
+                    TetrisGame.scoreSound.Play();
                     TetrisGrid.ClearLine(i);
-                    //TetrisGrid.MoveLineDown(i);
-                    //TetrisGrid.setAnimation(i);
+
                 }
             }
 
             Score += (int)(scored * 100);
-            if (scored > 1) {
-                Score += (int)(0.5 * scored * 100);
-            }
+            if (scored > 1) Score += (int)(0.5 * scored * 100);
 
             ScoreCheck();
 
@@ -148,6 +146,8 @@ namespace TetrisMonoGame {
                 Score = 0;
                 scoreLimit += 500;
                 Level++;
+
+                TetrisGame.levelUp.Play();
 
                 GameWorld.SetTimer(0.8f);
             }

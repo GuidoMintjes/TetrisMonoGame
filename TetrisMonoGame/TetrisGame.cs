@@ -21,7 +21,9 @@ namespace TetrisMonoGame {
 
         // Sound/music 
         public Song bgSong;
-        public static SoundEffect soundEffect;
+        public static SoundEffect placeSound;
+        public static SoundEffect scoreSound;
+        public static SoundEffect levelUp;
 
         /// <summary>
         /// A static reference to the ContentManager object, used for loading assets.
@@ -72,7 +74,9 @@ namespace TetrisMonoGame {
 
             tetrisArt = ContentManager.Load<Texture2D>("TetrisArt");
             bgSong = Content.Load<Song>("Audio/Met_OD_nu");
-            soundEffect = Content.Load<SoundEffect>("Audio/sound");
+            placeSound = Content.Load<SoundEffect>("Audio/placeSound");
+            scoreSound = Content.Load<SoundEffect>("Audio/score");
+            levelUp = Content.Load<SoundEffect>("Audio/levelUp");
 
             MediaPlayer.IsRepeating = true;
 
