@@ -115,9 +115,8 @@ namespace TetrisMonoGame {
             // If not the bottom line
             if (line < Height) {
 
-                // Create two temporary grids, one that ends before the cleared line, one that starts after
+                // Create a temporary grid, one that ends before the cleared line, one that starts after
                 int[,] tempGridStart = new int[Height - (Height - line - 1), Width];
-                int[,] tempGridEnd = new int[Height - line, Width];
 
                 for (int i = 0; i < Height; i++) {
                     for (int j = 0; j < Width; j++) {
@@ -128,10 +127,6 @@ namespace TetrisMonoGame {
                             if (i < line) {
 
                                 tempGridStart[i, j] = grid[i, j];
-                            // Copy the grid end into its temp grid
-                            //} else if (i > line) {
-                            //
-                            //    tempGridEnd[i, j] = grid[i, j];
                             }
                         } catch { }
                     }
@@ -146,16 +141,13 @@ namespace TetrisMonoGame {
                             if (i < line) {
 
                                 grid[i + 1, j] = tempGridStart[i, j];
-                            //} else if (i >= line) {
-                            //
-                            //   grid[i, j] = tempGridEnd[i, j];
                             }
                         } catch { }
                     }
                 }
 
                 Console.WriteLine(tempGridStart);
-                Console.WriteLine(tempGridEnd);
+                //Console.WriteLine(tempGridEnd);
             }
         }
     }
