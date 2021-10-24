@@ -1,6 +1,8 @@
 ﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
+using Microsoft.Xna.Framework.Media;
+using Microsoft.Xna.Framework.Audio;
 using System;
 
 
@@ -209,6 +211,8 @@ namespace TetrisMonoGame {
         //function that checks if the block is at the bottom and respawns if so
         public void RespawnCheck() {
             if (blok.CheckColliding() == 2 || blok.CheckColliding() == 3) {
+
+                TetrisGame.soundEffect.Play();
 
                 blok = manager.NextBlock(blok);
                 extraBlok = manager.GenerateBlock(true);

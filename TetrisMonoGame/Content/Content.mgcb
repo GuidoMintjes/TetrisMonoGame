@@ -19,6 +19,24 @@
 /processorParam:Quality=Best
 /build:Audio/Met_OD_nu.mp3
 
+#begin Audio/placeSound.wav
+/importer:WavImporter
+/processor:SoundEffectProcessor
+/processorParam:Quality=Best
+/build:Audio/placeSound.wav
+
+#begin Audio/score.wav
+/importer:WavImporter
+/processor:SoundEffectProcessor
+/processorParam:Quality=Best
+/build:Audio/score.wav
+
+#begin Audio/sound.wav
+/importer:WavImporter
+/processor:SoundEffectProcessor
+/processorParam:Quality=Best
+/build:Audio/sound.wav
+
 #begin block.png
 /importer:TextureImporter
 /processor:TextureProcessor
