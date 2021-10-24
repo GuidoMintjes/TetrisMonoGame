@@ -1,6 +1,5 @@
 ﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Input;
-using System;
 
 namespace TetrisMonoGame {
     /// <summary>
@@ -74,9 +73,9 @@ namespace TetrisMonoGame {
             bool down = false;
 
             if (key == Keys.Right) right = true;
-            
+
             if (key == Keys.Down) down = true;
-            
+
 
             // The initial block movement on key press
             if (KeyPressed(key)) {
@@ -139,15 +138,15 @@ namespace TetrisMonoGame {
             }
         }
 
-        
+
         public static void HandleSpace(Block blok, bool target) {
-           
+
             int toMove = TetrisGrid.Height - (int)blok.Pos.Y;
 
             for (int i = 0; i < toMove; i++) {
 
                 blok.Pos += new Vector2(0, 1);
-                if (blok.CheckColliding() == 2 || blok.CheckColliding() == 3 ){
+                if (blok.CheckColliding() == 2 || blok.CheckColliding() == 3) {
 
                     if (target) Block.MoveUp(blok, true);
                     break;

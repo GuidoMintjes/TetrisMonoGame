@@ -1,8 +1,10 @@
-﻿using System;
-using Microsoft.Xna.Framework;
-using Microsoft.Xna.Framework.Graphics;
+﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Content;
+using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
+using Microsoft.Xna.Framework.Media;
+using Microsoft.Xna.Framework.Audio;
+using System;
 
 
 namespace TetrisMonoGame {
@@ -16,6 +18,12 @@ namespace TetrisMonoGame {
 
         // Menu texture
         public static Texture2D tetrisArt;
+
+        // Sound/music 
+        public Song bgSong;
+        public static SoundEffect placeSound;
+        public static SoundEffect scoreSound;
+        public static SoundEffect levelUp;
 
         /// <summary>
         /// A static reference to the ContentManager object, used for loading assets.
@@ -65,6 +73,14 @@ namespace TetrisMonoGame {
             spriteBatch = new SpriteBatch(GraphicsDevice);
 
             tetrisArt = ContentManager.Load<Texture2D>("TetrisArt");
+            bgSong = Content.Load<Song>("Audio/Met_OD_nu");
+            placeSound = Content.Load<SoundEffect>("Audio/placeSound");
+            scoreSound = Content.Load<SoundEffect>("Audio/score");
+            levelUp = Content.Load<SoundEffect>("Audio/levelUp");
+
+            MediaPlayer.IsRepeating = true;
+
+            MediaPlayer.Play(bgSong);
 
             // create and reset the game world
             gameWorld = new GameWorld();
@@ -82,7 +98,7 @@ namespace TetrisMonoGame {
                     GameManager.gameState = GameState.Playing;
                 }
 
-                if(inputHelper.KeyPressed(Keys.M)) {
+                if (inputHelper.KeyPressed(Keys.M)) {
 
                     GameManager.gameState = GameState.Multiplayer;
                     NetworkManager.Connect();
@@ -109,12 +125,17 @@ namespace TetrisMonoGame {
             }
 
 
-            if(GameManager.gameState == GameState.Multiplayer) {
+            if (GameManager.gameState == GameState.Multiplayer) {
 
                 inputHelper.Update(gameTime);
 
                 gameWorld.HandleInput(gameTime, inputHelper);
                 gameWorld.Update(gameTime);
+            }
+
+            if (inputHelper.KeyPressed(Keys.Escape)) {
+
+                Exit();
             }
         }
 
