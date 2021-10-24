@@ -12,6 +12,9 @@ namespace TetrisMonoGame {
         public const int STARTX = 4;
         public const int STARTY = 0;
 
+        // Menu text
+        public static Point MENUTEXTOFFSET = new Point(-165, 50);
+
         // Extra block position next to grid
         public const int EXTRAX = 10;
         public const int EXTRAY = 1;
@@ -23,7 +26,6 @@ namespace TetrisMonoGame {
         public const int ENDX = 2;
         public const int ENDY = 3;
         public const int SCORESTART = 1000;
-
 
         // Colors
         public static Color CyberYellow = new Color(255, 213, 0);
@@ -37,7 +39,7 @@ namespace TetrisMonoGame {
         public static Vector2 SCREENSIZE = new Vector2(1280, 720);
         public const int HEIGHTOFFSET = 100;
 
-        // Player one offset
+        // Player offsets
         public static Vector2 PLAYERONEOFFSET = new Vector2(2 * DEFAULTBLOCKWIDTH,
                     (SCREENSIZE.Y - TetrisGrid.Height * DEFAULTBLOCKHEIGHT) / 2);
 

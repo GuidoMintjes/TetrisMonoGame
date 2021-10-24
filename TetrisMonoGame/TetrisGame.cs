@@ -2,13 +2,14 @@
 using Microsoft.Xna.Framework.Content;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
+using Microsoft.Xna.Framework.Media;
 using System;
 
 
 namespace TetrisMonoGame {
     class TetrisGame : Game {
 
-        SpriteBatch spriteBatch;
+        public static SpriteBatch spriteBatch;
         InputHelper inputHelper;
         GameWorld gameWorld;
         GraphicsDeviceManager graphics;
@@ -16,6 +17,9 @@ namespace TetrisMonoGame {
 
         // Menu texture
         public static Texture2D tetrisArt;
+
+        // The background song;
+        public Song bgSong;
 
         /// <summary>
         /// A static reference to the ContentManager object, used for loading assets.
@@ -65,6 +69,11 @@ namespace TetrisMonoGame {
             spriteBatch = new SpriteBatch(GraphicsDevice);
 
             tetrisArt = ContentManager.Load<Texture2D>("TetrisArt");
+            bgSong = Content.Load<Song>("Audio/Met_OD_nu");
+
+            MediaPlayer.IsRepeating = true;
+
+            MediaPlayer.Play(bgSong);
 
             // create and reset the game world
             gameWorld = new GameWorld();
@@ -115,6 +124,11 @@ namespace TetrisMonoGame {
 
                 gameWorld.HandleInput(gameTime, inputHelper);
                 gameWorld.Update(gameTime);
+            }
+
+            if (inputHelper.KeyPressed(Keys.Escape)) {
+
+                Exit();
             }
         }
 

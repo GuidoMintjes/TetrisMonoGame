@@ -57,9 +57,9 @@ namespace TetrisMonoGame {
 
             Vector2 playerOneOffset = Constants.PLAYERONEOFFSET;
 
-            for (int i = 0; i < grid.GetLength(1); i++) {
+            for (int i = 0; i < Width; i++) {
 
-                for (int j = 0; j < grid.GetLength(0); j++) {
+                for (int j = 0; j < Height; j++) {
 
                     switch (grid[j, i]) {
 
@@ -109,43 +109,46 @@ namespace TetrisMonoGame {
 
         }
 
-
+        // Function that 'moves' the grid one position down
         public static void MoveLineDown(int line) {
 
+            // If not the bottom line
             if (line < Height) {
 
+                // Create two temporary grids, one that ends before the cleared line, one that starts after
                 int[,] tempGridStart = new int[Height - (Height - line - 1), Width];
                 int[,] tempGridEnd = new int[Height - line, Width];
 
                 for (int i = 0; i < Height; i++) {
-
                     for (int j = 0; j < Width; j++) {
 
                         try {
 
+                            // Copy the grid start into its temp grid
                             if (i < line) {
 
                                 tempGridStart[i, j] = grid[i, j];
-                            } else if (i > line) {
-
-                                tempGridEnd[i, j] = grid[i, j];
+                            // Copy the grid end into its temp grid
+                            //} else if (i > line) {
+                            //
+                            //    tempGridEnd[i, j] = grid[i, j];
                             }
                         } catch { }
                     }
                 }
 
                 for (int i = 0; i < Height; i++) {
-
                     for (int j = 0; j < Width; j++) {
 
                         try {
 
+                            //now 'shift' the grid, by copying the temp grid start into the grid, moved one place
                             if (i < line) {
 
                                 grid[i + 1, j] = tempGridStart[i, j];
-                            } else if (i >= line) {
-
-                                grid[i, j] = tempGridEnd[i, j];
+                            //} else if (i >= line) {
+                            //
+                            //   grid[i, j] = tempGridEnd[i, j];
                             }
                         } catch { }
                     }

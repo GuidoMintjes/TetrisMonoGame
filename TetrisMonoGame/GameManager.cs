@@ -1,4 +1,5 @@
 ﻿using Microsoft.Xna.Framework;
+using Microsoft.Xna.Framework.Input;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -30,58 +31,68 @@ namespace TetrisMonoGame {
         // Instance of gamestate that says something about the current state our game is in
         public static GameState gameState { get; set; }
 
+        // InputHelper for cheats
+        InputHelper inputHelper = new InputHelper();
 
         public GameManager() {
 
             gameState = GameState.Menu;
 
         }
-
+        
 
         public Block GenerateBlock(bool extra) {
 
-            Block blok = new Block(); ;
+            Block blok = new Block();
 
-            switch (rng.Next(1, 8)) {
+            // Testing cheat!
 
-                //TODO: getting same block twice should not happen
+            if (Keyboard.GetState().IsKeyDown(Keys.I)){
 
-                case 1:
+                Console.WriteLine("keyDown");
+                blok = new BlockI();
+            } else {
+                switch (rng.Next(1, 8)) {
 
-                    blok = new BlockI();
-                    break;
+                    //TODO: getting same block twice should not happen
 
-                case 2:
+                    case 1:
 
-                    blok = new BlockJ();
-                    break;
+                        blok = new BlockI();
+                        break;
 
-                case 3:
+                    case 2:
 
-                    blok = new BlockL();
-                    break;
+                        blok = new BlockJ();
+                        break;
 
-                case 4:
+                    case 3:
 
-                    blok = new BlockO();
-                    break;
+                        blok = new BlockL();
+                        break;
 
-                case 5:
+                    case 4:
 
-                    blok = new BlockZ();
-                    break;
+                        blok = new BlockO();
+                        break;
 
-                case 6:
+                    case 5:
 
-                    blok = new BlockS();
-                    break;
+                        blok = new BlockZ();
+                        break;
 
-                case 7:
+                    case 6:
 
-                    blok = new BlockT();
-                    break;
+                        blok = new BlockS();
+                        break;
+
+                    case 7:
+
+                        blok = new BlockT();
+                        break;
+                }
             }
-
+            
             blockList.Add(blok);
             if (extra) blok.Pos = new Vector2(Constants.EXTRAX, Constants.EXTRAY);
             return blok;

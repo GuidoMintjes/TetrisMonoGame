@@ -138,6 +138,9 @@ namespace TetrisMonoGame {
 
                 spriteBatch.Draw(TetrisGame.tetrisArt, new Vector2(Constants.SCREENSIZE.X / 2 - TetrisGame.tetrisArt.Width / 2,
                     Constants.SCREENSIZE.Y / 2 - TetrisGame.tetrisArt.Height / 2 - Constants.HEIGHTOFFSET), Color.White);
+                spriteBatch.DrawString(font, "Use arrow keys to move, up to turn right\npress A for left rotation, D for right rotation\nPress space to place block immediately" +
+                    "\nPress M for multiplayer\n\nPress space to start", new Vector2(Constants.SCREENSIZE.X / 2 + Constants.MENUTEXTOFFSET.X,
+                    Constants.SCREENSIZE.Y / 2 + Constants.MENUTEXTOFFSET.Y), Color.Black);
             }
 
             if (GameManager.gameState == GameState.Playing) {
