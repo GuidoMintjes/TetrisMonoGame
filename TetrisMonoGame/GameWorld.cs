@@ -63,9 +63,12 @@ namespace TetrisMonoGame {
 
             extraBlok = manager.GenerateBlock(true);
 
-            NetworkedBlock = manager.GenerateBlock(false);
-            NetworkedGrid = new PlayerTwoGrid();
-            
+            if (GameManager.gameState == GameState.Multiplayer) {
+
+                NetworkedBlock = manager.GenerateBlock(false);
+                NetworkedGrid = new PlayerTwoGrid();
+            }
+
             targetBlok = new TargetBlock(blok.GetShape(), blok.Pos);
             InputHelper.HandleSpace(targetBlok, true);
 
@@ -200,6 +203,7 @@ namespace TetrisMonoGame {
                 //Console.WriteLine("gravity");
                 RespawnCheck();
 
+                //TCPClientSend.SendBlockInfo(GameWorld.blok);
             }
         }
     
