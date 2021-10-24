@@ -295,9 +295,14 @@ namespace TetrisMonoGame {
                 try {
 
                     if (socket != null) {
+                        try {
+                            stream.BeginWrite(packet.GetPacketBytes(), 0, packet.GetPacketSize(), null, null);
 
-                        stream.BeginWrite(packet.GetPacketBytes(), 0, packet.GetPacketSize(), null, null);
-                    }
+                        } catch (Exception exc) {
+
+                            Funcs.printMessage(0, $"Unable to send data to server through TCP, err msg: {exc}", false);
+                        }
+            }
 
                 } catch (Exception exc) {
 
