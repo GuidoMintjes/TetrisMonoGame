@@ -1,7 +1,8 @@
-﻿using System;
-using System.Linq;
+﻿using Microsoft.Xna.Framework;
+using Microsoft.Xna.Framework.Input;
+using System;
 using System.Collections.Generic;
-using Microsoft.Xna.Framework;
+using System.Linq;
 
 namespace TetrisMonoGame {
 
@@ -30,58 +31,68 @@ namespace TetrisMonoGame {
         // Instance of gamestate that says something about the current state our game is in
         public static GameState gameState { get; set; }
 
+        // InputHelper for cheats
+        InputHelper inputHelper = new InputHelper();
 
         public GameManager() {
 
             gameState = GameState.Menu;
 
         }
+        
 
+        public Block GenerateBlock(bool extra) {
 
-        public Block GenerateBlock (bool extra) {
+            Block blok = new Block();
 
-            Block blok = new Block();;
+            // Testing cheat!
 
-            switch (rng.Next(1, 8)) {
+            if (Keyboard.GetState().IsKeyDown(Keys.I)){
 
-                //TODO: getting same block twice should not happen
+                Console.WriteLine("Cheat active, generating I block");
+                blok = new BlockI();
+            } else {
+                switch (rng.Next(1, 8)) {
 
-                case 1:
+                    //TODO: getting same block twice should not happen
 
-                    blok = new BlockI();
-                    break;
+                    case 1:
 
-                case 2:
+                        blok = new BlockI();
+                        break;
 
-                    blok = new BlockJ();
-                    break;
+                    case 2:
 
-                case 3:
+                        blok = new BlockJ();
+                        break;
 
-                    blok = new BlockL();
-                    break;
+                    case 3:
 
-                case 4:
+                        blok = new BlockL();
+                        break;
 
-                    blok = new BlockO();
-                    break;
+                    case 4:
 
-                case 5:
- 
-                    blok = new BlockZ();
-                    break;
+                        blok = new BlockO();
+                        break;
 
-                case 6:
+                    case 5:
 
-                    blok = new BlockS();
-                    break;
+                        blok = new BlockZ();
+                        break;
 
-                case 7:
+                    case 6:
 
-                    blok = new BlockT();
-                    break;
+                        blok = new BlockS();
+                        break;
+
+                    case 7:
+
+                        blok = new BlockT();
+                        break;
+                }
             }
-
+            
             blockList.Add(blok);
             if (extra) blok.Pos = new Vector2(Constants.EXTRAX, Constants.EXTRAY);
             return blok;
@@ -99,29 +110,27 @@ namespace TetrisMonoGame {
             newBlock = blockList[0];
             newBlock.Pos = new Vector2(Constants.STARTX, Constants.STARTY);
 
-            for (int i = yList[0] - 1; i <= yList.Last() - 1; i++) {
-
-                Console.WriteLine("rijen gechecked: " + i);
+            for (int i = yList[0] - 1 ; i <= yList.Last() - 1; i++) {
 
                 if (CheckLineClear(i)) {
 
-                    scored ++;
+                    scored++;
+                    TetrisGame.scoreSound.Play();
                     TetrisGrid.ClearLine(i);
+
                 }
             }
 
             Score += (int)(scored * 100);
-            if (scored > 1) {
-                Score += (int)(0.5 * scored * 100);
-            }
+            if (scored > 1) Score += (int)(0.5 * scored * 100);
 
             ScoreCheck();
 
             if (newBlock.CheckColliding() == 2) {
 
-                if(GameManager.gameState == GameState.Multiplayer) {
+                if (GameManager.gameState == GameState.Multiplayer) {
 
-                    NetworkManager.Disconnect();
+                    //NetworkManager.Disconnect();
                 }
 
                 gameState = GameState.End;
@@ -136,7 +145,9 @@ namespace TetrisMonoGame {
 
                 Score = 0;
                 scoreLimit += 500;
-                Level ++;
+                Level++;
+
+                TetrisGame.levelUp.Play();
 
                 GameWorld.SetTimer(0.8f);
             }
@@ -147,18 +158,16 @@ namespace TetrisMonoGame {
 
             if (line == 20) return false;
 
-            for (int j = 0; j <= TetrisGrid.Width - 1 ; j++) {
+            for (int j = 0; j <= TetrisGrid.Width - 1; j++) {
 
                 try {
                     if (TetrisGrid.grid[line, j] == 0) {
 
-                        Console.WriteLine("No clear on: " + line);
                         return false;
                     }
                 } catch { break; }
             }
 
-            Console.WriteLine("Check return true");
             return true;
         }
 
