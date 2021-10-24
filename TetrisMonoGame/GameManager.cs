@@ -130,7 +130,7 @@ namespace TetrisMonoGame {
 
                 if (GameManager.gameState == GameState.Multiplayer) {
 
-                    //NetworkManager.Disconnect();
+                    NetworkManager.Disconnect();
                 }
 
                 gameState = GameState.End;

@@ -239,6 +239,5 @@ namespace TetrisMonoGame {
             targetBlok = new TargetBlock(blok.GetShape(), blok.Pos);
             InputHelper.HandleSpace(targetBlok, true);
         }
-
     }
 }
