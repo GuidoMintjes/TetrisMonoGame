@@ -146,7 +146,7 @@ namespace TetrisMonoGame {
 
             float deltaTime = (float)gameTime.ElapsedGameTime.TotalSeconds;
 
-            animationCounter += deltaTime / drawAnimation.Count;
+            animationCounter += deltaTime;
 
             if (animationCounter >= animationTimer) {
 
