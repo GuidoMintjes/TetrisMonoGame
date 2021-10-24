@@ -19,12 +19,6 @@
 /processorParam:Quality=Best
 /build:Audio/levelUp.wav
 
-#begin Audio/Met_OD_nu.mp3
-/importer:Mp3Importer
-/processor:SongProcessor
-/processorParam:Quality=Best
-/build:Audio/Met_OD_nu.mp3
-
 #begin Audio/placeSound.wav
 /importer:WavImporter
 /processor:SoundEffectProcessor
@@ -42,6 +36,12 @@
 /processor:SoundEffectProcessor
 /processorParam:Quality=Best
 /build:Audio/sound.wav
+
+#begin Audio/Tetris.mp3
+/importer:Mp3Importer
+/processor:SongProcessor
+/processorParam:Quality=Best
+/build:Audio/Tetris.mp3
 
 #begin block.png
 /importer:TextureImporter
