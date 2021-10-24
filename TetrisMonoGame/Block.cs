@@ -122,7 +122,7 @@ namespace TetrisMonoGame {
                     if (shape[i, j] == true) {
 
                         //colliside = 1 is a wall collision
-                        if (x >= TetrisGrid.Width || x < 0 ||  ) {
+                        if (x >= TetrisGrid.Width || x < 0) {
 
                             collide = 1;
                             return collide;

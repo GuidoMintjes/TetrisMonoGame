@@ -72,9 +72,9 @@ namespace TetrisMonoGame {
             bool right = false;
             bool down = false;
 
-            if (key == Keys.Right) right = true;
+            if (key == Keys.Right || key == Keys.D) right = true;
 
-            if (key == Keys.Down) down = true;
+            if (key == Keys.Down || key == Keys.S) down = true;
 
 
             // The initial block movement on key press
